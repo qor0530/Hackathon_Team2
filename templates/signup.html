@@ -13,23 +13,46 @@
     <!-- CSS 연결 -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', path='css/main.css') }}"
+      href="{{ url_for('static', path='css/signup.css') }}"
     />
 
     <!-------------------------------------------------------------------------->
 
     <!-- Javascript 연결 -->
     <script
-      src="{{ url_for('static', path='javascript/main.js') }}"
+      src="{{ url_for('static', path='javascript/signup.js') }}"
       defer
     ></script>
 
     <!-------------------------------------------------------------------------->
   </head>
   <body>
-    <p>멋사 해커톤 메인 페이지</p>
-    <img src="{{ url_for('static', path='images/gnu.png') }}" alt="" />
-    <hr />
-    <a href="{{ url_for('my_page') }}">마이페이지로 이동</a>
+    <div class="container">
+      <div class="signup-box">
+        <h1>SIGN UP</h1>
+        <form>
+          <div class="input-group">
+            <input type="text" placeholder="아이디" />
+            <button type="button" class="check-button">중복 확인</button>
+          </div>
+          <input type="text" placeholder="닉네임" />
+          <input type="password" placeholder="비밀번호" />
+          <input type="password" placeholder="비밀번호 확인" />
+          <button type="submit">회원 가입</button>
+        </form>
+      </div>
+      <div class="illustration">
+        <p>캐릭터<br />(일러스트)</p>
+      </div>
+    </div>
+    <footer>
+      <p>
+        회사 소개 * 서비스 약관 * 개인정보처리방침 * 고객 지원 * 개발자 센터
+      </p>
+      <p>
+        가뭄에 단비(주) 대표 김한비 Copyright © gamumedanbi. All rights
+        reserved.
+      </p>
+    </footer>
   </body>
 </html>
