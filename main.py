@@ -23,5 +23,9 @@ async def my_page(request: Request):
     return templates.TemplateResponse(request=request, name="my_page.html")
 
 
+@app.get("/login", response_class=HTMLResponse)
+async def my_page(request: Request):
+    return templates.TemplateResponse(request=request, name="login.html")
+
 # API 연결
 # (추후 개발)

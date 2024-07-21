@@ -1,0 +1,117 @@
+/* styles.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #ffc1cc, #fff);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+.login-box {
+    background: #fff;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 25%;
+}
+
+.login-box h1 {
+    font-size: 3em;
+    color: #ff4081;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-bottom: 10px;
+}
+
+.login-box p {
+    color: #666;
+}
+
+.login-box form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.login-box input {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.login-box button {
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #fff;
+    background: #ff4081;
+    cursor: pointer;
+}
+
+.additional-submit {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.additional-submit .yellow-box {
+    background-color: #ffeb3b;
+    border: 1px solid #ffeb3b;
+    flex: 1;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.additional-submit .white-box {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    flex: 1;
+    border-radius: 5px;
+}
+
+.login-box .register-box {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.login-box .register-button,
+.login-box .login-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-box .register-button {
+    background: #ff4081;
+    color: #fff;
+}
+
+.login-box .login-button {
+    background: #ffc1cc;
+    color: #fff;
+}
+
+.login-box .not-member {
+    color: #ff4081;
+    margin-top: 20px;
+}
+
+.illustration {
+    position: absolute;
+    right: 10%;
+    text-align: center;
+    color: #333;
+    font-size: 1.5em;
+}
