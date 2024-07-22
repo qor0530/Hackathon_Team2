@@ -4,32 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='css/fullpage.css') }}" />
+    <script src="{{ url_for('static', path='javascript/easings.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', path='javascript/fullpage.js') }}"></script>
     <link
       rel="stylesheet"
       href="{{ url_for('static', path='css/reset.css') }}"
     />
-    <!-------------------------------------------------------------------------->
-
-    <!-- CSS 연결 -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', path='css/main.css') }}"
     />
-
-    <!-------------------------------------------------------------------------->
-
-    <!-- Javascript 연결 -->
     <script
       src="{{ url_for('static', path='javascript/main.js') }}"
       defer
     ></script>
-
-    <!-------------------------------------------------------------------------->
   </head>
   <body>
-    <p>멋사 해커톤 메인 페이지</p>
-    <img src="{{ url_for('static', path='images/gnu.png') }}" alt="" />
-    <hr />
-    <a href="{{ url_for('my_page') }}">마이페이지로 이동</a>
+    <div id="fullpage">
+      <div class="section" id="section0">
+        <div class="title">
+          <h1 class="the">THE LITER,</h1>
+          <h1 class="more">MORE LITER</h1>
+        </div>
+        <h3>내가 쓴 글의 문법 체크부터<br/>
+          어휘력 테스트, 올바른 기사 읽기, 복습까지!<br/>
+          <span>구독 한 번</span>에 무제한으로 즐겨 보세요!</h3>
+      </div>
+      <div class="section" id="section1">
+        <div class="info">
+          <h2>구독 시리즈?</h2>
+          <h3>다양한 기능으로 당신의 어휘력을 체크해 보세요!</h3>
+      </div>  
+      </div>
+  </div>
   </body>
 </html>
