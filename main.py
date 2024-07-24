@@ -32,5 +32,9 @@ async def my_page(request: Request):
 async def my_page(request: Request):
     return templates.TemplateResponse(request=request, name="signup.html")
 
+@app.get("/ranking", response_class=HTMLResponse)
+async def my_page(request: Request):
+    return templates.TemplateResponse(request=request, name="ranking.html")
+
 # API 연결
 # (추후 개발)
