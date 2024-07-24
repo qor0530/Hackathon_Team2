@@ -25,15 +25,28 @@
     ></script>
 
     <!-------------------------------------------------------------------------->
+
+    <style>
+      body {
+        background-image: url('{{ url_for('static', path='/images/bg.png') }}'); /* 배경 이미지 경로 */
+        background-size: cover; /* 이미지 크기를 화면에 맞춤 */
+        background-position: center; /* 이미지를 중앙에 배치 */
+        background-repeat: no-repeat; /* 이미지 반복 안 함 */
+        text-align: center;
+    }
+    </style>
   </head>
   <body>
     <div class="header">
-      <div>에메랄드 티어</div>
-      <div class="signup-login">
-          <button>지금 가입</button>
-          <button>로그인</button>
+      <div id="logo">
+        <p>로고</p>
       </div>
-  </div>
+        <div class="signup-login">
+        <button>지금 가입</button>
+        <button>로그인</button>
+      </div>
+    </div>
+    <div>에메랄드 티어</div>
   <div class="timer">남은 시간: 5일 3시간 8분</div>
   <div class="container">
       <div class="ranking">
