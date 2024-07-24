@@ -3,19 +3,18 @@
     color: #000;
     padding: 20px 0;
     font-size: 24px;
-    display: block;
-    justify-content: center;
+    display: flex;
+    justify-content: space-between; /* 양쪽 끝에 배치 */
     align-items: center;
+    width: 100%;
     position: relative;
 }
 #logo {
-    position: inherit;
     width: 50px;
     height: 50px;
     margin-right: 10px;
 }
 .signup-login {
-    position: block;
     right: 20px;
     top: 20px;
 }
@@ -28,7 +27,36 @@
     border-radius: 5px;
     cursor: pointer;
 }
-.timer {
+#tier-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tier {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f06292;
+    color: white;
+    cursor: pointer;
+    width: 255px;
+    height: 255px;
+}
+#info {
+    display: flex;
+    justify-content: center;
+}
+#tier-idx{
+    font-size: 48px;
+    font-weight: bold;
+}
+#info-mark {
+    
+}
+#timer {
     color: #f06292;
     margin-top: 10px;
 }
@@ -36,7 +64,9 @@
     margin: 20px auto;
     width: 80%;
     max-width: 800px;
-    background-color: #fff;
+    max-height: 400px; /* 최대 높이를 설정 */
+    overflow-y: auto; /* 세로 스크롤을 허용 */
+    background-color: rgba(255, 255, 255, 0.9); /* 배경 투명도 조절 */
     border-radius: 10px;
 }
 .ranking {

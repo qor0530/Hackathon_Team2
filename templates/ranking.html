@@ -28,11 +28,21 @@
 
     <style>
       body {
-        background-image: url('{{ url_for('static', path='/images/bg.png') }}'); /* 배경 이미지 경로 */
+        background-image: url('{{ url_for('static', path='/images/bg.svg') }}'); /* 배경 이미지 경로 */
         background-size: cover; /* 이미지 크기를 화면에 맞춤 */
         background-position: center; /* 이미지를 중앙에 배치 */
         background-repeat: no-repeat; /* 이미지 반복 안 함 */
         text-align: center;
+    }
+    #info-mark {
+      background-image: url('{{ url_for('static', path='/images/info-mark.svg') }}'); /* 배경 이미지 경로 */
+      background-size: cover; /* 이미지 크기를 화면에 맞춤 */
+      background-position: center; /* 이미지를 중앙에 배치 */
+      background-repeat: no-repeat; /* 이미지 반복 안 함 */
+      text-align: center;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
     }
     </style>
   </head>
@@ -46,9 +56,18 @@
         <button>로그인</button>
       </div>
     </div>
-    <div>에메랄드 티어</div>
-  <div class="timer">남은 시간: 5일 3시간 8분</div>
-  <div class="container">
+
+    <div id='tier-list'>
+      <div class="tier"></div>
+      <div class="tier"></div>
+      <div class="tier"></div>
+    </div>
+    <div id="info">
+    <div id="tier-idx">에메랄드 티어</div>
+    <div id="info-mark"></div>
+  <div id="timer">남은 시간: 5일 3시간 8분</div>
+</div>
+<div class="container">
       <div class="ranking">
           <div class="position">1</div>
           <img src="sample.png" alt="지식 갈증 해소자">
@@ -68,11 +87,17 @@
           <div class="points">11000pt</div>
       </div>
       <div class="ranking">
-          <div class="position">4</div>
-          <img src="sample.png" alt="지식 갈증 해소자">
-          <div class="name">지식 갈증 해소자</div>
-          <div class="points">11000pt</div>
-      </div>
+        <div class="position">4</div>
+        <img src="sample.png" alt="지식 갈증 해소자">
+        <div class="name">지식 갈증 해소자</div>
+        <div class="points">11000pt</div>
+    </div>
+    <div class="ranking">
+      <div class="position">4</div>
+      <img src="sample.png" alt="지식 갈증 해소자">
+      <div class="name">지식 갈증 해소자</div>
+      <div class="points">11000pt</div>
+  </div>
   </div>
   </body>
 </html>
