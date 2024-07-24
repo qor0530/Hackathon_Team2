@@ -1,0 +1,168 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #fff;
+}
+
+header {
+  width: 100%;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+}
+
+.menu-item {
+  cursor: pointer;
+  color: #ccc;
+}
+
+.login {
+  display: flex;
+  gap: 10px;
+  margin-right: 1%;
+}
+
+.signup-button,
+.login-button {
+  padding: 10px 20px;
+  border: 3px solid #ffb2c1;
+  background-color: #fff;
+  color: #ffb2c1;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.signup-button {
+  background-color: #ffffff;
+  color: #ffb2c1;
+}
+.login-button {
+  background-color: #ffb2c1;
+  color: #fff;
+}
+
+main {
+  flex-grow: 1; /* 남은 공간을 모두 차지 */
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+h1 {
+  margin-top: 40px;
+  font-size: 45px;
+  margin-bottom: 30px;
+}
+
+.quiz-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffb2c1;
+  padding: 20px;
+  border-radius: 40px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  position: relative;
+  width: 60%;
+  height: 20%;
+}
+
+.level {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #ff6b6b;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.quiz-question {
+  font-size: 40px;
+  margin-top: 7%;
+  pos
+}
+
+.blank {
+  display: inline-block;
+  width: 100px;
+  border-bottom: 2px solid #000;
+}
+
+.topic {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #ff6b6b;
+}
+
+.text_box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  font-size: 18px;
+  line-height: 1.5;
+  width: 60%;
+  height: 35%;
+  border: solid 1px #ffb2c1;
+  font-size: 30px;
+}
+
+.hint-button,
+.answer-button {
+  width: 20%;
+  height: 100%;
+  border: 1px solid #ffb2c1;
+  background-color: #ffb2c1;
+  color: #000000;
+  cursor: pointer;
+  border-radius: 30px;
+  font-size: 17px;
+}
+.answer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* 버튼과 입력 박스 사이의 간격 */
+  width: 62%;
+  height: 8%;
+  margin-top: 50px;
+}
+.answer-box {
+  width: 80%;
+  height: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  box-sizing: border-box;
+  text-align: center;
+}

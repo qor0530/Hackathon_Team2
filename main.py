@@ -36,5 +36,12 @@ async def my_page(request: Request):
 async def my_page(request: Request):
     return templates.TemplateResponse(request=request, name="ranking.html")
 
+@app.get("/quiz_select", response_class=HTMLResponse)
+async def quiz_select(request: Request):
+    return templates.TemplateResponse(request=request, name="quiz_select.html")
+
+@app.get("/quiz_main", response_class=HTMLResponse)
+async def quiz_main(request: Request):
+    return templates.TemplateResponse(request=request, name="quiz_main.html")
 # API 연결
 # (추후 개발)

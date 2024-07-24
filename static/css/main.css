@@ -1,0 +1,191 @@
+/*공통 css*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+body{
+  box-sizing: border-box;
+}
+html{
+  font-size: 16px;
+}
+/*폰트파일-moderniz&pretendard*/
+@font-face {
+    font-family: 'Moderniz';
+    src: url('../font/Moderniz.otf') format('truetype');
+}
+@font-face {
+  font-family: 'Pretendard-Medium';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Pretendard-SemiBold';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Pretendard-Bold';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Pretendard-ExtraBold';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-ExtraBold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Pretendard-Black';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+}
+
+/*fullpage styles*/
+body {
+  background: linear-gradient(#ffffff, #fafafa);
+  text-align: center;
+  overflow-x: hidden;
+}
+  
+h1 {
+  font-family: 'Moderniz';
+  font-size: 13rem;
+  margin: 0;
+  margin-bottom: 2rem;
+}
+
+.section,
+.slide {
+  background-size: cover;
+}
+
+#fp-nav ul li a span,
+.fp-slidesNav ul li a span {
+  background: white;
+}
+
+#section0 {
+  background-image: url('../images/bg.svg');
+}
+#section1 {
+  background-image: url('../images/bg2.svg');
+}
+
+#fp-nav ul li a span, .fp-slidesNav ul li a span{
+  background: #FFC7D4;
+}
+#fp-nav{
+  position: absolute;
+  left:2rem;
+  margin-top:30rem;
+}
+.fp-table{
+  justify-content: space-between;
+}
+/*section0*/
+.fp-is-overflow > .fp-overflow {
+  overflow-y: auto;
+  padding: 6rem 0rem;
+}
+.title{
+  overflow: hidden;
+  margin-bottom: -2rem;
+  margin-top: 10rem;
+}
+.the {
+  width: fit-content;
+  position: relative;
+  right:2rem;
+  background: linear-gradient(to top, #000000, #414141);
+
+  color: transparent;
+  background-clip: text;
+}
+.more {
+  width: fit-content;
+  position: relative;
+  left:11rem;
+
+  background: linear-gradient(to top, #000000, #414141);
+
+  color: transparent;
+  background-clip: text;
+}
+#section0 h3 {
+  font-family: 'Pretendard-Medium';
+  font-size: 2.5rem;
+  color: #4F4F4F;
+  line-height: 3.6rem;
+  margin-top: 1rem;
+  margin-bottom: -6rem;
+}
+#section0 h3 span {
+  color: #FF5881;
+}
+
+/*section1*/
+#section1 .info {
+  margin-top: 2rem;
+}
+#section1 h2 {
+  font-family: 'Pretendard-ExtraBold';
+  font-size: 8rem;
+
+  margin-bottom: 2rem;
+
+  background: linear-gradient(to bottom, #000000, #414141);
+
+  color: transparent;
+  background-clip: text;
+}
+#section1 h3 {
+  font-family: 'Pretendard-Medium';
+  font-size: 2.5rem;
+  color: #4F4F4F;
+
+  margin-bottom: 2rem;
+}
