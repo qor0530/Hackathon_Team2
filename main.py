@@ -22,6 +22,10 @@ async def main(request: Request):
 async def my_page(request: Request):
     return templates.TemplateResponse(request=request, name="my_page.html")
 
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard(request: Request):
+    return templates.TemplateResponse(request=request, name="dashboard.html")
+
 
 # API 연결
 # (추후 개발)
