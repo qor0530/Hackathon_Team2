@@ -1,0 +1,110 @@
+/* styles.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #ffc1cc, #fff);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 100px);
+    /* footer 높이를 뺀 높이 */
+    position: relative;
+}
+
+.signup-box {
+    background: #fff;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+    /* 박스의 너비 조정 */
+}
+
+.signup-box h1 {
+    font-size: 2em;
+    color: #ff4081;
+    margin-bottom: 10px;
+}
+
+.signup-box form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.signup-box input {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
+    /* 패딩과 보더를 포함한 전체 크기 계산 */
+}
+
+.signup-box button {
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #fff;
+    background: #ff4081;
+    cursor: pointer;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.input-group input {
+    flex: 1;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+    box-sizing: border-box;
+    /* 패딩과 보더를 포함한 전체 크기 계산 */
+}
+
+.input-group .check-button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background: #ff4081;
+    border: 1px solid #ff4081;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 1em;
+    box-sizing: border-box;
+    /* 패딩과 보더를 포함한 전체 크기 계산 */
+}
+
+.illustration {
+    position: absolute;
+    left: 10%;
+    text-align: center;
+    color: #333;
+    font-size: 1.5em;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    /* 패딩을 포함한 전체 크기 계산 */
+}
+
+footer p {
+    margin: 5px 0;
+}

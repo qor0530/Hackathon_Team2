@@ -23,10 +23,22 @@ async def my_page(request: Request):
     return templates.TemplateResponse(request=request, name="my_page.html")
 
 
+@app.get("/login", response_class=HTMLResponse)
+async def my_page(request: Request):
+    return templates.TemplateResponse(request=request, name="login.html")
+
+
+@app.get("/signup", response_class=HTMLResponse)
+async def my_page(request: Request):
+    return templates.TemplateResponse(request=request, name="signup.html")
+
+@app.get("/ranking", response_class=HTMLResponse)
+async def my_page(request: Request):
+    return templates.TemplateResponse(request=request, name="ranking.html")
+
 @app.get("/quiz_select", response_class=HTMLResponse)
 async def quiz_select(request: Request):
     return templates.TemplateResponse(request=request, name="quiz_select.html")
-
 
 @app.get("/quiz_main", response_class=HTMLResponse)
 async def quiz_main(request: Request):
