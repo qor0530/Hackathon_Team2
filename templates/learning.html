@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/reset.css') }}"
+    />
+    <!-------------------------------------------------------------------------->
+
+    <!-- CSS 연결 -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/learning.css') }}"
+    />
+
+    <!-------------------------------------------------------------------------->
+
+    <!-- Javascript 연결 -->
+    <script
+      src="{{ url_for('static', path='javascript/main.js') }}"
+      defer
+    ></script>
+
+    <!-------------------------------------------------------------------------->
+  </head>
+  <body>
+    {% include "header.html" %}
+      <main>
+        <div class="container">
+        <img src="static\images\사진.png" class="relative" alt="profile" />
+        <div class="introduce">
+          <h1><span class="highlight">감정 분해자</span> 님, 반가워요!</h1>
+          <p>오늘의 추천 학습 목록입니다.</p>
+        </div>
+        <div class="learnings">
+          <div class="learning-box">
+            <div class="learning-content"></div>
+            <div class="learning-title">오늘의 주제 선택하러 가기</div>
+          </div>
+          <div class="learning-box">
+            <div class="learning-content"></div>
+            <div class="learning-title">오늘의 작문 학습하러 가기</div>
+          </div>
+          <div class="learning-box">
+            <div class="learning-content"></div>
+            <div class="learning-title">오늘의 상황 이해 학습하러 가기</div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
