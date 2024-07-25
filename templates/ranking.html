@@ -28,67 +28,85 @@
 
     <style>
       body {
-        background-image: url('{{ url_for('static', path='/images/bg.svg') }}'); /* 배경 이미지 경로 */
+        background-image: url("{{ url_for("static", path="/images/bg3.svg") }}"); /* 배경 이미지 경로 */
         background-size: cover; /* 이미지 크기를 화면에 맞춤 */
         background-position: center; /* 이미지를 중앙에 배치 */
         background-repeat: no-repeat; /* 이미지 반복 안 함 */
         text-align: center;
-    }
-    #info-mark {
-      background-image: url('{{ url_for('static', path='/images/info-mark.svg') }}'); /* 배경 이미지 경로 */
-      background-size: cover; /* 이미지 크기를 화면에 맞춤 */
-      background-position: center; /* 이미지를 중앙에 배치 */
-      background-repeat: no-repeat; /* 이미지 반복 안 함 */
-      text-align: center;
-      width: 36px;
-      height: 36px;
-      cursor: pointer;
-    }
+      }
+      .tier {
+        background-image: url("{{ url_for("static", path="/images/emerald.svg") }}"); /* 배경 이미지 경로 */
+        background-size: cover; /* 이미지 크기를 화면에 맞춤 */
+        background-position: center; /* 이미지를 중앙에 배치 */
+        background-repeat: no-repeat; /* 이미지 반복 안 함 */
+      }
+      #info-mark {
+        background-image: url("{{ url_for("static", path="/images/info-mark.svg") }}"); /* 배경 이미지 경로 */
+        background-size: cover; /* 이미지 크기를 화면에 맞춤 */
+        background-position: center; /* 이미지를 중앙에 배치 */
+        background-repeat: no-repeat; /* 이미지 반복 안 함 */
+        text-align: center;
+        width: 36px;
+        height: 36px;
+        cursor: pointer;
+        margin: 13px;
+      }
+      .ranking .profile {
+        background-image: url("{{ url_for("static", path="/images/gnu.png") }}"); /* 배경 이미지 경로 */
+        background-size: cover; /* 이미지 크기를 화면에 맞춤 */
+        background-position: center; /* 이미지를 중앙에 배치 */
+        background-repeat: no-repeat; /* 이미지 반복 안 함 */
+      }
     </style>
   </head>
   <body>
     {% include "header.html" %}
-    <div id='tier-list'>
+    <div id="empty-box"></div>
+    <div id="tier-list">
+      <div class="tier"></div>
+      <div class="tier"></div>
       <div class="tier"></div>
       <div class="tier"></div>
       <div class="tier"></div>
     </div>
     <div id="info">
-    <div id="tier-idx">에메랄드 티어</div>
-    <div id="info-mark"></div>
-  <div id="timer">남은 시간: 5일 3시간 8분</div>
-</div>
-<div class="container">
-      <div class="ranking">
-          <div class="position">1</div>
-          <img src="sample.png" alt="지식 갈증 해소자">
-          <div class="name">지식 갈증 해소자</div>
-          <div class="points">11000pt</div>
-      </div>
-      <div class="ranking">
-          <div class="position">2</div>
-          <img src="sample.png" alt="지식 갈증 해소자">
-          <div class="name">지식 갈증 해소자</div>
-          <div class="points">11000pt</div>
-      </div>
-      <div class="ranking">
-          <div class="position">3</div>
-          <img src="sample.png" alt="지식 갈증 해소자">
-          <div class="name">지식 갈증 해소자</div>
-          <div class="points">11000pt</div>
-      </div>
-      <div class="ranking">
-        <div class="position">4</div>
-        <img src="sample.png" alt="지식 갈증 해소자">
-        <div class="name">지식 갈증 해소자</div>
-        <div class="points">11000pt</div>
+      <div id="tier-idx">에메랄드 티어</div>
+      <div id="info-mark"></div>
+      <div id="timer">남은 시간: 5일 3시간 8분</div>
     </div>
-    <div class="ranking">
-      <div class="position">4</div>
-      <img src="sample.png" alt="지식 갈증 해소자">
-      <div class="name">지식 갈증 해소자</div>
-      <div class="points">11000pt</div>
-  </div>
-  </div>
+    <div id="scroll-box">
+      <div class="container">
+        <div class="ranking">
+          <div class="position">1</div>
+          <div class="profile"></div>
+          <div class="name">지식 갈증 해소자</div>
+          <div class="points">11000pt</div>
+        </div>
+        <div class="ranking">
+          <div class="position">2</div>
+          <div class="profile"></div>
+          <div class="name">지식 갈증 해소자</div>
+          <div class="points">11000pt</div>
+        </div>
+        <div class="ranking">
+          <div class="position">3</div>
+          <div class="profile"></div>
+          <div class="name">지식 갈증 해소자</div>
+          <div class="points">11000pt</div>
+        </div>
+        <div class="ranking">
+          <div class="position">4</div>
+          <div class="profile"></div>
+          <div class="name">지식 갈증 해소자</div>
+          <div class="points">11000pt</div>
+        </div>
+        <div class="ranking">
+          <div class="position">4</div>
+          <div class="profile"></div>
+          <div class="name">지식 갈증 해소자</div>
+          <div class="points">11000pt</div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
