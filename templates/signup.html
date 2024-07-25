@@ -26,24 +26,28 @@
 
     <!-------------------------------------------------------------------------->
   </head>
-  <body>
-    <div class="container">
-      <div class="signup-box">
-        <h1>SIGN UP</h1>
-        <form>
-          <div class="input-group">
-            <input type="text" placeholder="아이디" />
-            <button type="button" class="check-button">중복 확인</button>
-          </div>
-          <input type="text" placeholder="닉네임" />
-          <input type="password" placeholder="비밀번호" />
-          <input type="password" placeholder="비밀번호 확인" />
-          <button type="submit">회원 가입</button>
-        </form>
+    <body>
+      <div id="background"></div>
+      {% include "header.html" %}
+      <div class="container">
+        <div class="login-box">
+          <h1>SIGN UP</h1>
+          <p>더리터와 함께 읽기 능력을 기르러 가볼까요?</p>
+          <form>
+            <input class="id-input" type="text" placeholder="아이디를 입력해주세요." />
+            <input class="password-input" type="password" placeholder="비밀번호를 입력해주세요." />
+            <button id="login-btn"type="submit">로그인</button>
+            <div class="additional-submit">
+              <button class="yellow-box"></button>
+              <button class="white-box"></button>
+            </div>
+          </form>
+          <div class="register-box"></div>
+          <p class="not-member">더리터 회원이 아니신가요?</p>
+        </div>
+        <div class="illustration">
+          <p>캐릭터<br />(일러스트)</p>
+        </div>
       </div>
-      <div class="illustration">
-        <p>캐릭터<br />(일러스트)</p>
-      </div>
-    </div>
-  </body>
+    </body>
 </html>
