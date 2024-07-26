@@ -27,41 +27,30 @@
     <!-------------------------------------------------------------------------->
   </head>
   <body>
+    {% include "header.html"%}
     <div class="container">
       <header>
-        <div class="menu">
-          <div class="menu-item"></div>
-          <div class="menu-item">센터</div>
-          <div class="menu-item">학습</div>
-          <div class="menu-item">퀴즈</div>
-          <div class="menu-item">랭킹</div>
-        </div>
-        <div class="login">
-          <button class="signup-button">지금 가입</button>
-          <button class="login-button">로그인</button>
-        </div>
       </header>
       <main>
-        <h1>주어진 상황에 알맞는 단어를 입력해주세요.</h1>
-        <div class="quiz-section">
-          <div class="level">LV.5</div>
-          <div class="quiz-question">
-            배송 주문 후 상품은 <span class="blank"></span>에 받으실 수
-            있습니다.
+        <div class="goal">
+          <div class="circle">0/30</div>
+          <div class="goal_text">
+            <h1>오늘의 퀴즈 목표</h1>
           </div>
-          <div class="topic">주제-사회생활</div>
         </div>
-        <div class="text_box">
-          이튿날, 다음날을 의미하는 말.<br />
-          “내일” 보다 조금 더 긍정인 자리에서 자주 이용돼요!<br />
-          “내일"과 같은 의미도 있지만, 특정 시점을 기준으로 다음날이라는 의미도
-          있어요!
-        </div>
-        <div class="answer-container">
-          <button class="hint-button">힌트 보기</button>
-          <input type="text" class="answer-box" placeholder="정답을 입력하세요" />
-          <button class="answer-button">정답 보기</button>
-        </div>
+        <div class="quizzes">
+          <div class="quiz-box">
+            <div class="quiz-content"></div>
+            <div class="quiz-title">오늘의 퀴즈 풀기</div>
+          </div>
+          <div class="quiz-box">
+            <div class="quiz-content"></div>
+            <div class="quiz-title">틀린 퀴즈 풀기</div>
+          </div>
+          <div class="quiz-box">
+            <div class="quiz-content"></div>
+            <div class="quiz-title">레벨 별 퀴즈 풀기</div>
+          </div>
         </div>
       </main>
     </div>
