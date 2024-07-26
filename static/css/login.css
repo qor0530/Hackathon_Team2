@@ -29,10 +29,10 @@ body {
 }
 
 .login-box h1 {
-    color: #ff4081;
+    color: #FF5881;
     font-family: 'Moderniz';
     margin-bottom: 30px;
-    margin-top: 50px;
+    margin-top: 70px;
     font-size: 50px;
 }
 
@@ -59,7 +59,7 @@ body {
     padding: 30px;
     width: 490px;
     font-family: 'Pretendard-Medium';
-    height: 55px;
+    height: 25px;
 }
 .id-input {
     box-shadow: 0 0 0 1px gray inset;
@@ -75,6 +75,7 @@ body {
     background: #ff4081;
     cursor: pointer;
     font-family: 'Pretendard-Semibold';
+    border: none;
     margin-bottom: 19px;
 }
 
@@ -82,6 +83,7 @@ body {
     width: 550px;
     height: 90px;
     font-size: 32px;
+    margin: 25px 0px;
 }
 
 .additional-submit {
@@ -94,9 +96,10 @@ body {
     flex: 1;
     border-radius: 10px;
     width: 260px;
-    height: 80px;
+    height: 60px;
     margin-right: 15px;
     cursor: pointer;
+    border: none;
 }
 
 .additional-submit .white-box {
@@ -105,26 +108,22 @@ body {
     flex: 1;
     border-radius: 10px;
     width: 260px;
-    height: 80px;
+    height: 60px;
     cursor: pointer;
     margin-left: 15px;
 }
 
 .login-box .register-button {
-    background: #ff4081;
-    color: #fff;
-}
-
-.login-box .login-button {
-    background: #ffc1cc;
+    background: #FF5881;
     color: #fff;
 }
 
 .login-box .not-member {
-    color: #ff4081;
+    color: #FF97AA;
     margin-top: 3px;
     text-align: right;
     padding-right: 80px;
+    font-family: 'Pretendard-Medium';
     font-size: 16px;
 }
 
