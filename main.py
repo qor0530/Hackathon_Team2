@@ -36,6 +36,10 @@ async def my_page(request: Request):
 async def my_page(request: Request):
     return templates.TemplateResponse(request=request, name="signup.html")
 
+@app.get("/test", response_class=HTMLResponse)
+async def my_page(request: Request):
+    return templates.TemplateResponse(request=request, name="test.html")
+
 @app.get("/ranking", response_class=HTMLResponse)
 async def my_page(request: Request):
     return templates.TemplateResponse(request=request, name="ranking.html")
