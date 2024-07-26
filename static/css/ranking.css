@@ -94,11 +94,6 @@
     /* 스크롤을 적용할 영역 색깔과 border 색상을 똑같이 맞춘다 */
 }
 
-/* 스크롤바 핸들 위에 커서가 있을 때 */
-.container::-webkit-scrollbar-thumb:hover {
-    /* 핸들 색상 변경 */
-}
-
 ::-webkit-scrollbar-button:vertical:start,
 ::-webkit-scrollbar-button:vertical:end {
     height: 20px;
@@ -111,7 +106,7 @@
     align-items: center;
     justify-content: space-between;
     margin: 25px 25px;
-    border-bottom: 1px solid #f1f1f1;
+    border-bottom: 1px solid #adadad;
     border-radius: 20px;
     height: 120px;
 }
