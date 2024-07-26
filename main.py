@@ -51,5 +51,9 @@ async def quiz_main(request: Request):
 @app.get("/learning", response_class=HTMLResponse)
 async def learning(request: Request):
     return templates.TemplateResponse(request=request, name="learning.html")
+
+@app.get("/writing_learning", response_class=HTMLResponse)
+async def learning(request: Request):
+    return templates.TemplateResponse(request=request, name="writing_learning.html")
 # API 연결
 # (추후 개발)
