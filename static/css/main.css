@@ -57,7 +57,13 @@ body {
   overflow-x: hidden;
 }
   
-h1 {
+.more{
+  font-family: 'Moderniz';
+  font-size: 13rem;
+  margin: 0;
+  margin-bottom: 2rem;
+}
+.the{
   font-family: 'Moderniz';
   font-size: 13rem;
   margin: 0;
