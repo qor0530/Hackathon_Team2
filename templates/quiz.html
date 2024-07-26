@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/reset.css') }}"
+    />
+    <!-------------------------------------------------------------------------->
+
+    <!-- CSS 연결 -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/quiz.css') }}"
+    />
+
+    <!-------------------------------------------------------------------------->
+
+    <!-- Javascript 연결 -->
+    <script
+      src="{{ url_for('static', path='javascript/main.js') }}"
+      defer
+    ></script>
+
+    <!-------------------------------------------------------------------------->
+  </head>
+  <body>
+    {% include "header.html"%}
+    <div class="container">
+      <header>
+       
+      </header>
+      <main>
+        <div class="header_question">주어진 상황에 알맞는 단어를 입력해주세요.</div>
+        <div class="quiz-section">
+          <div class="level">LV.5</div>
+          <div class="quiz-question">
+            배송 주문 후 상품은 <span class="blank"></span>에 받으실 수
+            있습니다.
+          </div>
+          <div class="topic">주제-사회생활</div>
+        </div>
+        <div class="text_box">
+          이튿날, 다음날을 의미하는 말.<br />
+          “내일” 보다 조금 더 긍정인 자리에서 자주 이용돼요!<br />
+          “내일"과 같은 의미도 있지만, 특정 시점을 기준으로 다음날이라는 의미도
+          있어요!
+        </div>
+        <div class="answer-container">
+          <button class="hint-button">힌트 보기</button>
+          <input type="text" class="answer-box" placeholder="정답을 입력하세요" />
+          <button class="answer-button">정답 보기</button>
+        </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
