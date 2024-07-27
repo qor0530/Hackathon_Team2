@@ -1,5 +1,5 @@
 from domain.quiz import quiz_crud, quiz_schema
-from fastapi import APIRouter, Depends, Request, status
+from fastapi import APIRouter, Depends, Request, status, HTTPException
 from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
 from config.database import get_db
@@ -10,6 +10,24 @@ router = APIRouter(
 )
 
 templates = Jinja2Templates(directory="domain/quiz/templates")
+
+
+@router.get("/update/{quiz_id}", response_class=HTMLResponse)
+def quiz_update_html(request: Request, quiz_id: int, db: Session = Depends(get_db)):
+    quiz = quiz_crud.get_quiz(db, quiz_id=quiz_id)
+    if not quiz:
+        print("quiz not found")
+        raise HTTPException(status_code=404, detail="Quiz not found")
+    return templates.TemplateResponse("quiz_update.html", {"request": request, "quiz": quiz}, status_code=200)
+
+
+@router.put("/update/{quiz_id}", status_code=status.HTTP_204_NO_CONTENT)
+def quiz_update(quiz_id: int, _quiz_update: quiz_schema.QuizUpdate, db: Session = Depends(get_db)):
+    db_quiz = quiz_crud.get_quiz(db, quiz_id)
+    if not db_quiz:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Quiz not found")
+    quiz_crud.update_quiz(db=db, db_quiz=db_quiz, quiz_update=_quiz_update)
 
 
 @router.get("/list", response_class=HTMLResponse)

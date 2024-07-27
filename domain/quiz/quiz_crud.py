@@ -1,7 +1,7 @@
 from api.models import Quiz
 from sqlalchemy.orm import Session
 
-from domain.quiz.quiz_schema import QuizCreate
+from domain.quiz.quiz_schema import QuizCreate, QuizUpdate
 
 
 def get_quiz_list(db: Session):
@@ -29,3 +29,16 @@ def create_quiz(db: Session, quiz_create: QuizCreate):
     db.commit()
     db.refresh(db_quiz)
     return db_quiz
+
+
+def update_quiz(db: Session, db_quiz: Quiz, quiz_update: QuizUpdate):
+    db_quiz.level = quiz_update.level
+    db_quiz.subject = quiz_update.subject
+    db_quiz.sentence = quiz_update.sentence
+    db_quiz.explanation = quiz_update.explanation
+    db_quiz.answer = quiz_update.answer
+    db_quiz.hint = quiz_update.hint
+    db_quiz.answer_explanation = quiz_update.answer_explanation
+    db.add(db_quiz)
+    db.commit()
+    db.refresh(db_quiz)

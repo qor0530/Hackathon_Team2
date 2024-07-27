@@ -13,5 +13,13 @@
     <p>{{ quiz.answer }}</p>
     <p>{{ quiz.hint }}</p>
     <p>{{ quiz.answer_explanation }}</p>
+
+    <button id="update">수정</button>
+
+    <script>
+      document.getElementById("update").addEventListener("click", () => {
+        window.location.href = "/api/quiz/update/{{ quiz.id }}";
+      });
+    </script>
   </body>
 </html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Update</title>
+  </head>
+  <body>
+    <h1>Quiz Update</h1>
+    <form id="quizForm">
+      <input type="text" id="subject" placeholder="subject" required />
+      <input type="number" id="level" placeholder="level" required />
+      <input type="text" id="sentence" placeholder="sentence" required />
+      <input type="text" id="explanation" placeholder="explanation" required />
+      <input type="text" id="answer" placeholder="answer" required />
+      <input type="text" id="hint" placeholder="hint" required />
+      <input
+        type="text"
+        id="answer_explanation"
+        placeholder="answer_explanation"
+        required
+      />
+      <button type="submit">SUBMIT</button>
+    </form>
+    <script>
+      window.onload = function () {
+        let quizForm = document.getElementById("quizForm");
+        let quiz_id = "{{ quiz.id }}";
+        quiz_id = parseInt(quiz_id);
+        quizForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          if (confirm("ㄹㅇ 저장?")) {
+            let level = document.getElementById("level").value;
+            let subject = document.getElementById("subject").value;
+            let sentence = document.getElementById("sentence").value;
+            let explanation = document.getElementById("explanation").value;
+            let answer = document.getElementById("answer").value;
+            let hint = document.getElementById("hint").value;
+            let answer_explanation =
+              document.getElementById("answer_explanation").value;
+
+            fetch("/api/quiz/update/{{quiz.id}}", {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                id: quiz_id,
+                level: level,
+                subject: subject,
+                sentence: sentence,
+                explanation: explanation,
+                answer: answer,
+                hint: hint,
+                answer_explanation: answer_explanation,
+              }),
+            }).then(() => {
+              window.location.href = "/api/quiz/list";
+            });
+          } else {
+            return;
+          }
+        });
+      };
+    </script>
+  </body>
+</html>
