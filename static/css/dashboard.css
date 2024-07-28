@@ -1,14 +1,18 @@
 body {
     background: url('../images/bg.svg');
+
+    overflow: hidden;
 }
 .DashWrap {
     width: 1440px;
 
     margin: 0 auto;
-    padding: 10rem 2rem;
+    padding: 12rem 2rem;
 
     display: flex;
     flex-direction: row;
+
+    box-sizing: border-box;
 }
 
 .characterWrap {
@@ -45,6 +49,7 @@ body {
 .InfoWrap .FirstStudy{
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 }
 
 /*챕터별완성률*/
@@ -96,4 +101,103 @@ body {
     font-family: 'Pretendard-Bold';
 
     font-size: 28px;
+}
+
+/*study*/
+.FirstStudy {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.attendInfo {
+   display: flex;
+   flex-direction: column;
+   
+   width: 500px;
+   height: 300px;
+   background-color: rgba(255,255,255,0.5);
+
+   font-family: 'Pretendard-Bold';
+
+   padding: 2rem;
+   box-sizing: border-box;
+
+    border: 1px solid #E1E1E1;
+    border-radius: 15px;
+}
+
+.attendInfo .attendTitle {
+    font-family: 'Pretendard-Bold';
+    font-size: 2rem;
+    color: #FF5881;
+
+    padding: 0 1rem 2rem 0 ;    
+}
+
+.attendInfo .attend {
+    width: 436px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    padding-left: 1rem;
+}
+
+.attendContent .contentTitle{
+    font-size: 1.5rem;
+
+    color: #9B9B9B;
+    padding-bottom: .75rem;
+    padding-right: 9rem;
+}
+.attendContent .content {
+    padding-bottom: 2rem;
+
+    font-size: 2rem;
+}
+.studyRateWrap {
+    position: relative;
+}
+.studyGraph {
+    width: 225px;
+    height: 225px;
+    display: inline-grid;
+    place-content: center;
+    margin: 5px;
+    font-size: 4rem;
+    font-family: 'Pretendard-ExtraBold';
+
+}
+.studyGraph:before{
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    inset: 0;
+    background: conic-gradient(#FF5881 0% 81%,#E1E1E1 0);
+
+    -webkit-mask:radial-gradient(farthest-side,#0000 79%,#000 80%);
+          mask:radial-gradient(farthest-side,#0000 79%,#000 80%);
+}
+.studyTitle {
+    font-family: 'Pretendard-Bold';
+    font-size: 1.75rem;
+
+    width: 125px;
+    height: 55px;
+
+    background-color: #FF5881;
+    border-radius: 0 50px 50px 0;
+    color:#fff;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: -12rem;
+}
+.studyTitle p {
+    margin-left: -.5rem;
 }
