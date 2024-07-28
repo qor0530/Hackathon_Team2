@@ -51,3 +51,7 @@ class QuizUpdate(BaseModel):
     answer: Optional[str]
     hint: Optional[str]
     answer_explanation: Optional[str]
+
+
+class QuizDelete(BaseModel):
+    id: int

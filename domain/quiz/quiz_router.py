@@ -50,3 +50,12 @@ def quiz_create_html(request: Request):
 @router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
 def quiz_create(_quiz_create: quiz_schema.QuizCreate, db: Session = Depends(get_db)):
     quiz_crud.create_quiz(db=db, quiz_create=_quiz_create)
+
+
+@router.delete("/delete/{quiz_id}", status_code=status.HTTP_204_NO_CONTENT)
+def quiz_delete(quiz_id: int, db: Session = Depends(get_db)):
+    db_quiz = quiz_crud.get_quiz(db, quiz_id)
+    if not db_quiz:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Quiz not found")
+    quiz_crud.delete_quiz(db=db, db_quiz=db_quiz)

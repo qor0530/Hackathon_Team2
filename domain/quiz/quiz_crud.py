@@ -42,3 +42,9 @@ def update_quiz(db: Session, db_quiz: Quiz, quiz_update: QuizUpdate):
     db.add(db_quiz)
     db.commit()
     db.refresh(db_quiz)
+
+
+def delete_quiz(db: Session, db_quiz: Quiz):
+    db.delete(db_quiz)
+    db.commit()
+    db.refresh(db_quiz)
