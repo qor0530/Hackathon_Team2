@@ -108,7 +108,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: center;    
 }
 
 .attendInfo {
@@ -126,6 +126,8 @@ body {
 
     border: 1px solid #E1E1E1;
     border-radius: 15px;
+
+    margin-left: 4rem;
 }
 
 .attendInfo .attendTitle {
@@ -188,7 +190,7 @@ body {
     width: 125px;
     height: 55px;
 
-    background-color: #FF5881;
+    background-color: #FF97AA;
     border-radius: 0 50px 50px 0;
     color:#fff;
 

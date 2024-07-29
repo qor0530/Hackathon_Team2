@@ -8,28 +8,71 @@
       rel="stylesheet"
       href="{{ url_for('static', path='css/reset.css') }}"
     />
-    <!-------------------------------------------------------------------------->
-
-    <!-- CSS 연결 -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', path='css/main.css') }}"
+      href="{{ url_for('static', path='css/mypage.css') }}"
     />
-
-    <!-------------------------------------------------------------------------->
-
-    <!-- Javascript 연결 -->
-    <script
-      src="{{ url_for('static', path='javascript/main.js') }}"
-      defer
-    ></script>
-
-    <!-------------------------------------------------------------------------->
   </head>
   <body>
-    <p>멋사 해커톤 마이페이지</p>
-    <img src="{{ url_for('static', path='images/gnu.png') }}" alt="" />
-    <hr />
-    <a href="{{ url_for('main') }}">메인페이지로 이동</a>
+    <section>
+      <div class="userWrap">
+        <img src="" />
+        <div class="userInfo">
+          <p class="userName">지식 갈증 해소자</p>
+          <div class="lankWrap">
+            <img src=""/>
+            <p class="lank">Diamond 리그 <strong>13</strong>위</p>
+          </div>
+        </div>
+      </div>
+      <div class="studyWrap">
+        <p class="attendTitle">출석 현황</p>
+        <div class="attend">
+          <div class="attendContent">
+            <p class="contentTitle">총 학습시간</p>
+            <p class="content">10h 20m</p>
+          </div>
+          <div class="attendContent">
+            <p class="contentTitle">푼 퀴즈 수</p>
+            <p class="content">5</p>
+          </div>
+          <div class="attendContent">
+            <p class="contentTitle">누적 출석일</p>
+            <p class="content">10일</p>
+          </div>
+        </div>
+      </div>
+      <div class="recommendWrap">
+        <p class="recommendTitle">오늘의 학습 추천</p>
+        <div class="recommnedList">
+          <div class="list">
+            <div class="listTitle">챕터별학습</div>
+            <div class="listIcon"></div>
+          </div>
+          <div class="list">
+            <div class="listTitle">오늘의 기사</div>
+            <div class="listIcon"></div>
+          </div>
+          <div class="list">
+            <div class="listTitle">오늘의 어휘</div>
+            <div class="listIcon"></div>
+          </div>
+        </div>
+      </div>
+      <div class="btnWrap">
+        <div class="premiumBtn">
+          <p>실버등급 구독중</p>
+          <!-- > 아이콘 -->
+        </div>
+        <div class="noteBtn">
+          <p>오답노트 보러가기</p>
+          <!-- > 아이콘 -->
+        </div>
+        <div class="wordBtn">
+          <p>단어장 보러가기</p>
+          <!-- > 아이콘 -->
+        </div>
+      </div>
+    </section>
   </body>
 </html>
