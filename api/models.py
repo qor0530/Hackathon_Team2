@@ -72,3 +72,13 @@ class ComprehensionTask(Base):
 
 Lecture.comprehension_tasks = relationship(
     'ComprehensionTask', order_by=ComprehensionTask.id, back_populates='lecture')
+
+
+class Test(Base):
+    __tablename__ = 'tests'
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_level = Column(Integer, default=1)
+    grow = Column(String, index=True)
+    purpose = Column(String, index=True)
+    theme = Column(Text)
