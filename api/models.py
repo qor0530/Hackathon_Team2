@@ -84,3 +84,25 @@ class Test(Base):
     grow = Column(String, index=True)
     purpose = Column(String, index=True)
     theme = Column(Text)
+
+
+class Ranking(Base):
+    __tablename__ = 'rankings'
+
+    id = Column(Integer, primary_key=True)
+    bronze = Column(Integer, ForeignKey('users.id'), nullable=True)
+    silver = Column(Integer, ForeignKey('users.id'), nullable=True)
+    gold = Column(Integer, ForeignKey('users.id'), nullable=True)
+    platinum = Column(Integer, ForeignKey('users.id'), nullable=True)
+    emerald = Column(Integer, ForeignKey('users.id'), nullable=True)
+    diamond = Column(Integer, ForeignKey('users.id'), nullable=True)
+    master = Column(Integer, ForeignKey('users.id'), nullable=True)
+
+    # Relationships
+    user_bronze = relationship('User', foreign_keys=[bronze])
+    user_silver = relationship('User', foreign_keys=[silver])
+    user_gold = relationship('User', foreign_keys=[gold])
+    user_platinum = relationship('User', foreign_keys=[platinum])
+    user_emerald = relationship('User', foreign_keys=[emerald])
+    user_diamond = relationship('User', foreign_keys=[diamond])
+    user_master = relationship('User', foreign_keys=[master])
