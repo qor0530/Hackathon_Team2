@@ -90,19 +90,8 @@ class Ranking(Base):
     __tablename__ = 'rankings'
 
     id = Column(Integer, primary_key=True)
-    bronze = Column(Integer, ForeignKey('users.id'), nullable=True)
-    silver = Column(Integer, ForeignKey('users.id'), nullable=True)
-    gold = Column(Integer, ForeignKey('users.id'), nullable=True)
-    platinum = Column(Integer, ForeignKey('users.id'), nullable=True)
-    emerald = Column(Integer, ForeignKey('users.id'), nullable=True)
-    diamond = Column(Integer, ForeignKey('users.id'), nullable=True)
-    master = Column(Integer, ForeignKey('users.id'), nullable=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    tier = Column(String, nullable=False)
+    point = Column(Integer, nullable=False)
 
-    # Relationships
-    user_bronze = relationship('User', foreign_keys=[bronze])
-    user_silver = relationship('User', foreign_keys=[silver])
-    user_gold = relationship('User', foreign_keys=[gold])
-    user_platinum = relationship('User', foreign_keys=[platinum])
-    user_emerald = relationship('User', foreign_keys=[emerald])
-    user_diamond = relationship('User', foreign_keys=[diamond])
-    user_master = relationship('User', foreign_keys=[master])
+    user = relationship('User', back_populates='rankings')

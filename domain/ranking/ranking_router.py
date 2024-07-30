@@ -27,14 +27,6 @@ def ranking_create(ranking_create: ranking_schema.RankingCreate, db: Session = D
     return ranking_crud.create_ranking(db, ranking_create)
 
 
-@router.put("/{ranking_id}", response_model=ranking_schema.Ranking)
-def ranking_update(ranking_id: int, ranking_update: ranking_schema.RankingUpdate, db: Session = Depends(get_db)):
-    db_ranking = ranking_crud.get_ranking(db, ranking_id)
-    if not db_ranking:
-        raise HTTPException(status_code=404, detail="Ranking not found")
-    return ranking_crud.update_ranking(db=db, db_ranking=db_ranking, ranking_update=ranking_update)
-
-
 @router.delete("/{ranking_id}", status_code=status.HTTP_204_NO_CONTENT)
 def ranking_delete(ranking_id: int, db: Session = Depends(get_db)):
     db_ranking = ranking_crud.get_ranking(db, ranking_id)

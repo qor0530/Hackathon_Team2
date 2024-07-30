@@ -1,15 +1,10 @@
 from pydantic import BaseModel
-from typing import Optional
 
 
 class RankingBase(BaseModel):
-    bronze: Optional[int] = None
-    silver: Optional[int] = None
-    gold: Optional[int] = None
-    platinum: Optional[int] = None
-    emerald: Optional[int] = None
-    diamond: Optional[int] = None
-    master: Optional[int] = None
+    user_id: int
+    tier: str
+    score: float
 
 
 class RankingCreate(RankingBase):

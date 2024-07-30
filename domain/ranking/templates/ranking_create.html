@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ranking Create</title>
+  </head>
+  <body>
+    <h1>Ranking Create</h1>
+    <form id="rankingForm">
+      <input type="number" id="user_id" placeholder="User ID" required />
+      <label for="tier">Tier:</label>
+      <select id="tier" required>
+        <option value="bronze">Bronze</option>
+        <option value="silver">Silver</option>
+        <option value="gold">Gold</option>
+        <option value="platinum">Platinum</option>
+        <option value="emerald">Emerald</option>
+        <option value="diamond">Diamond</option>
+        <option value="master">Master</option>
+      </select>
+      <input
+        type="number"
+        step="0.01"
+        id="score"
+        placeholder="Score"
+        required
+      />
+      <button type="submit">Create Ranking</button>
+    </form>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const rankingForm = document.getElementById("rankingForm");
+
+        rankingForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          const user_id = document.getElementById("user_id").value;
+          const tier = document.getElementById("tier").value;
+          const score = document.getElementById("score").value;
+
+          fetch("/api/ranking/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              user_id: user_id,
+              tier: tier,
+              score: score,
+            }),
+          }).then(() => {
+            window.location.href = "/api/ranking/list";
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
