@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Update</title>
+  </head>
+  <body>
+    <h1>User Update</h1>
+    <form id="userForm">
+      <input type="text" id="subject" placeholder="subject" required />
+      <input type="number" id="level" placeholder="level" required />
+      <input type="text" id="sentence" placeholder="sentence" required />
+      <input type="text" id="explanation" placeholder="explanation" required />
+      <input type="text" id="answer" placeholder="answer" required />
+      <input type="text" id="hint" placeholder="hint" required />
+      <input
+        type="text"
+        id="answer_explanation"
+        placeholder="answer_explanation"
+        required
+      />
+      <button type="submit">SUBMIT</button>
+    </form>
+    <script>
+      window.onload = function () {
+        let userForm = document.getElementById("userForm");
+        let user_id = "{{ user.id }}";
+        user_id = parseInt(user_id);
+        userForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          if (confirm("정말로 저장하시겠습니까?")) {
+            let login_id = document.getElementById("login_id").value;
+            let password = document.getElementById("password").value;
+            let nickname = document.getElementById("nickname").value;
+            let profile_image = document.getElementById("profile_image").value;
+            let learning_history =
+              document.getElementById("learning_history").value;
+            let total_learning_time = parseFloat(
+              document.getElementById("total_learning_time").value
+            );
+            let level = parseInt(document.getElementById("level").value);
+            let ranking_score = parseFloat(
+              document.getElementById("ranking_score").value
+            );
+            let subscription = document.getElementById("subscription").checked;
+            let ranking = parseInt(document.getElementById("ranking").value);
+            let attendance = parseInt(
+              document.getElementById("attendance").value
+            );
+
+            fetch(`/api/user/update/${user.id}`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                login_id: login_id,
+                password: password,
+                nickname: nickname,
+                profile_image: profile_image,
+                learning_history: learning_history,
+                total_learning_time: total_learning_time,
+                level: level,
+                ranking_score: ranking_score,
+                subscription: subscription,
+                ranking: ranking,
+                attendance: attendance,
+              }),
+            }).then(() => {
+              window.location.href = "/api/user/list";
+            });
+          } else {
+            return;
+          }
+        });
+      };
+    </script>
+  </body>
+</html>
