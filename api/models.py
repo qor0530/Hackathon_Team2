@@ -84,3 +84,14 @@ class Test(Base):
     grow = Column(String, index=True)
     purpose = Column(String, index=True)
     theme = Column(Text)
+
+
+class Ranking(Base):
+    __tablename__ = 'rankings'
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    tier = Column(String, nullable=False)
+    point = Column(Integer, nullable=False)
+
+    user = relationship('User', back_populates='rankings')

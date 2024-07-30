@@ -1,3 +1,5 @@
+from domain.user.user_schema import UserCreate
+from api.models import User, Ranking
 from sqlalchemy.orm import Session
 from api.models import User
 from .user_schema import UserCreate, UserUpdate
@@ -24,27 +26,13 @@ def create_user(db: Session, user_create: UserCreate):
     db.add(db_User)
     db.commit()
     db.refresh(db_User)
+
+    # Get the most recent ranking
+    latest_ranking = db.query(Ranking).order_by(Ranking.id.desc()).first()
+    if latest_ranking:
+        latest_ranking.user_id = db_User.id
+        db.add(latest_ranking)
+        db.commit()
+        db.refresh(latest_ranking)
+
     return db_User
-
-
-def update_user(db: Session, db_user: User, user_update: UserUpdate):
-    db_user.login_id = user_update.login_id
-    db_user.password = user_update.password
-    db_user.nickname = user_update.nickname
-    db_user.profile_image = user_update.profile_image
-    db_user.learning_history = user_update.learning_history
-    db_user.total_learning_time = user_update.total_learning_time
-    db_user.level = user_update.level
-    db_user.ranking_score = user_update.ranking_score
-    db_user.subscription = user_update.subscription
-    db_user.ranking = user_update.ranking
-    db_user.attendance = user_update.attendance
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
-
-
-def delete_user(db: Session, db_user: User):
-    db.delete(db_user)
-    db.commit()
-    db.refresh(db_user)

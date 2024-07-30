@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ranking List</title>
+  </head>
+  <body>
+    <h1>Ranking List</h1>
+    <ul>
+      {% for ranking in ranking_list %}
+      <li>
+        <a href="/api/ranking/{{ ranking.id }}"
+          >User ID: {{ ranking.user_id }} | Tier: {{ ranking.tier }} | Score: {{
+          ranking.score }}</a
+        >
+        <button onclick="deleteRanking({{ ranking.id }})">Delete</button>
+      </li>
+      {% endfor %}
+    </ul>
+    <a href="/api/ranking/create">Create new ranking</a>
+
+    <script>
+      function deleteRanking(rankingId) {
+        fetch(`/api/ranking/${rankingId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((response) => {
+          if (response.ok) {
+            window.location.href = "/api/ranking/list";
+          } else {
+            alert("Failed to delete the ranking");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
