@@ -8,29 +8,40 @@
   <body>
     <h1>User Update</h1>
     <form id="userForm">
-      <input type="text" id="subject" placeholder="subject" required />
-      <input type="number" id="level" placeholder="level" required />
-      <input type="text" id="sentence" placeholder="sentence" required />
-      <input type="text" id="explanation" placeholder="explanation" required />
-      <input type="text" id="answer" placeholder="answer" required />
-      <input type="text" id="hint" placeholder="hint" required />
+      <!-- Note: `id` is usually hidden or not included in the form since it's a unique identifier -->
+      <input type="text" id="login_id" placeholder="Login ID" required />
+      <input type="password" id="password" placeholder="Password" />
+      <input type="text" id="nickname" placeholder="Nickname" required />
+      <input type="text" id="profile_image" placeholder="Profile Image" />
+      <textarea id="learning_history" placeholder="Learning History"></textarea>
       <input
-        type="text"
-        id="answer_explanation"
-        placeholder="answer_explanation"
-        required
+        type="number"
+        id="total_learning_time"
+        placeholder="Total Learning Time"
+        step="0.01"
       />
-      <button type="submit">SUBMIT</button>
+      <input type="number" id="level" placeholder="Level" />
+      <input
+        type="number"
+        id="ranking_score"
+        placeholder="Ranking Score"
+        step="0.01"
+      />
+      <input type="checkbox" id="subscription" />
+      <label for="subscription">Subscription</label>
+      <input type="number" id="ranking" placeholder="Ranking" />
+      <input type="number" id="attendance" placeholder="Attendance" />
+      <button type="submit">Submit</button>
     </form>
     <script>
       window.onload = function () {
         let userForm = document.getElementById("userForm");
         let user_id = "{{ user.id }}";
-        user_id = parseInt(user_id);
+
         userForm.addEventListener("submit", (event) => {
           event.preventDefault();
 
-          if (confirm("정말로 저장하시겠습니까?")) {
+          if (confirm("Are you sure you want to save changes?")) {
             let login_id = document.getElementById("login_id").value;
             let password = document.getElementById("password").value;
             let nickname = document.getElementById("nickname").value;
@@ -50,10 +61,11 @@
               document.getElementById("attendance").value
             );
 
-            fetch(`/api/user/update/${user.id}`, {
-              method: "PUT",
+            fetch("/api/user/update/{{user.id}}", {
+              method: "PATCH",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
+                id: user_id,
                 login_id: login_id,
                 password: password,
                 nickname: nickname,

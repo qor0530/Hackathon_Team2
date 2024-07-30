@@ -6,13 +6,13 @@ from .user_schema import UserCreate, UserUpdate
 
 
 def get_user_list(db: Session):
-    User_list = db.query(User).all()
-    return User_list
+    user_list = db.query(User).all()
+    return user_list
 
 
-def get_user(db: Session, User_id: int):
-    User = db.query(User).get(User_id)
-    return User
+def get_user(db: Session, user_id: int):
+    user = db.query(User).get(user_id)
+    return user
 
 
 def create_user(db: Session, user_create: UserCreate):

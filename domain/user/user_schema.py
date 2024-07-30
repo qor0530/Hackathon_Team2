@@ -1,6 +1,7 @@
 from pydantic import BaseModel, field_validator
 from typing import Optional
 
+
 class UserBase(BaseModel):
     login_id: str
     nickname: str
@@ -19,6 +20,7 @@ class UserBase(BaseModel):
             raise ValueError("빈값이 입력됨")
         return v
 
+
 class UserCreate(UserBase):
     password: str
 
@@ -27,6 +29,7 @@ class UserCreate(UserBase):
         if not v:
             raise ValueError("비밀번호는 필수 입력입니다.")
         return v
+
 
 class UserUpdate(BaseModel):
     id: int
@@ -41,6 +44,7 @@ class UserUpdate(BaseModel):
     subscription: Optional[bool]
     ranking: Optional[int]
     attendance: Optional[int]
+
 
 class UserDelete(BaseModel):
     id: int
