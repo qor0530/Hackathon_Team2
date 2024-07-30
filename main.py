@@ -6,6 +6,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
 
 from domain.quiz import quiz_router
+from domain.lecture import lecture_router
 
 app = FastAPI()
 
@@ -18,9 +19,11 @@ app.add_middleware(
 )
 
 app.include_router(quiz_router.router)
+app.include_router(lecture_router.router)
 
 # static 폴더 연결
 app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 # templates 폴더 연결
 templates = Jinja2Templates(directory="templates")

@@ -21,7 +21,7 @@ def quiz_update_html(request: Request, quiz_id: int, db: Session = Depends(get_d
     return templates.TemplateResponse("quiz_update.html", {"request": request, "quiz": quiz}, status_code=200)
 
 
-@router.put("/update/{quiz_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.patch("/update/{quiz_id}", status_code=status.HTTP_204_NO_CONTENT)
 def quiz_update(quiz_id: int, _quiz_update: quiz_schema.QuizUpdate, db: Session = Depends(get_db)):
     db_quiz = quiz_crud.get_quiz(db, quiz_id)
     if not db_quiz:

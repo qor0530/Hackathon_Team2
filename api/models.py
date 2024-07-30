@@ -39,8 +39,10 @@ class Lecture(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
-    difficulty = Column(String, index=True)
+    difficulty = Column(Integer, index=True)
     topic = Column(String, index=True)
+    image = Column(String, index=True)
+    description = Column(Text, index=True)
 
 
 class WritingTask(Base):

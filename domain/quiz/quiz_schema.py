@@ -44,13 +44,6 @@ class QuizCreate(BaseModel):
 
 class QuizUpdate(BaseModel):
     id: int
-    subject: Optional[str]
-    level: Optional[str]
-    sentence: Optional[str]
-    explanation: Optional[str]
-    answer: Optional[str]
-    hint: Optional[str]
-    answer_explanation: Optional[str]
 
 
 class QuizDelete(BaseModel):
