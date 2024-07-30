@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>환영합니다</title>
+
+    <!-- CSS 연결 -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/test_2.css') }}"
+    />
+
+    <!-------------------------------------------------------------------------->
+
+    <!-- Javascript 연결 -->
+    <script
+      src="{{ url_for('static', path='javascript/test_2.js') }}"
+      defer
+    ></script>
+
+    <!-------------------------------------------------------------------------->
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="character">
+                캐릭터<br>(일러스트)
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <div class="question">
+                <span class="highlight">'더 리더'</span>를 통해 무엇을 기르고 싶나요?
+            </div>
+            <div class="options">
+                <div class="option"></div>
+                <div class="option"></div>
+                <div class="option"></div>
+                <div class="option"></div>
+                <div class="option"></div>
+                <div class="option selected"></div>
+                <div class="option"></div>
+            </div>
+            <button class="next-button">다음</button>
+        </div>
+    </div>
+</body>
+</html>
