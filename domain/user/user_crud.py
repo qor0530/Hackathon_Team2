@@ -4,13 +4,13 @@ from .user_schema import UserCreate, UserUpdate
 
 
 def get_user_list(db: Session):
-    User_list = db.query(User).all()
-    return User_list
+    user_list = db.query(User).all()
+    return user_list
 
 
-def get_user(db: Session, User_id: int):
-    User = db.query(User).get(User_id)
-    return User
+def get_user(db: Session, user_id: int):
+    user = db.query(User).get(user_id)
+    return user
 
 
 def create_user(db: Session, user_create: UserCreate):
@@ -42,11 +42,9 @@ def update_user(db: Session, db_user: User, user_update: UserUpdate):
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
-    return db_user
 
 
 def delete_user(db: Session, db_user: User):
     db.delete(db_user)
     db.commit()
     db.refresh(db_user)
-    return db_user

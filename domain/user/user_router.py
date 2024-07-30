@@ -12,21 +12,22 @@ router = APIRouter(
 templates = Jinja2Templates(directory="domain/user/templates")
 
 
-@router.get("/update/{user_id}", response_class=HTMLResponse)
-def user_update_html(request: Request, user_id: int, db: Session = Depends(get_db)):
-    user = user_crud.get_user(db, user_id=user_id)
+@router.get("/update/{user_id}", response_class=HTMLResponse)  # user_id로 수정
+def user_update_html(request: Request, user_id: int, db: Session = Depends(get_db)):  # user_id로 수정
+    user = user_crud.get_user(db, user_id=user_id)  # user_id로 수정
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return templates.TemplateResponse("user_update.html", {"request": request, "user": user}, status_code=200)
 
 
+# user_id로 수정
 @router.patch("/update/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
-def user_update(user_id: int, user_update: user_schema.UserUpdate, db: Session = Depends(get_db)):
-    db_user = user_crud.get_user(db, user_id)
+def user_update(user_id: int, _user_update: user_schema.UserUpdate, db: Session = Depends(get_db)):  # user_id로 수정
+    db_user = user_crud.get_user(db, user_id=user_id)  # user_id로 수정
     if not db_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="User not found")
-    user_crud.update_user(db=db, db_user=db_user, user_update=user_update)
+    user_crud.update_user(db=db, db_user=db_user, user_update=_user_update)
 
 
 @router.get("/list", response_class=HTMLResponse)
@@ -35,10 +36,11 @@ def user_list_html(request: Request, db: Session = Depends(get_db)):
     return templates.TemplateResponse("user_list.html", {"request": request, "user_list": user_list})
 
 
-@router.get("/detail/{user_id}", response_class=HTMLResponse)
-def user_detail_html(request: Request, user_id: int, db: Session = Depends(get_db)):
-    user = user_crud.get_user(db, user_id)
+@router.get("/detail/{user_id}", response_class=HTMLResponse)  # user_id로 수정
+def user_detail_html(request: Request, user_id: int, db: Session = Depends(get_db)):  # user_id로 수정
+    user = user_crud.get_user(db, user_id=user_id)  # user_id로 수정
     if not user:
+        print(user.id)
         raise HTTPException(status_code=404, detail="User not found")
     return templates.TemplateResponse("user_detail.html", {"request": request, "user": user})
 
@@ -53,9 +55,10 @@ def user_create(user_create: user_schema.UserCreate, db: Session = Depends(get_d
     user_crud.create_user(db=db, user_create=user_create)
 
 
+# user_id로 수정
 @router.delete("/delete/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
-def user_delete(user_id: int, db: Session = Depends(get_db)):
-    db_user = user_crud.get_user(db, user_id)
+def user_delete(user_id: int, db: Session = Depends(get_db)):  # user_id로 수정
+    db_user = user_crud.get_user(db, user_id=user_id)  # user_id로 수정
     if not db_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="User not found")
