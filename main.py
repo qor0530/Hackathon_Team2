@@ -7,6 +7,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from domain.quiz import quiz_router
 from domain.lecture import lecture_router
+from domain.user import user_router 
 
 app = FastAPI()
 
@@ -19,7 +20,7 @@ app.add_middleware(
 )
 
 app.include_router(quiz_router.router)
-app.include_router(lecture_router.router)
+app.include_router(user_router.router)
 
 # static 폴더 연결
 app.mount("/static", StaticFiles(directory="static"), name="static")
