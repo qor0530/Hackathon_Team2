@@ -145,7 +145,7 @@ body {
 }
 #section1 h2 {
   font-family: 'Pretendard-ExtraBold';
-  font-size: 8rem;
+  font-size: 6rem;
 
   margin-bottom: 2rem;
 
@@ -159,5 +159,43 @@ body {
   font-size: 2.5rem;
   color: #4F4F4F;
 
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
+}
+
+/*구독서비스홍보*/
+#section1 .featureWrap {
+  position: relative;
+  
+  width: fit-content;
+}
+.info .featureWrap:nth-child(3) {
+  margin-left: 20rem;
+}
+.info .featureWrap:nth-child(4) {
+  margin-left: 60rem;
+}
+.info .featureWrap:nth-child(5) {
+  margin-left: 30rem;
+}
+
+#section1 .featureWrap .balloon {
+  width:650px;
+  height: auto;
+
+  opacity: .6;
+}
+
+#section1 .featureWrap p{
+  width: 600px;
+  position: absolute;
+  top:40%;
+  left:50%;
+  transform: translate(-50%, -50%);
+
+  font-family: 'Prentendard-SemiBold';
+  font-size: 2rem;
+
+  color: #4F4F4F;
+
+  line-height: 2.5rem;
 }
