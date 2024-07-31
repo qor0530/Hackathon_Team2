@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lecture List</title>
+  </head>
+  <body>
+    <h1>Lecture List</h1>
+    <ul>
+      {% for lecture in lecture_list %}
+      <li>
+        <a href="/api/lecture/detail/{{ lecture.id }}">{{ lecture.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    <a href="/api/lecture/create">Create new lecture</a>
+  </body>
+</html>

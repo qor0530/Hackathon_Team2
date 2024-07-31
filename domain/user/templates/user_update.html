@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Update</title>
+  </head>
+  <body>
+    <h1>User Update</h1>
+    <form id="userForm">
+      <!-- Note: `id` is usually hidden or not included in the form since it's a unique identifier -->
+      <input type="text" id="login_id" placeholder="Login ID" required />
+      <input type="password" id="password" placeholder="Password" />
+      <input type="text" id="nickname" placeholder="Nickname" required />
+      <input type="text" id="profile_image" placeholder="Profile Image" />
+      <textarea id="learning_history" placeholder="Learning History"></textarea>
+      <input
+        type="number"
+        id="total_learning_time"
+        placeholder="Total Learning Time"
+        step="0.01"
+      />
+      <input type="number" id="level" placeholder="Level" />
+      <input
+        type="number"
+        id="ranking_score"
+        placeholder="Ranking Score"
+        step="0.01"
+      />
+      <input type="checkbox" id="subscription" />
+      <label for="subscription">Subscription</label>
+      <input type="number" id="ranking" placeholder="Ranking" />
+      <input type="number" id="attendance" placeholder="Attendance" />
+      <button type="submit">Submit</button>
+    </form>
+    <script>
+      window.onload = function () {
+        let userForm = document.getElementById("userForm");
+        let user_id = "{{ user.id }}";
+
+        userForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          if (confirm("Are you sure you want to save changes?")) {
+            let login_id = document.getElementById("login_id").value;
+            let password = document.getElementById("password").value;
+            let nickname = document.getElementById("nickname").value;
+            let profile_image = document.getElementById("profile_image").value;
+            let learning_history =
+              document.getElementById("learning_history").value;
+            let total_learning_time = parseFloat(
+              document.getElementById("total_learning_time").value
+            );
+            let level = parseInt(document.getElementById("level").value);
+            let ranking_score = parseFloat(
+              document.getElementById("ranking_score").value
+            );
+            let subscription = document.getElementById("subscription").checked;
+            let ranking = parseInt(document.getElementById("ranking").value);
+            let attendance = parseInt(
+              document.getElementById("attendance").value
+            );
+
+            fetch("/api/user/update/{{user.id}}", {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                id: user_id,
+                login_id: login_id,
+                password: password,
+                nickname: nickname,
+                profile_image: profile_image,
+                learning_history: learning_history,
+                total_learning_time: total_learning_time,
+                level: level,
+                ranking_score: ranking_score,
+                subscription: subscription,
+                ranking: ranking,
+                attendance: attendance,
+              }),
+            }).then(() => {
+              window.location.href = "/api/user/list";
+            });
+          } else {
+            return;
+          }
+        });
+      };
+    </script>
+  </body>
+</html>

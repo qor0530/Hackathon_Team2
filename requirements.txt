@@ -1,3 +1,8 @@
 fastapi
 jinja2
 uvicorn[standard]
+sqlalchemy
+alembic
+python-multipart
+python-jose[cryptography]
+
