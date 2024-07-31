@@ -20,8 +20,8 @@ def create_user(db: Session, user_create: UserCreate):
                    password=user_create.password, nickname=user_create.nickname,
                    profile_image=user_create.profile_image, learning_history=user_create.learning_history,
                    total_learning_time=user_create.total_learning_time, level=user_create.level,
-                   ranking_score=user_create.ranking_score, subscription=user_create.subscription,
-                   ranking=user_create.ranking, attendance=user_create.attendance)
+                   exp=user_create.exp,
+                   subscription=user_create.subscription, attendance=user_create.attendance)
 
     db.add(db_User)
     db.commit()

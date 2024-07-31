@@ -4,6 +4,7 @@ from typing import Optional
 
 class UserBase(BaseModel):
     login_id: str
+    
     nickname: str
     profile_image: Optional[str] = None
     learning_history: Optional[str] = None
