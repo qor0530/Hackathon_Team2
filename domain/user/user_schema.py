@@ -11,7 +11,7 @@ class Token(BaseModel):
 
 class UserBase(BaseModel):
     login_id: str
-    password = str
+    password: str
     nickname: str
     profile_image: Optional[str] = None
     learning_history: Optional[str] = None
