@@ -4,4 +4,5 @@ uvicorn[standard]
 sqlalchemy
 alembic
 python-multipart
-"python-jose[cryptography]"
+python-jose[cryptography]
+
