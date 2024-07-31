@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <body>
+    <form id="login-form">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required />
+      <br />
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+      <br />
+      <button type="submit">Login</button>
+    </form>
+    <button id="logout-button">Logout</button>
+    <script>
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+
+          const response = await fetch("/api/user/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
+              username: username,
+              password: password,
+            }),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem("token", data.access_token);
+            console.log("Token stored:", data.access_token);
+          } else {
+            console.error("Login failed:", response.statusText);
+          }
+        });
+
+      document
+        .getElementById("logout-button")
+        .addEventListener("click", function () {
+          localStorage.removeItem("token");
+          console.log("Token removed");
+          window.location.href = "/login"; // 로그인 페이지로 리다이렉션
+        });
+    </script>
+  </body>
+</html>

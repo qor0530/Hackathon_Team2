@@ -84,7 +84,7 @@ def user_delete(user_id: int, db: Session = Depends(get_db)):  # user_id로 수�
 
 @router.get("/login", response_class=HTMLResponse)
 def login_html(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse("user_login.html", {"request": request})
 
 
 @router.post("/login", response_model=user_schema.Token)
@@ -109,30 +109,14 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
 
 @router.get("/logout", response_class=HTMLResponse)
 def logout_html(request: Request):
-    return templates.TemplateResponse("logout.html", {"request": request})
+    return templates.TemplateResponse("user_logout.html", {"request": request})
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 active_sessions = set()
 
 
-@router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("/logout")
 def logout(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
-    try:
-        credentials = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        login_id = credentials.get("sub")
-        if not login_id:
-            raise credentials_exception
-    except jwt.ExpiredSignatureError:
-        raise credentials_exception
-    except jwt.JWTError:
-        raise credentials_exception
-
-    active_sessions.discord(login_id)
-
-    return None
+    credentials = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    login_id = credentials.get("sub")
