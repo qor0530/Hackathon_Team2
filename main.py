@@ -53,5 +53,17 @@ async def quiz_main(request: Request):
 @app.get("/quiz", response_class=HTMLResponse)
 async def quiz(request: Request):
     return templates.TemplateResponse(request=request, name="quiz.html")
+
+@app.get("/study/chapter/1", response_class=HTMLResponse)
+async def quiz(request: Request):
+    return templates.TemplateResponse(request=request, name="studyChapter.html")
+
+@app.get("/study/write/1", response_class=HTMLResponse)
+async def quiz(request: Request):
+    return templates.TemplateResponse(request=request, name="studyWrite.html")
+
+@app.get("/study/situation/1", response_class=HTMLResponse)
+async def quiz(request: Request):
+    return templates.TemplateResponse(request=request, name="studySituation.html")
 # API 연결
 # (추후 개발)
