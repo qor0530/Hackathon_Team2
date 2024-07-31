@@ -1,4 +1,3 @@
-from domain.user.user_schema import UserCreate
 from api.models import User, Ranking
 from sqlalchemy.orm import Session
 from api.models import User
@@ -13,6 +12,10 @@ def get_user_list(db: Session):
 def get_user(db: Session, user_id: int):
     user = db.query(User).get(user_id)
     return user
+
+def get_user_login_id(db:Session, login_id: str):
+    return db.query(User).filter(User.login_id == login_id).first()
+    
 
 
 def create_user(db: Session, user_create: UserCreate):

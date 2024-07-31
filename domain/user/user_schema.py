@@ -1,15 +1,20 @@
 from pydantic import BaseModel, field_validator
 from typing import Optional
 
+class Token(BaseModel):
+    access_token: str
+    token_type:str
+    login_id: str
 
 class UserBase(BaseModel):
     login_id: str
-    
+    password = str
     nickname: str
     profile_image: Optional[str] = None
     learning_history: Optional[str] = None
     total_learning_time: Optional[float] = 0.0
     level: Optional[int] = 1
+    exp: Optional[int] = 0
     ranking_score: Optional[float] = 0.0
     subscription: Optional[bool] = False
     ranking: Optional[int] = 0
@@ -49,3 +54,4 @@ class UserUpdate(BaseModel):
 
 class UserDelete(BaseModel):
     id: int
+    
