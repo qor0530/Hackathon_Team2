@@ -28,11 +28,11 @@ def create_user(db: Session, user_create: UserCreate):
     db.refresh(db_User)
 
     # Get the most recent ranking
-    latest_ranking = db.query(Ranking).order_by(Ranking.id.desc()).first()
-    if latest_ranking:
-        latest_ranking.user_id = db_User.id
-        db.add(latest_ranking)
-        db.commit()
-        db.refresh(latest_ranking)
+    # latest_ranking = db.query(Ranking).order_by(Ranking.id.desc()).first()
+    # if latest_ranking:
+    #     latest_ranking.user_id = db_User.id
+    #     db.add(latest_ranking)
+    #     db.commit()
+    #     db.refresh(latest_ranking)
 
     return db_User

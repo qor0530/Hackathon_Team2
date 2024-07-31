@@ -16,6 +16,12 @@ class Quiz(Base):
     hint = Column(String, index=True)
     answer_explanation = Column(Text, index=True)
 
+user_voca_association = Table(
+    'user_voca_association',
+    Base.metadata,
+    Column('user_id', Integer, ForeignKey('users.id')),
+    Column('quiz_id', Integer, ForeignKey('voca.id'))
+)
 
 class User(Base):
     __tablename__ = 'users'
@@ -28,10 +34,11 @@ class User(Base):
     learning_history = Column(Text)
     total_learning_time = Column(Float, default=0.0)
     level = Column(Integer, default=1)
-    ranking_score = Column(Float, default=0.0)
+    exp = Column(Integer, default=1)
     subscription = Column(Boolean, default=False)
-    ranking = Column(Integer, default=0)
     attendance = Column(Integer, default=0)
+    voca_list = relationship('Voca', secondary= user_voca_association, back_populates='users')
+
 
 
 class Lecture(Base):
@@ -95,3 +102,11 @@ class Ranking(Base):
     point = Column(Integer, nullable=False)
 
     #user = relationship('User', back_populates='rankings')
+
+
+class Voca(Base):
+    __tablename__ = 'voca'
+    id = Column(Integer, primary_key=True, index=True)
+    word = Column(String, index=True)
+    users = relationship('User', secondary=user_voca_association, back_populates='voca_list')
+
