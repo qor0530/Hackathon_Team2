@@ -9,12 +9,11 @@ from domain.user import user_crud, user_schema
 from domain.user.user_crud import pwd_context
 from starlette import status
 from jose import jwt
-from fastapi.security import OAuth2PasswordRequestForm
-from datetime import timedelta, datetime, timezone
-
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from datetime import timedelta, datetime
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
-SECRET_KEY = "eb62d3ba1a68d88de78e4a125477cb4400395a8556f364a4eca553c978ec6c2b"
+SECRET_KEY = "0db75ab2ce9e9f2ebe7f231f01fdcb11bd94219f5c71194b537c70bf6d80a8f3"
 ALGORITHM = "HS256"
 
 router = APIRouter(
@@ -63,12 +62,12 @@ def user_create_html(request: Request):
 
 
 @router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
-def user_create(user_create: user_schema.UserCreate, db: Session = Depends(get_db)):
-    user = user_crud.get_existing_user(db, user_create=user_create)
+def user_create(_user_create: user_schema.UserCreate, db: Session = Depends(get_db)):
+    user = user_crud.get_existing_user(db, user_create=_user_create)
     if user:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT,
                             detail="이미 존재하는 사용자입니다.")
-    user_crud.create_user(db=db, user_create=user_create)
+    user_crud.create_user(db=db, user_create=_user_create)
 
 
 # user_id로 수정
@@ -90,23 +89,21 @@ def login_html(request: Request):
 
 @router.post("/login", response_model=user_schema.Token)
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    user = user_crud.get_user(db, form_data.username)
-
+    user = user_crud.get_user_login_id(db, form_data.username)
     if not user or not pwd_context.verify(form_data.password, user.password):
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="잘못된 사용자 이름 또는 비밀번호입니다.",
-            headers={"WWW-Authenticate": "Bearer"}
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or password", headers={"WWW-Authenticate": "Bearer"},
         )
     data = {
-        "sub": user.username,
-        "exp": datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        "sub": user.login_id,
+        "exp": datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
     }
     access_token = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
+
     return {
         "access_token": access_token,
         "token_type": "bearer",
-        "username": user.username
+        "login_id": user.login_id,
     }
 
 
@@ -115,8 +112,27 @@ def logout_html(request: Request):
     return templates.TemplateResponse("logout.html", {"request": request})
 
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+active_sessions = set()
+
+
 @router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
-def user_logout(response: Response, session_cookie: str = Cookie(None)):
-    if session_cookie:
-        response.delete_cookie(key="session_cookie_name")
-    return
+def logout(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        credentials = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        login_id = credentials.get("sub")
+        if not login_id:
+            raise credentials_exception
+    except jwt.ExpiredSignatureError:
+        raise credentials_exception
+    except jwt.JWTError:
+        raise credentials_exception
+
+    active_sessions.discord(login_id)
+
+    return None
