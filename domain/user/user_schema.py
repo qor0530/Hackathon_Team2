@@ -1,10 +1,13 @@
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, field_validator, EmailStr
+from pydantic_core.core_schema import FieldValidationInfo
 from typing import Optional
+
 
 class Token(BaseModel):
     access_token: str
-    token_type:str
+    token_type: str
     login_id: str
+
 
 class UserBase(BaseModel):
     login_id: str
@@ -54,4 +57,3 @@ class UserUpdate(BaseModel):
 
 class UserDelete(BaseModel):
     id: int
-    
