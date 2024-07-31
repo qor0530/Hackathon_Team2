@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Detail</title>
+  </head>
+  <body>
+    <h2>{{ user.login_id }}</h2>
+    <p>{{ user.password }}</p>
+    <p>{{ user.nickname }}</p>
+    <p>{{ user.profile_image }}</p>
+    <p>{{ user.learning_history }}</p>
+    <p>{{ user.total_learning_time }}</p>
+    <p>{{ user.level }}</p>
+    <p>{{ user.ranking_score }}</p>
+    <p>{{ user.subscription }}</p>
+    <p>{{ user.ranking }}</p>
+    <p>{{ user.attendance }}</p>
+
+    <button id="update">수정</button>
+    <button id="delete">삭제</button>
+
+    <script>
+      document.getElementById("update").addEventListener("click", () => {
+        window.location.href = "/api/user/update/{{ user.id }}";
+      });
+
+      document.getElementById("delete").addEventListener("click", () => {
+        fetch("/api/user/delete/{{ user.id }}", {
+          method: "DELETE",
+        }).then((response) => {
+          window.location.reload();
+          window.location.href = "/api/user/list";
+        });
+      });
+    </script>
+  </body>
+</html>

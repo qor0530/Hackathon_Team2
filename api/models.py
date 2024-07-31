@@ -94,4 +94,4 @@ class Ranking(Base):
     tier = Column(String, nullable=False)
     point = Column(Integer, nullable=False)
 
-    user = relationship('User', back_populates='rankings')
+    #user = relationship('User', back_populates='rankings')
