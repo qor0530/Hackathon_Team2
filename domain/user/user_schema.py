@@ -1,33 +1,39 @@
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, field_validator, EmailStr
+from pydantic_core.core_schema import FieldValidationInfo
 from typing import Optional
 
 
-class UserBase(BaseModel):
+class Token(BaseModel):
+    access_token: str
+    token_type: str
     login_id: str
+
+
+class UserCreate(BaseModel):
+    login_id: str
+    password1: str
+    password2: str
     nickname: str
     profile_image: Optional[str] = None
     learning_history: Optional[str] = None
     total_learning_time: Optional[float] = 0.0
     level: Optional[int] = 1
+    exp: Optional[int] = 0
     ranking_score: Optional[float] = 0.0
     subscription: Optional[bool] = False
     ranking: Optional[int] = 0
     attendance: Optional[int] = 0
 
-    @field_validator("login_id", "nickname")
+    @field_validator("login_id", "nickname", "password1", "password2")
     def not_empty(cls, v):
-        if not v:
-            raise ValueError("빈값이 입력됨")
+        if not v or not v.strip():
+            raise ValueError("입력되지 않은 항목이 있습니다.")
         return v
 
-
-class UserCreate(UserBase):
-    password: str
-
-    @field_validator("password")
-    def password_not_empty(cls, v):
-        if not v:
-            raise ValueError("비밀번호는 필수 입력입니다.")
+    @field_validator("password2")
+    def password_match(cls, v, info: FieldValidationInfo):
+        if 'password1' in info.data and v != info.data['password1']:
+            raise ValueError("비밀번호가 일치하지 않습니다.")
         return v
 
 
