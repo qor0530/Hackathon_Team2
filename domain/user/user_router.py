@@ -41,7 +41,7 @@ def user_update(user_id: int, gain_exp: int, db: Session = Depends(get_db)):  # 
     if not db_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="User not found")
-    user_crud.exp_edit(db=db, db_user=db_user, gain_exp=gain_exp)
+    user_crud.exp_edit(db=db, db_user=db_user, change_exp=gain_exp)
 
 
 @router.get("/list", response_class=HTMLResponse)
