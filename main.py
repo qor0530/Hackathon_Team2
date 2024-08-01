@@ -58,7 +58,12 @@ async def my_page(request: Request):
     return templates.TemplateResponse(request=request, name="signup.html")
 
 
-@ app.get("/ranking", response_class=HTMLResponse)
+@app.get("/test", response_class=HTMLResponse)
+async def my_page(request: Request):
+    return templates.TemplateResponse(request=request, name="test.html")
+
+
+@app.get("/ranking", response_class=HTMLResponse)
 async def my_page(request: Request):
     return templates.TemplateResponse(request=request, name="ranking.html")
 
@@ -68,22 +73,25 @@ async def dashboard(request: Request):
     return templates.TemplateResponse(request=request, name="dashboard.html")
 
 
-@ app.get("/quiz_main", response_class=HTMLResponse)
+@app.get("/quiz_main", response_class=HTMLResponse)
 async def quiz_main(request: Request):
     return templates.TemplateResponse(request=request, name="quiz_main.html")
 
 
-@ app.get("/quiz", response_class=HTMLResponse)
+@app.get("/quiz", response_class=HTMLResponse)
 async def quiz(request: Request):
     return templates.TemplateResponse(request=request, name="quiz.html")
+
 
 @app.get("/study/chapter/1", response_class=HTMLResponse)
 async def quiz(request: Request):
     return templates.TemplateResponse(request=request, name="studyChapter.html")
 
+
 @app.get("/study/write/1", response_class=HTMLResponse)
 async def quiz(request: Request):
     return templates.TemplateResponse(request=request, name="studyWrite.html")
+
 
 @app.get("/study/situation/1", response_class=HTMLResponse)
 async def quiz(request: Request):
