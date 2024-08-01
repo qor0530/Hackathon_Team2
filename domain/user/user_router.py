@@ -21,6 +21,8 @@ router = APIRouter(
 )
 
 templates = Jinja2Templates(directory="domain/user/templates")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+active_sessions = set()
 
 
 @router.get("/update/{user_id}", response_class=HTMLResponse)  # user_id로 수정
@@ -110,13 +112,3 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
 @router.get("/logout", response_class=HTMLResponse)
 def logout_html(request: Request):
     return templates.TemplateResponse("user_logout.html", {"request": request})
-
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-active_sessions = set()
-
-
-@router.post("/logout")
-def logout(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    credentials = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-    login_id = credentials.get("sub")

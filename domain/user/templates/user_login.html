@@ -6,6 +6,11 @@
     <title>Login</title>
   </head>
   <body>
+    <div id="user-info" style="display: none;">
+      <p>Welcome, <span id="user-name"></span>!</p>
+      <button id="logout-button">Logout</button>
+    </div>
+
     <form id="login-form">
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" required />
@@ -15,11 +20,38 @@
       <br />
       <button type="submit">Login</button>
     </form>
-    <button id="logout-button">Logout</button>
+    
     <script>
-      document
-        .getElementById("login-form")
-        .addEventListener("submit", async function (event) {
+      document.addEventListener("DOMContentLoaded", async function () {
+        const token = localStorage.getItem("token");
+        const loginForm = document.getElementById("login-form");
+        const userInfo = document.getElementById("user-info");
+
+        if (token) {
+          try {
+            const response = await fetch("/api/user/me", {
+              method: "GET",
+              headers: {
+                "Authorization": `Bearer ${token}`,
+              },
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              document.getElementById("user-name").textContent = data.username;
+              loginForm.style.display = "none";
+              userInfo.style.display = "block";
+            } else {
+              console.error("Failed to fetch user info:", response.statusText);
+              localStorage.removeItem("token");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            localStorage.removeItem("token");
+          }
+        }
+
+        document.getElementById("login-form").addEventListener("submit", async function (event) {
           event.preventDefault();
 
           const username = document.getElementById("username").value;
@@ -39,19 +71,21 @@
           if (response.ok) {
             const data = await response.json();
             localStorage.setItem("token", data.access_token);
-            console.log("Token stored:", data.access_token);
+            document.getElementById("user-name").textContent = data.login_id;
+            loginForm.style.display = "none";
+            userInfo.style.display = "block";
           } else {
             console.error("Login failed:", response.statusText);
           }
         });
 
-      document
-        .getElementById("logout-button")
-        .addEventListener("click", function () {
+        document.getElementById("logout-button").addEventListener("click", function () {
           localStorage.removeItem("token");
           console.log("Token removed");
-          window.location.href = "/login"; // 로그인 페이지로 리다이렉션
+          loginForm.style.display = "block";
+          userInfo.style.display = "none";
         });
+      });
     </script>
   </body>
 </html>
