@@ -36,12 +36,12 @@ def user_update_html(request: Request, user_id: int, db: Session = Depends(get_d
 
 # user_id로 수정
 @router.patch("/update/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
-def user_update(user_id: int, _user_update: user_schema.UserUpdate, db: Session = Depends(get_db)):  # user_id로 수정
+def user_update(user_id: int, gain_exp: int, db: Session = Depends(get_db)):  # user_id로 수정
     db_user = user_crud.get_user(db, user_id=user_id)  # user_id로 수정
     if not db_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="User not found")
-    user_crud.update_user(db=db, db_user=db_user, user_update=_user_update)
+    user_crud.exp_edit(db=db, db_user=db_user, gain_exp=gain_exp)
 
 
 @router.get("/list", response_class=HTMLResponse)

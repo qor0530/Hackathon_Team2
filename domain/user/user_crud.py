@@ -46,3 +46,10 @@ def create_user(db: Session, user_create: UserCreate):
     #     db.refresh(latest_ranking)
 
     return db_User
+
+def exp_edit(db: Session, db_user : User, exp: int):
+    #여기에 exp 수정 로직 추가
+    gain_exp = exp
+    db_user.exp += gain_exp
+    db.commit()
+    db.refresh(db_user)
