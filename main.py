@@ -63,12 +63,7 @@ async def my_page(request: Request):
     return templates.TemplateResponse(request=request, name="ranking.html")
 
 
-@ app.get("/dashboard", response_class=HTMLResponse)
-async def dashboard(request: Request):
-    return templates.TemplateResponse(request=request, name="dashboard.html")
-
-
-@ app.get("/quiz_main", response_class=HTMLResponse)
+@app.get("/quiz_main", response_class=HTMLResponse)
 async def quiz_main(request: Request):
     return templates.TemplateResponse(request=request, name="quiz_main.html")
 
