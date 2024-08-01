@@ -8,6 +8,14 @@
   <body>
     <div id="user-info" style="display: none;">
       <p>Welcome, <span id="user-name"></span>!</p>
+      <p>Nickname: <span id="user-nickname"></span></p>
+      <p>Profile Image: <span id="user-profile-image"></span></p>
+      <p>Learning History: <span id="user-learning-history"></span></p>
+      <p>Total Learning Time: <span id="user-total-learning-time"></span></p>
+      <p>Level: <span id="user-level"></span></p>
+      <p>Exp: <span id="user-exp"></span></p>
+      <p>Subscription: <span id="user-subscription"></span></p>
+      <p>Attendance: <span id="user-attendance"></span></p>
       <button id="logout-button">Logout</button>
     </div>
 
@@ -38,7 +46,15 @@
 
             if (response.ok) {
               const data = await response.json();
-              document.getElementById("user-name").textContent = data.username;
+              document.getElementById("user-name").textContent = data.login_id;
+              document.getElementById("user-nickname").textContent = data.nickname;
+              document.getElementById("user-profile-image").textContent = data.profile_image;
+              document.getElementById("user-learning-history").textContent = data.learning_history;
+              document.getElementById("user-total-learning-time").textContent = data.total_learning_time;
+              document.getElementById("user-level").textContent = data.level;
+              document.getElementById("user-exp").textContent = data.exp;
+              document.getElementById("user-subscription").textContent = data.subscription;
+              document.getElementById("user-attendance").textContent = data.attendance;
               loginForm.style.display = "none";
               userInfo.style.display = "block";
             } else {
@@ -49,6 +65,9 @@
             console.error("Error:", error);
             localStorage.removeItem("token");
           }
+        }
+        else {
+          console.log("No token found");
         }
 
         document.getElementById("login-form").addEventListener("submit", async function (event) {

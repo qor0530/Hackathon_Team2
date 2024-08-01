@@ -8,9 +8,10 @@ from domain.user import user_crud, user_schema
 
 from domain.user.user_crud import pwd_context
 from starlette import status
-from jose import jwt
+from jose import jwt, JWTError
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from datetime import timedelta, datetime
+
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
 SECRET_KEY = "0db75ab2ce9e9f2ebe7f231f01fdcb11bd94219f5c71194b537c70bf6d80a8f3"
@@ -112,3 +113,22 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
 @router.get("/logout", response_class=HTMLResponse)
 def logout_html(request: Request):
     return templates.TemplateResponse("user_logout.html", {"request": request})
+
+@router.get("/me", response_model=user_schema.User)
+def read_users_me(request: Request, db: Session = Depends(get_db)):
+    token = request.headers.get("Authorization")
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authorization header missing",
+        )
+
+    # Bearer 토큰 형식에서 실제 토큰 값만 추출
+    token = token.replace("Bearer ", "")
+    payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+    login_id: str = payload.get("sub")
+    user = user_crud.get_user_login_id(db, login_id)
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    
+    return user
