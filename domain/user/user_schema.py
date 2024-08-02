@@ -86,3 +86,7 @@ class UserUpdate(BaseModel):
 
 class UserDelete(BaseModel):
     id: int
+
+class vocaList(BaseModel):
+    user_id: int
+    quiz_id: int

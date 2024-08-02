@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status, HTTPException
 from fastapi import APIRouter, Depends, Request, status, HTTPException, Cookie, Response
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from sqlalchemy.orm import Session
 from config.database import get_db
 from fastapi.templating import Jinja2Templates
@@ -132,3 +132,17 @@ def read_users_me(request: Request, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     
     return user
+
+
+#####################
+## voca 관련 라우터 ##
+#####################
+
+@router.get("/voca/list/{user_id}", response_class=JSONResponse)
+def fetch_voca_list(request: Request, user_id:int, db: Session = Depends(get_db)):
+    voca_list = user_crud.get_voca_list(db, user_id)
+    return voca_list
+
+@router.post("/voca/add_quiz/{user_id}/{quiz_id}", response_class=JSONResponse)
+def add_quiz_to_voca(user_id: int, quiz_id: int, db: Session = Depends(get_db)):
+    return user_crud.add_quiz_to_user_voca(db, user_id, quiz_id)
