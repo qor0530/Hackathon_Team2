@@ -98,6 +98,26 @@ a:visited, a:link, a:active{
     font-size: 1.5rem;
     color: #fff;
 }
+.BtnWrap .LogOutBtn {
+    width: 160px;
+    height: 55px;
+    
+    background-color: #FF97AA;
+    border: 2px solid #FF97AA;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: 2rem;
+}
+.LogOutBtn p {
+    font-family: 'Pretendard-SemiBold';
+    font-size: 1.5rem;
+    color: #fff;
+}
+
 .Wrap {
     display: flex;
     flex-direction: row;   
