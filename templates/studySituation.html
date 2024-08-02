@@ -15,9 +15,9 @@
 </head>
 <body>
     {% include "header.html" %}
-    <div class="Wrap">
+    <div class="situationWrap">
         <h1>오늘의 <span>상황 이해</span> 학습</h1>
-        <p class="number"><span class="currentNum">1</span>/2</p>
+        <p class="number"><span class="currentNum">1 </span>/ 2</p>
         <hr>
         <div class="studyWrap">
             <h2 class="studyQuestion">다음 상황을 읽고, 두 사람의 대화의 이어질 내용으로 가장 적절한 것을 고르시오.</h2>
@@ -25,17 +25,17 @@
                 <div class="studyContentWrap">
                     <div class="studyContent">친구와 함께 학교 과제를 하던 중, 너와 친구는 서로 다른 의견을 가지고 논쟁이 일어났다. 너는 발표 자료에 그래프를 추가해야 한다고 생각하고, 친구는 텍스트만으로 충분하다고 주장한다.</div>
                     <div class="firstImg">
-                        <img/>
+                        <img src="{{ url_for('static', path='images/q1.svg') }}"/>
                         <div class="firstBalloon">
                             나는 그래프를 추가하는 것이 좋다고 생각해. <br/>
                             시각적으로 정보를 전달하면 더 효과적일 것 같아.
                         </div>
                     </div>
                     <div class="secondImg">
-                        <img/>
                         <div class="secondBalloon">
-                            맞아, 하지만 우리에게는 시간도 부족하고 자료를 정리하는 데 많은 시간이 걸릴 거야.
+                            맞아, 하지만 우리에게는 시간도 부족하고<br/>자료를 정리하는 데 많은 시간이 걸릴 거야.
                         </div>
+                        <img src="{{ url_for('static', path='images/q2.svg') }}"/>
                     </div>
                 </div>
                 <div class="studyAnswer">
@@ -46,7 +46,7 @@
                         <div class="option">4. 그러면 텍스트도 없애고 그래프만 추가하자.</div>
                         <div class="option">5. 그래프도 텍스트도 다 필요 없어. 간단하게 하자.</div>
                     </div>
-                    <button class="nextBtn">다음</button>
+                    <button class="Btn">제&emsp;출</button>
                 </div>
             </div>
         </div>
