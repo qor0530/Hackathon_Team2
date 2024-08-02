@@ -1,16 +1,19 @@
-from fastapi import APIRouter, Depends, status, HTTPException
-from fastapi import APIRouter, Depends, Request, status, HTTPException, Cookie, Response
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, status, HTTPException, Cookie, Response, Request
+from fastapi.responses import HTMLResponse, JSONResponse
 from sqlalchemy.orm import Session
 from config.database import get_db
 from fastapi.templating import Jinja2Templates
 from domain.user import user_crud, user_schema
-
 from domain.user.user_crud import pwd_context
 from starlette import status
-from jose import jwt
+from jose import jwt, JWTError
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from datetime import timedelta, datetime
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
 SECRET_KEY = "0db75ab2ce9e9f2ebe7f231f01fdcb11bd94219f5c71194b537c70bf6d80a8f3"
@@ -21,6 +24,8 @@ router = APIRouter(
 )
 
 templates = Jinja2Templates(directory="domain/user/templates")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+active_sessions = set()
 
 
 @router.get("/update/{user_id}", response_class=HTMLResponse)  # user_id로 수정
@@ -33,12 +38,12 @@ def user_update_html(request: Request, user_id: int, db: Session = Depends(get_d
 
 # user_id로 수정
 @router.patch("/update/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
-def user_update(user_id: int, _user_update: user_schema.UserUpdate, db: Session = Depends(get_db)):  # user_id로 수정
+def user_update(user_id: int, gain_exp: int, db: Session = Depends(get_db)):  # user_id로 수정
     db_user = user_crud.get_user(db, user_id=user_id)  # user_id로 수정
     if not db_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="User not found")
-    user_crud.update_user(db=db, db_user=db_user, user_update=_user_update)
+    user_crud.exp_edit(db=db, db_user=db_user, change_exp=gain_exp)
 
 
 @router.get("/list", response_class=HTMLResponse)
@@ -86,19 +91,21 @@ def user_delete(user_id: int, db: Session = Depends(get_db)):  # user_id로 수�
 def login_html(request: Request):
     return templates.TemplateResponse("user_login.html", {"request": request})
 
-
 @router.post("/login", response_model=user_schema.Token)
-def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+def login_for_access_token(response: Response, form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = user_crud.get_user_login_id(db, form_data.username)
     if not user or not pwd_context.verify(form_data.password, user.password):
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or password", headers={"WWW-Authenticate": "Bearer"},
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
         )
     data = {
         "sub": user.login_id,
         "exp": datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
     }
     access_token = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
+    response.set_cookie(key="access_token", value=f"Bearer {access_token}", httponly=False)
 
     return {
         "access_token": access_token,
@@ -106,17 +113,54 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
         "login_id": user.login_id,
     }
 
-
 @router.get("/logout", response_class=HTMLResponse)
-def logout_html(request: Request):
-    return templates.TemplateResponse("user_logout.html", {"request": request})
+def logout_html(request: Request, response: Response):
+    response.delete_cookie(key="access_token")
+    return None
 
+@router.get("/me", response_model=user_schema.User)
+def read_users_me(request: Request, db: Session = Depends(get_db)):
+    token = request.cookies.get("access_token")
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authorization cookie missing",
+        )
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-active_sessions = set()
+    token = token.replace("Bearer ", "")
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        login_id: str = payload.get("sub")
+        if login_id is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token",
+            )
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+        )
 
+    user = user_crud.get_user_login_id(db, login_id)
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
-@router.post("/logout")
-def logout(db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)):
-    credentials = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-    login_id = credentials.get("sub")
+    return user
+
+#####################
+## voca 관련 라우터 ##
+#####################
+
+@router.get("/voca/list/{user_id}", response_class=JSONResponse)
+def fetch_voca_list(request: Request, user_id:int, db: Session = Depends(get_db)):
+    voca_list = user_crud.get_voca_list(db, user_id)
+    return voca_list
+
+@router.post("/voca/add_quiz/{user_id}/{quiz_id}", response_class=JSONResponse)
+def add_quiz_to_voca(user_id: int, quiz_id: int, db: Session = Depends(get_db)):
+    return user_crud.add_quiz_to_user_voca(db, user_id, quiz_id)
+
+@router.delete("/voca/delete/{user_id}/{quiz_id}", response_class=JSONResponse)
+def delete_quiz(user_id: int, quiz_id: int, db: Session = Depends(get_db)):
+    return user_crud.delete_quiz_from_user_voca(db, user_id, quiz_id)
