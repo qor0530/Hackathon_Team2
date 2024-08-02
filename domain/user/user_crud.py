@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from api.models import User
 from .user_schema import UserCreate, UserUpdate
 from passlib.context import CryptContext
+from fastapi import HTTPException
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -101,3 +102,23 @@ def add_quiz_to_user_voca(db: Session, user_id: int, quiz_id: int):
     db.commit()
 
     return {"message": "Quiz added to user voca list"}
+
+
+def delete_quiz_from_user_voca(db: Session, user_id: int, quiz_id: int):
+    # user_voca_association 테이블에서 특정 유저와 quiz_id의 레코드 삭제
+    association = db.query(user_voca_association).filter(
+        user_voca_association.c.user_id == user_id,
+        user_voca_association.c.quiz_id == quiz_id
+    ).first()
+    
+    if not association:
+        raise HTTPException(status_code=404, detail="Association not found")
+
+    db.query(user_voca_association).filter(
+        user_voca_association.c.user_id == user_id,
+        user_voca_association.c.quiz_id == quiz_id
+    ).delete()
+    
+    db.commit()
+
+    return {"message": "Quiz deleted from user voca list"}
