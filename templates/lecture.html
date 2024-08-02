@@ -3,28 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>환영합니다</title>
+    <title>Lecture Main</title>
 
     <!-- CSS 연결 -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', path='css/hanb1.css') }}"
+      href="{{ url_for('static', path='css/lecture.css') }}"
     />
 
     <!-------------------------------------------------------------------------->
 
     <!-- Javascript 연결 -->
     <script
-      src="{{ url_for('static', path='javascript/hanb1.js') }}"
+      src="{{ url_for('static', path='javascript/lecture.js') }}"
       defer
     ></script>
 
     <!-------------------------------------------------------------------------->
 </head>
 <body>
+  {% include "header.html" %}
     <div class="container">
-        <header>
-        </header>
         <main>
           <div class="content">
             <div class="user-info">
@@ -40,15 +39,12 @@
             </div>
             <div class="quizzes">
               <div class="quiz-box">
-                <div class="quiz-content">난이도 쉬움</div>
                 <div class="quiz-title">오늘의 주제 선택하러 가기</div>
               </div>
               <div class="quiz-box">
-                <div class="quiz-content">난이도 중간</div>
                 <div class="quiz-title">오늘의 작문 학습하러 가기</div>
               </div>
               <div class="quiz-box">
-                <div class="quiz-content">난이도 쉬움</div>
                 <div class="quiz-title">오늘의 상황 이해 학습하러 가기</div>
               </div>
             </div>
