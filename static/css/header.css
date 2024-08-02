@@ -15,6 +15,9 @@ header {
 
     box-sizing: border-box;
 }
+a {
+    text-decoration: none;
+}
 
 .LogoWrap {
     width:150px;
@@ -39,11 +42,18 @@ header {
     display: flex;
     flex-direction: row;
 }
-.MenuBar .Menu span {
+.MenuBar .Menu a {
     margin-left: 5rem;
 
     font-family: 'Pretendard-Medium';
     font-size: 1.75rem;
+}
+a:visited, a:link, a:active{
+    color: #000;
+}
+
+.MenuBar .Menu a:hover {
+    color: #FF5881;
 }
 .BtnWrap {
     display: flex;
@@ -60,6 +70,8 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    cursor: pointer;
 }
 .SignUpBtn p {
     font-family: 'Pretendard-SemiBold';
@@ -79,6 +91,7 @@ header {
     align-items: center;
 
     margin-left: 2rem;
+    cursor: pointer;
 }
 .SignInBtn p {
     font-family: 'Pretendard-SemiBold';
