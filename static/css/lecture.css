@@ -110,6 +110,7 @@ main {
   width: 100%;
   max-width: 1200px;
   padding-left: 20px;
+  margin-top: 200px;
 }
 
 .user-info {
@@ -119,9 +120,9 @@ main {
 }
 
 .user-info img {
-  width: 80px;
-  height: 80px;
-  border-radius: 5%;
+  width: 150px;
+  height: 150px;
+  border-radius: 18%;
   margin-right: 20px;
 }
 
@@ -147,7 +148,8 @@ main {
 
 .quizzes {
   display: flex;
-  justify-content: flex-start; /* 왼쪽 정렬 */
+  justify-content: flex-start;
+  margin-top: 50px;
   gap: 20px;
   width: 100%;
 }
@@ -156,7 +158,7 @@ main {
   width: 380px;
   height: 400px;
   background-color: #fff;
-  border: 4px solid #ffc7d4;
+  border: 4px solid #FFC7D4;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -167,6 +169,35 @@ main {
   transition: background-color 0.3s;
   box-sizing: border-box;
   border-radius: 15px;
+}
+
+.quiz-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #ffc7d4;
+  width: 100%;
+  padding: 10px 0;
+  position: relative;
+  }
+
+.quiz-small-title1, .quiz-small-title2, .quiz-small-title3 {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 10px;
+  font-size: 18px;
+  border-radius: 50px;
+  background-color: #ffffff;
+  text-align: center;
+  width: 130px;
+  height: 34px;
+  font-family: "Pretendard-Medium";
+  line-height: 34px;
+  align-items: center;
+  justify-content: center;
 }
 
 .quiz-title {
