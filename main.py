@@ -5,6 +5,8 @@ from fastapi.templating import Jinja2Templates
 
 from starlette.middleware.cors import CORSMiddleware
 
+from config.database import init_db
+
 from domain.quiz import quiz_router
 from domain.lecture import lecture_router
 from domain.user import user_router
@@ -31,6 +33,10 @@ app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 # templates 폴더 연결
 templates = Jinja2Templates(directory="templates")
 
+
+@app.on_event("startup")
+def on_startup():
+    init_db()
 
 # HTML 연결
 @ app.get("/", response_class=HTMLResponse)

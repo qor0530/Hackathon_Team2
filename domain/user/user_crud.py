@@ -55,6 +55,9 @@ def exp_edit(db: Session, db_user: User, change_exp: int):
     db.commit()
     db.refresh(db_user)
 
+# user_crud.py
+def get_login_ids(db: Session):
+    return db.query(User.login_id).all()
 
 #####################
 ## voca 관련 라우터 ##
@@ -122,3 +125,5 @@ def delete_quiz_from_user_voca(db: Session, user_id: int, quiz_id: int):
     db.commit()
 
     return {"message": "Quiz deleted from user voca list"}
+
+

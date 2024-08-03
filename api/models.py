@@ -1,8 +1,8 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, Boolean, Float, event
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, Boolean, Float, event, Enum as SqlEnum, MetaData
 from sqlalchemy.orm import relationship
 from sqlalchemy import *
 from config.database import Base
-
+import enum
 
 
 class Quiz(Base):
@@ -110,16 +110,25 @@ class Test(Base):
     purpose = Column(String, index=True)
     theme = Column(Text)
 
+metadata = MetaData()
+
+class Tier(enum.Enum):
+    iron = "iron"
+    bronze = "bronze"
+    silver = "silver"
+    gold = "gold"
+    platinum = "platinum"
+    emerald = "emerald"
+    diamond = "diamond"
+    master = "master"
 
 class Ranking(Base):
-    __tablename__ = 'rankings'
-
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
-    tier = Column(String, nullable=False)
-    point = Column(Integer, nullable=False)
-
-    # user = relationship('User', back_populates='rankings')
+    __tablename__ = "rankings"
+    __table_args__ = {'extend_existing': True}
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, index=True)
+    score = Column(Integer)
+    tier = Column(SqlEnum(Tier), default=Tier.iron)
 
 
 class Voca(Base):
