@@ -47,7 +47,8 @@ class UserCreate(BaseModel):
     password2: str
     nickname: str
     profile_image: Optional[str] = None
-    learning_history: Optional[str] = None
+    quiz_learning_history: Optional[str] = None
+    lecture_learning_history : Optional[str] = None
     total_learning_time: Optional[float] = 0.0
     level: Optional[int] = 1
     exp: Optional[int] = 0

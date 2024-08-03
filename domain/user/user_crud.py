@@ -29,7 +29,8 @@ def get_user_login_id(db: Session, login_id: str):
 def create_user(db: Session, user_create: UserCreate):
     db_User = User(login_id=user_create.login_id,
                    password=pwd_context.hash(user_create.password1), nickname=user_create.nickname,
-                   profile_image=user_create.profile_image, learning_history=user_create.learning_history,
+                   profile_image=user_create.profile_image, quiz_learning_history=user_create.quiz_learning_history,
+                   lecture_learning_history=user_create.lecture_learning_history,    
                    total_learning_time=user_create.total_learning_time, level=user_create.level,
                    exp=user_create.exp,
                    subscription=user_create.subscription, attendance=user_create.attendance)
