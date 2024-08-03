@@ -26,6 +26,7 @@
             const signUpBtn = document.querySelector(".SignUpBtn");
             const signInBtn = document.querySelector(".SignInBtn");
             const btnWrap = document.querySelector(".BtnWrap");
+            const logo = document.getElementsByClassName('LogoWrap');
 
             if (token) {
                 try {
@@ -48,12 +49,15 @@
                         `;
                         btnWrap.appendChild(userMenu);
 
+                        logo[0].href = '/dashboard';
+                        
                         document.getElementById("logout-button").addEventListener("click", async function () {
                             await fetch("/api/user/logout", {
                                 method: "GET",
                                 credentials: "same-origin",
                             });
-                            location.reload();
+                            window.location.href = "/"; // 로그인 후 메인 페이지로 이동
+                            
                         });
                     } else {
                         console.error("Failed to fetch user info:", response.statusText);
