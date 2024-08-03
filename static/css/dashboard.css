@@ -1,6 +1,8 @@
 body {
     background: url('../images/bg.svg');
 
+    width: 100%;
+
     overflow: hidden;
 }
 .DashWrap {

@@ -22,53 +22,54 @@
   </div>
   <script>
     document.addEventListener("DOMContentLoaded", async function () {
-      const token = document.cookie;
-      const signUpBtn = document.querySelector(".SignUpBtn");
-      const signInBtn = document.querySelector(".SignInBtn");
-      const btnWrap = document.querySelector(".BtnWrap");
+        const token = document.cookie;
+        const signUpBtn = document.querySelector(".SignUpBtn");
+        const signInBtn = document.querySelector(".SignInBtn");
+        const btnWrap = document.querySelector(".BtnWrap");
+        const logo = document.getElementsByClassName('LogoWrap');
+        if (token) {
+            try {
+            const response = await fetch("/api/user/me", {
+                method: "GET",
+                headers: {
+                Authorization: token, // Bearer를 포함한 전체 토큰 값
+                },
+            });
 
-      if (token) {
-        try {
-          const response = await fetch("/api/user/me", {
-            method: "GET",
-            headers: {
-              Authorization: token, // Bearer를 포함한 전체 토큰 값
-            },
-          });
+            if (response.ok) {
+                const data = await response.json();
+                signUpBtn.style.display = "none";
+                signInBtn.style.display = "none";
 
-          if (response.ok) {
-            const data = await response.json();
-            signUpBtn.style.display = "none";
-            signInBtn.style.display = "none";
+                const userMenu = document.createElement("div");
+                userMenu.classList.add("UserMenu");
+                userMenu.innerHTML = `
+                                <button id="logout-button" class="LogOutBtn"> <p>로그아웃</p></button>
+                            `;
+                btnWrap.appendChild(userMenu);
 
-            const userMenu = document.createElement("div");
-            userMenu.classList.add("UserMenu");
-            userMenu.innerHTML = `
-                            <button id="logout-button" class="LogOutBtn"> <p>로그아웃</p></button>
-                        `;
-            btnWrap.appendChild(userMenu);
-
-            document
-              .getElementById("logout-button")
-              .addEventListener("click", async function () {
-                await fetch("/api/user/logout", {
-                  method: "GET",
-                  credentials: "same-origin",
+                logo[0].href = '/dashboard';
+                
+                document.getElementById("logout-button").addEventListener("click", async function () {
+                    await fetch("/api/user/logout", {
+                        method: "GET",
+                        credentials: "same-origin",
+                    });
+                    window.location.href = "/"; // 로그인 후 메인 페이지로 이동
+                    
                 });
-                window.location.href = "/"; // 로그인 후 메인 페이지로 이동
-              });
-          } else {
-            console.error("Failed to fetch user info:", response.statusText);
-          }
-        } catch (error) {
-          console.error("Error:", error);
+            } else {
+                console.error("Failed to fetch user info:", response.statusText);
+            }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        } else {
+            console.log("토큰 못찾음.", token);
         }
-      } else {
-        console.log("토큰 못찾음.", token);
-      }
     });
     console.log("Document cookies:", document.cookie);
-  </script>
+    </script>
 </header>
 <link rel="stylesheet" href="{{ url_for('static', path='css/reset.css') }}" />
 <link rel="stylesheet" href="{{ url_for('static', path='css/header.css') }}" />
