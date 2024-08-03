@@ -69,3 +69,10 @@ def read_my_tier(request: Request, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User tier not found")
 
     return {"tier": tier}
+
+@router.get("/user/{user_id}/nickname")
+def read_user_nickname(user_id: int, db: Session = Depends(get_db)):
+    user = user_crud.get_user(db, user_id)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    return {"nickname": user.nickname}
