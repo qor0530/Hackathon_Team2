@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
       if (response.ok) {
           const data = await response.json();
           console.log("Token stored in cookie");  // 토큰이 쿠키에 저장됨을 확인
-          window.location.href = "/";  // 로그인 후 메인 페이지로 이동
+          window.location.href = "/dashboard";  // 로그인 후 메인 페이지로 이동
       } else {
           console.error("Login failed:", response.statusText);
           alert("로그인 실패: 아이디 또는 비밀번호를 확인하세요.");

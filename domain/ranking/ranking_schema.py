@@ -1,22 +1,20 @@
-from pydantic import BaseModel
+from sqlalchemy import Column, Integer, Enum as SqlEnum
+from config.database import Base
+import enum
 
+class Tier(enum.Enum):
+    iron = "iron"
+    bronze = "bronze"
+    silver = "silver"
+    gold = "gold"
+    platinum = "platinum"
+    emerald = "emerald"
+    diamond = "diamond"
+    master = "master"
 
-class RankingBase(BaseModel):
-    user_id: int
-    tier: str
-    score: float
-
-
-class RankingCreate(RankingBase):
-    pass
-
-
-class RankingUpdate(RankingBase):
-    pass
-
-
-class Ranking(RankingBase):
-    id: int
-
-    class Config:
-        orm_mode = True
+class Ranking(Base):
+    __tablename__ = "rankings"
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, index=True)
+    score = Column(Integer)
+    tier = Column(SqlEnum(Tier), default=Tier.iron)

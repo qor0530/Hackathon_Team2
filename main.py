@@ -5,6 +5,8 @@ from fastapi.templating import Jinja2Templates
 
 from starlette.middleware.cors import CORSMiddleware
 
+from config.database import init_db
+
 from domain.quiz import quiz_router
 from domain.lecture import lecture_router
 from domain.user import user_router
@@ -31,6 +33,10 @@ app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 # templates 폴더 연결
 templates = Jinja2Templates(directory="templates")
 
+
+@app.on_event("startup")
+def on_startup():
+    init_db()
 
 # HTML 연결
 @ app.get("/", response_class=HTMLResponse)
@@ -77,19 +83,20 @@ async def quiz_main(request: Request):
 async def quiz(request: Request):
     return templates.TemplateResponse(request=request, name="quiz.html")
 
+@app.get("/lecture", response_class=HTMLResponse)
+async def lecture(request: Request):
+    return templates.TemplateResponse(request=request, name="lecture.html")
 
-@app.get("/study/chapter/1", response_class=HTMLResponse)
-async def quiz(request: Request):
-    return templates.TemplateResponse(request=request, name="studyChapter.html")
+@app.get("/lecture/subject", response_class=HTMLResponse)
+async def subject_select(request: Request):
+    return templates.TemplateResponse(request=request, name="subjectSelect.html")
 
-
-@app.get("/study/write/1", response_class=HTMLResponse)
-async def quiz(request: Request):
+@app.get("/lecture/write/1", response_class=HTMLResponse)
+async def write(request: Request):
     return templates.TemplateResponse(request=request, name="studyWrite.html")
 
-
-@app.get("/study/situation/1", response_class=HTMLResponse)
-async def quiz(request: Request):
+@app.get("/lecture/situation/1", response_class=HTMLResponse)
+async def situation(request: Request):
     return templates.TemplateResponse(request=request, name="studySituation.html")
 # API 연결
 # (추후 개발)

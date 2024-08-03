@@ -10,6 +10,7 @@ from jose import jwt, JWTError
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from datetime import timedelta, datetime
 from passlib.context import CryptContext
+from typing import List
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -51,6 +52,10 @@ def user_list_html(request: Request, db: Session = Depends(get_db)):
     user_list = user_crud.get_user_list(db)
     return templates.TemplateResponse("user_list.html", {"request": request, "user_list": user_list})
 
+@router.get("/login_ids", response_model=List[str])
+def get_login_ids(db: Session = Depends(get_db)):
+    login_ids = user_crud.get_login_ids(db)
+    return [str(login_id[0]) for login_id in login_ids]
 
 @router.get("/detail/{user_id}", response_class=HTMLResponse)  # user_id로 수정
 def user_detail_html(request: Request, user_id: int, db: Session = Depends(get_db)):  # user_id로 수정

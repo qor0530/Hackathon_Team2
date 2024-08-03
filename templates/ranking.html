@@ -1,112 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', path='css/reset.css') }}"
-    />
-    <!-------------------------------------------------------------------------->
-
-    <!-- CSS 연결 -->
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', path='css/ranking.css') }}"
-    />
-
-    <!-------------------------------------------------------------------------->
-
-    <!-- Javascript 연결 -->
-    <script
-      src="{{ url_for('static', path='javascript/ranking.js') }}"
-      defer
-    ></script>
-
-    <!-------------------------------------------------------------------------->
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranking</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/ranking.css') }}">
     <style>
-      body {
-        background-image: url("{{ url_for("static", path="/images/bg3.svg") }}"); /* 배경 이미지 경로 */
-        background-size: cover; /* 이미지 크기를 화면에 맞춤 */
-        background-position: center; /* 이미지를 중앙에 배치 */
-        background-repeat: no-repeat; /* 이미지 반복 안 함 */
-        text-align: center;
-      }
-      .tier {
-        background-image: url("{{ url_for("static", path="/images/emerald.svg") }}"); /* 배경 이미지 경로 */
-        background-size: cover; /* 이미지 크기를 화면에 맞춤 */
-        background-position: center; /* 이미지를 중앙에 배치 */
-        background-repeat: no-repeat; /* 이미지 반복 안 함 */
-      }
-      #info-mark {
-        background-image: url("{{ url_for("static", path="/images/info-mark.svg") }}"); /* 배경 이미지 경로 */
-        background-size: cover; /* 이미지 크기를 화면에 맞춤 */
-        background-position: center; /* 이미지를 중앙에 배치 */
-        background-repeat: no-repeat; /* 이미지 반복 안 함 */
-        text-align: center;
-        width: 36px;
-        height: 36px;
-        cursor: pointer;
-        margin: 13px;
-      }
-      .ranking .profile {
-        background-image: url("{{ url_for("static", path="/images/gnu.png") }}"); /* 배경 이미지 경로 */
-        background-size: cover; /* 이미지 크기를 화면에 맞춤 */
-        background-position: center; /* 이미지를 중앙에 배치 */
-        background-repeat: no-repeat; /* 이미지 반복 안 함 */
-      }
+        body {
+            background-image: url("{{ url_for('static', path='/images/bg3.svg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: center;
+        }
+        #info-mark {
+            background-image: url("{{ url_for('static', path='/images/info-mark.svg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            margin: 13px;
+        }
+        .ranking .profile {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     {% include "header.html" %}
     <div id="empty-box"></div>
-    <div id="tier-list">
-      <div class="tier"></div>
-      <div class="tier"></div>
-      <div class="tier"></div>
-      <div class="tier"></div>
-      <div class="tier"></div>
-    </div>
+    <div id="tier-list"></div>
     <div id="info">
-      <div id="tier-idx">에메랄드 티어</div>
-      <div id="info-mark"></div>
-      <div id="timer">남은 시간: 5일 3시간 8분</div>
+        <div id="tier-idx">티어 정보</div>
+        <div id="info-mark"></div>
+        <div id="timer">남은 시간: <span id="time-remaining"></span></div>
     </div>
     <div id="scroll-box">
-      <div class="container">
-        <div class="ranking">
-          <div class="position">1</div>
-          <div class="profile"></div>
-          <div class="name">지식 갈증 해소자</div>
-          <div class="points">11000pt</div>
+        <div class="container" id="ranking-container">
+            <!-- 사용자 랭킹이 여기에 동적으로 추가됩니다. -->
         </div>
-        <div class="ranking">
-          <div class="position">2</div>
-          <div class="profile"></div>
-          <div class="name">지식 갈증 해소자</div>
-          <div class="points">11000pt</div>
-        </div>
-        <div class="ranking">
-          <div class="position">3</div>
-          <div class="profile"></div>
-          <div class="name">지식 갈증 해소자</div>
-          <div class="points">11000pt</div>
-        </div>
-        <div class="ranking">
-          <div class="position">4</div>
-          <div class="profile"></div>
-          <div class="name">지식 갈증 해소자</div>
-          <div class="points">11000pt</div>
-        </div>
-        <div class="ranking">
-          <div class="position">4</div>
-          <div class="profile"></div>
-          <div class="name">지식 갈증 해소자</div>
-          <div class="points">11000pt</div>
-        </div>
-      </div>
-    </div>
-  </body>
+    </div>    
+    <script>
+        const tierOrder = [
+            "iron", "bronze", "silver", "gold",
+            "platinum", "emerald", "diamond", "master"
+        ];
+
+        function getNextSundayEvening() {
+            const now = new Date();
+            const nextSunday = new Date(now);
+            nextSunday.setDate(now.getDate() + (7 - now.getDay()) % 7);
+            nextSunday.setHours(18, 0, 0, 0);
+            return nextSunday;
+        }
+
+        function updateTimeRemaining() {
+            const now = new Date();
+            const nextSundayEvening = getNextSundayEvening();
+            const timeDifference = nextSundayEvening - now;
+
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById("time-remaining").innerText = `${days}일 ${hours}시간 ${minutes}분`;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const rankingContainer = document.getElementById("ranking-container");
+            if (!rankingContainer) {
+                console.error("Ranking container not found!");
+                return;
+            }
+
+            // Update the time remaining every second
+            updateTimeRemaining();
+            setInterval(updateTimeRemaining, 10000);
+
+            // Fetch current user info
+            let currentUserId;
+            fetch("/api/user/me")
+                .then(response => response.json())
+                .then(user => {
+                    currentUserId = user.id;
+                    return fetch(`/api/ranking/me/tier`);
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("User Tier Data:", data); // 디버깅
+                    const tier = data.tier; // 현재 사용자의 티어를 가져옵니다.
+                    document.getElementById("tier-idx").innerText = tier + " 티어"; // 티어 정보를 표시합니다.
+
+                    const tierIndex = tierOrder.indexOf(tier.toLowerCase());
+                    const tierList = document.getElementById("tier-list");
+                    tierList.innerHTML = ""; // 기존 내용을 지웁니다.
+
+                    const addTierImage = (tierName) => {
+                        const tierDiv = document.createElement("div");
+                        tierDiv.classList.add("tier");
+                        if (tierName) {
+                            tierDiv.style.backgroundImage = `url('/static/images/${tierName}.png')`;
+                        } else {
+                            tierDiv.style.backgroundImage = `url('/static/images/empty.png')`;
+                        }
+                        tierList.appendChild(tierDiv);
+                    };
+
+                    // 상위 2티어
+                    addTierImage(tierIndex >= 2 ? tierOrder[tierIndex - 2] : null);
+                    addTierImage(tierIndex >= 1 ? tierOrder[tierIndex - 1] : null);
+
+                    // 현재 티어
+                    addTierImage(tier);
+
+                    // 하위 2티어
+                    addTierImage(tierIndex < tierOrder.length - 1 ? tierOrder[tierIndex + 1] : null);
+                    addTierImage(tierIndex < tierOrder.length - 2 ? tierOrder[tierIndex + 2] : null);
+
+                    return fetch(`/api/ranking/tier/${tier}`);
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Tier Users Data:", data); // 디버깅
+                    rankingContainer.innerHTML = ""; // 기존 내용을 지웁니다.
+
+                    // 모든 사용자 닉네임을 가져와서 랭킹을 표시
+                    const nicknamePromises = data.map(user =>
+                        fetch(`/api/ranking/user/${user.user_id}/nickname`)
+                            .then(response => response.json())
+                            .then(nicknameData => {
+                                console.log("Nickname Data for user_id", user.user_id, ":", nicknameData); // 디버깅
+                                return {
+                                    ...user,
+                                    nickname: nicknameData.nickname
+                                };
+                            })
+                    );
+
+                    return Promise.all(nicknamePromises);
+                })
+                .then(usersWithNicknames => {
+                    console.log("Users with Nicknames:", usersWithNicknames); // 디버깅
+                    usersWithNicknames.forEach((user, index) => {
+                        const userDiv = document.createElement("div");
+                        userDiv.classList.add("ranking");
+                        if (user.user_id === currentUserId) {
+                            userDiv.classList.add("current-user");
+                        }
+                        userDiv.innerHTML = `
+                            <div class="position">${index + 1}</div>
+                            <div class="profile" style="background-image: url('/static/images/gnu.png');"></div>
+                            <div class="name">${user.nickname}</div>
+                            <div class="points">${user.score}pt</div>
+                        `;
+                        console.log("Appending userDiv:", userDiv); // 디버깅
+                        rankingContainer.appendChild(userDiv);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        });
+    </script>
+</body>
 </html>

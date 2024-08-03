@@ -1,22 +1,23 @@
 <header>
-  <div class="LogoWrap">
-    <p>더 리터</p>
-  </div>
-  <div class="Wrap">
-    <div class="MenuBar">
-      <div class="Menu">
-        <span>학습하기</span>
-        <span>퀴즈풀기</span>
-        <span onclick="location.href='/ranking';">랭킹확인</span>
-      </div>
-    </div>
-    <div class="BtnWrap">
-      <div class="SignUpBtn" onclick="location.href='/signup';">
-        <p>지금 가입</p>
-      </div>
-      <div class="SignInBtn" onclick="location.href='/login';">
-        <p>로그인</p>
-      </div>
+    <a class="LogoWrap" href="/">
+        <p>더 리터</p>
+    </a>
+    <div class="Wrap">
+        <div class="MenuBar">
+            <div class="Menu">
+                <a href='/lecture'>학습하기</a>
+                <a href='/quiz_main'>퀴즈풀기</a>
+                <a href='/ranking'>랭킹확인</a>
+            </div>
+        </div>
+        <div class="BtnWrap">
+            <div class="SignUpBtn" onclick="location.href='/signup';">
+                <p>지금 가입</p>
+            </div>
+            <div class="SignInBtn" onclick="location.href='/login';">
+                <p>로그인</p>
+            </div>
+        </div>
     </div>
   </div>
   <script>
@@ -25,7 +26,7 @@
       const signUpBtn = document.querySelector(".SignUpBtn");
       const signInBtn = document.querySelector(".SignInBtn");
       const btnWrap = document.querySelector(".BtnWrap");
-
+      const logowrap = document.querySelector(".LogoWrap");
       if (token) {
         try {
           const response = await fetch("/api/user/me", {
@@ -36,6 +37,7 @@
           });
 
           if (response.ok) {
+            logowrap.href = "/dashboard";
             const data = await response.json();
             signUpBtn.style.display = "none";
             signInBtn.style.display = "none";

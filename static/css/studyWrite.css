@@ -97,7 +97,7 @@ hr {
     outline: 2px solid #FF97AA;
 }
 /*완료 버튼만 찐한 핑크*/
-.nextBtn {
+.Btn {
     width: 150px;
     height: 60px;
 
@@ -115,7 +115,7 @@ hr {
     position: absolute;
     right: 4rem;
 }
-.nextBtn:hover {
+.Btn:hover {
     background-color: #ff84a2;
 
     transition: all .2s ease-in-out;
