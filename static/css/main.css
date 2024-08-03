@@ -84,7 +84,7 @@ body {
   background-image: url('../images/bg.svg');
 }
 #section1 {
-  background-image: url('../images/bg2.svg');
+  background-image: url('../images/bg.svg');
 }
 
 #fp-nav ul li a span, .fp-slidesNav ul li a span{
@@ -140,6 +140,9 @@ body {
 }
 
 /*section1*/
+#section1 {
+  overflow: hidden;
+}
 #section1 .info {
   margin-top: 2rem;
 }
@@ -161,6 +164,9 @@ body {
 
   margin-bottom: 4rem;
 }
+#section1 h3 span {
+  color:#FF5881;
+}
 
 /*구독서비스홍보*/
 #section1 .featureWrap {
@@ -170,12 +176,19 @@ body {
 }
 .info .featureWrap:nth-child(3) {
   margin-left: 20rem;
+
+  animation: up 3s ease-in-out infinite;
+  animation-delay: 0s;
 }
 .info .featureWrap:nth-child(4) {
   margin-left: 60rem;
+  animation: up 3s ease-in-out infinite;
+  animation-delay: .5s;
 }
 .info .featureWrap:nth-child(5) {
   margin-left: 30rem;
+  animation: up 3s ease-in-out infinite;
+  animation-delay: 1s;
 }
 
 #section1 .featureWrap .balloon {
@@ -197,4 +210,45 @@ body {
   color: #4F4F4F;
 
   line-height: 2.5rem;
+}
+
+
+.icon1 {
+  width: 150px;
+  height: auto;
+  position: absolute;
+  z-index: 999;
+
+  top:35%;
+  right: 35%;
+}
+
+.icon2 {
+  width: 150px;
+  height: auto;
+  position: absolute;
+  z-index: 999;
+
+  top: 52%;
+  left: 35%;
+}
+.icon3 {
+  width: 150px;
+  height: auto;
+  position: absolute;
+  z-index: 999;
+
+  bottom:16%;
+  right: 25%;
+}
+@keyframes up {
+  0%{
+    top: 0rem;
+  }
+  50% {
+    top: .85rem;
+  }
+  100% {
+    top: 0rem;
+  }
 }
