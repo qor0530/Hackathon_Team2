@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (response.ok) {
             const data = await response.json();
 
-            console.log(data);
             attendDay.innerHTML = `${data.attendance}일`;
             
         } else {
