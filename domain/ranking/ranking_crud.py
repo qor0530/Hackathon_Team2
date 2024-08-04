@@ -29,3 +29,9 @@ def get_user_tier_by_user_id(db: Session, user_id: int):
         return user.tier
     return None
 
+def get_user_score_by_user_id(db: Session, user_id: int):
+    user = db.query(Ranking).filter(Ranking.user_id == user_id).first()
+    if user:
+        return user.score
+    return None
+
