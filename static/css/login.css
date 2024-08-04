@@ -125,6 +125,7 @@ body {
     padding-right: 80px;
     font-family: 'Pretendard-Medium';
     font-size: 16px;
+    cursor: pointer;
 }
 
 .illustration {
