@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import *
 from config.database import Base
 import enum
+from datetime import datetime
 
 
 class Quiz(Base):
@@ -40,9 +41,11 @@ class User(Base):
     level = Column(Integer, default=1)
     exp = Column(Integer, default=1)
     subscription = Column(Boolean, default=False)
+    signupdate = Column(DateTime, default=datetime.utcnow)
     attendance = Column(Integer, default=0)
     voca_list = relationship(
         'Voca', secondary=user_voca_association, back_populates='users')
+    # 테스트 저장
 
     def update_level(self):
         if self.exp < 100:

@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             console.log(leugedata)
             ranking[0].innerHTML = `${leugedata.tier} 리그 `;
-
+            
         } else {
             console.error("Failed to fetch user info:", response.statusText);
         }
