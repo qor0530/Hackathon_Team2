@@ -59,7 +59,7 @@ body {
 }
 
 .sidebar .topic {
-  font-size: 45px;
+  font-size: 34px;
   font-weight: bold;
   font-family: "Pretendard-SemiBold";
 }
@@ -133,7 +133,7 @@ body {
 }
 
 .content-card .details .title {
-  font-size: 20px;
+  font-size: 32px;
   font-weight: bold;
   color: #000000;
   font-family: "Pretendard-Bold";
@@ -143,5 +143,6 @@ body {
   color: #000000;
   font-family: "Pretendard-Medium";
   margin-top: auto;
+  font-size: 20px;
   margin-bottom: auto;
 }
