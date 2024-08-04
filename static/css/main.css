@@ -82,6 +82,7 @@ body {
 
 #section0 {
   background-image: url('../images/bg.svg');
+  width: 100%;
 }
 #section1 {
   background-image: url('../images/bg.svg');
