@@ -1,6 +1,6 @@
 from domain.quiz import quiz_crud, quiz_schema
 from fastapi import APIRouter, Depends, Request, status, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from sqlalchemy.orm import Session
 from config.database import get_db
 from fastapi.templating import Jinja2Templates
@@ -39,7 +39,7 @@ def quiz_list_html(request: Request, db: Session = Depends(get_db)):
 @router.get("/detail/{quiz_id}", response_class=HTMLResponse)
 def quiz_detail_html(request: Request, quiz_id: int, db: Session = Depends(get_db)):
     quiz = quiz_crud.get_quiz(db, quiz_id)
-    return templates.TemplateResponse("quiz_detail.html", {"request": request, "quiz": quiz})
+    return JSONResponse(content=quiz)
 
 
 @router.get("/create", response_class=HTMLResponse)

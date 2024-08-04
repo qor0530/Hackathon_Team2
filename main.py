@@ -1,12 +1,12 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
 from starlette.middleware.cors import CORSMiddleware
 
-from config.database import init_db
-
+from sqlalchemy.orm import Session
+from config.database import init_db, SessionLocal
+from api.models import Quiz
 from domain.quiz import quiz_router
 from domain.lecture import lecture_router
 from domain.user import user_router
@@ -20,6 +20,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
 
 app.include_router(quiz_router.router)
 app.include_router(user_router.router)
@@ -39,6 +48,8 @@ def on_startup():
     init_db()
 
 # HTML 연결
+
+
 @ app.get("/", response_class=HTMLResponse)
 async def main(request: Request):
     return templates.TemplateResponse(request=request, name="main.html")
@@ -79,21 +90,29 @@ async def quiz_main(request: Request):
     return templates.TemplateResponse(request=request, name="quiz_main.html")
 
 
-@app.get("/quiz", response_class=HTMLResponse)
-async def quiz(request: Request):
-    return templates.TemplateResponse(request=request, name="quiz.html")
+@app.get("/quiz/{quiz_id}", response_class=HTMLResponse)
+async def quiz(request: Request, quiz_id: int, db: Session = Depends(get_db)):
+    quiz_data = db.query(Quiz).filter(Quiz.id == quiz_id).first()
+    if not quiz_data:
+        return HTMLResponse(content="Quiz not found", status_code=404)
+
+    return templates.TemplateResponse("quiz.html", {"request": request, "quiz": quiz_data})
+
 
 @app.get("/lecture", response_class=HTMLResponse)
 async def lecture(request: Request):
     return templates.TemplateResponse(request=request, name="lecture.html")
 
+
 @app.get("/lecture/subject", response_class=HTMLResponse)
 async def subject_select(request: Request):
     return templates.TemplateResponse(request=request, name="subjectSelect.html")
 
+
 @app.get("/lecture/write/1", response_class=HTMLResponse)
 async def write(request: Request):
     return templates.TemplateResponse(request=request, name="studyWrite.html")
+
 
 @app.get("/lecture/situation/1", response_class=HTMLResponse)
 async def situation(request: Request):
