@@ -34,8 +34,8 @@ class User(Base):
     password = Column(String, nullable=False)
     nickname = Column(String, unique=True, nullable=False)
     profile_image = Column(String)
-    quiz_learning_history = Column(Text)
-    Lecture_learning_history = Column(Text)
+    quiz_learning_history = Column(Text, default='{}')
+    Lecture_learning_history = Column(Text, default='{}')
     total_learning_time = Column(Float, default=0.0)
     level = Column(Integer, default=1)
     exp = Column(Integer, default=1)
@@ -56,9 +56,11 @@ class User(Base):
         else:
             self.level = 5
 
+
 @event.listens_for(User, 'before_update')
 def receive_before_update(mapper, connection, target):
     target.update_level()
+
 
 class Lecture(Base):
     __tablename__ = 'lectures'
@@ -111,7 +113,9 @@ class Test(Base):
     purpose = Column(String, index=True)
     theme = Column(Text)
 
+
 metadata = MetaData()
+
 
 class Tier(enum.Enum):
     iron = "iron"
@@ -122,6 +126,7 @@ class Tier(enum.Enum):
     emerald = "emerald"
     diamond = "diamond"
     master = "master"
+
 
 class Ranking(Base):
     __tablename__ = "rankings"
