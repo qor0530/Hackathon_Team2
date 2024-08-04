@@ -43,6 +43,13 @@ body {
     color: #fff;
     font-family: 'Pretendard-SemiBold';
     font-size: 24px;
+
+    cursor: pointer;
+}
+.myPageBtn:hover {
+    background-color: #ff84a2;
+
+    transition: all .2s ease-in-out;
 }
 
 .InfoWrap{
