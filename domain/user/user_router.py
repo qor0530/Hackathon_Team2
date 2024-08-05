@@ -9,23 +9,19 @@ from jose import jwt, JWTError
 from starlette import status
 from domain.user.user_crud import pwd_context
 from domain.user.user_schema import LectureResponse
-from domain.user.user_crud import pwd_context, get_user_by_id, get_lectures_by_ids, get_topic_counts, get_most_frequent_topic, get_lectures_by_topic, parse_learning_history
+from domain.user.user_crud import pwd_context, get_user_by_id, get_lectures_by_ids, get_topic_counts, get_most_frequent_topic as find_most_frequent_topic, get_lectures_by_topic, parse_learning_history
 from fastapi import APIRouter, Depends, status, HTTPException, Cookie, Response, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from sqlalchemy.orm import Session
 from config.database import get_db
 from fastapi.templating import Jinja2Templates
 from domain.user import user_crud, user_schema
-<< << << < HEAD
-== == == =
->>>>>> > main
-<< << << < HEAD
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-== == == =
->>>>>> > main
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -244,11 +240,15 @@ def get_most_frequent_topic(user_id: int, db: Session = Depends(get_db)):
 
     # Get lectures by IDs and count the frequency of each topic
     lectures = get_lectures_by_ids(db, lecture_ids)
-    topic_count = get_topic_counts(lectures)
+    if not lectures:
+        logger.info(f"No lectures found for user_id={user_id}, lecture_ids={lecture_ids}")
+        raise HTTPException(status_code=404, detail="No lectures found in learning history")
 
-    most_frequent_topic = get_most_frequent_topic(topic_count)
+    topic_count = get_topic_counts(lectures)
+    most_frequent_topic = find_most_frequent_topic(topic_count)  # 수정된 부분
 
     if not most_frequent_topic:
+        logger.info(f"No frequent topic found for user_id={user_id}, topic_count={topic_count}")
         raise HTTPException(
             status_code=404, detail="No lectures found in learning history")
 
@@ -257,3 +257,5 @@ def get_most_frequent_topic(user_id: int, db: Session = Depends(get_db)):
         db, most_frequent_topic, lecture_ids)
 
     return lectures_to_return
+
+
