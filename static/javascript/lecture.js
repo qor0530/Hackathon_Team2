@@ -1,13 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM fully loaded and parsed');
     var element = document.getElementById('go-to-subject-select');
     if (element) {
-        console.log('Element found');
         element.addEventListener('click', function() {
-            console.log('Element clicked');
-            window.location.href = 'subjectSelect.html';
+            window.location.href = '/lecture/subject';
         });
-    } else {
-        console.log('Element not found');
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var element = document.getElementById('go-to-study-write');
+    if (element) {
+        element.addEventListener('click', function() {
+            window.location.href = '/lecture/write/1';
+        });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var element = document.getElementById('go-to-study-situation');
+    if (element) {
+        element.addEventListener('click', function() {
+            window.location.href = '/lecture/situation/1';
+        });
     }
 });
