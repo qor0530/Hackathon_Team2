@@ -1,0 +1,140 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f9f9f9;
+}
+
+.container {
+    text-align: center;
+    display: inline-flex;
+    width: 1024px;
+}
+
+#left-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* width: ; */
+}
+
+#right-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: conic-gradient(#ff6584 70%, #f9f9f9 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    position: relative;
+}
+
+.progress-circle-inner {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-circle-inner span {
+    font-size: 24px;
+    color: #ff6584;
+}
+
+.quiz-goal {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #000;
+}
+
+.level-section {
+    margin-top: 20px;
+}
+
+.current-level {
+    font-size: 24px;
+    color: #ff6584;
+}
+
+.level-number {
+    font-size: 32px;
+}
+
+.level-bar {
+    width: 200px;
+    height: 10px;
+    background-color: #ffe5ec;
+    margin: 10px auto;
+    border-radius: 5px;
+    position: relative;
+}
+
+.level-progress {
+    width: 40%;
+    height: 100%;
+    background-color: #ff6584;
+    border-radius: 5px;
+}
+
+.points {
+    font-size: 18px;
+    color: #ff6584;
+}
+
+.ranking-points {
+    margin-top: 20px;
+    font-size: 24px;
+    color: #ff6584;
+}
+
+.word-boxes {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.word-box {
+    background-color: #fff;
+    border: 1px solid #ff6584;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 10px;
+    width: 150px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.main-button,
+.extra-study-button {
+    background-color: #ff6584;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.main-button:hover,
+.extra-study-button:hover {
+    background-color: #ff3357;
+}

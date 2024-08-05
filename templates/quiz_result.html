@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Page</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/reset.css') }}"
+    />
+    <!-- CSS 연결 -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/quiz_result.css') }}"
+    />
+    <!-- Javascript 연결 -->
+    <script
+      src="{{ url_for('static', path='javascript/quiz_result.js') }}"
+      defer
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div id="left-content">
+        <div class="progress-circle">
+          <div class="progress-circle-inner">
+            <span>70%</span>
+          </div>
+        </div>
+        <div class="quiz-goal">오늘의 퀴즈 목표</div>
+      </div>
+      <div id="right-content">
+        <div class="level-section">
+          <span class="current-level"
+            >현재 레벨 <span class="level-number">2</span></span
+          >
+          <div class="level-bar">
+            <div class="level-progress"></div>
+          </div>
+          <span class="points">+40</span>
+        </div>
+        <div class="ranking-points"><span>700</span> ranking point</div>
+        <div class="word-boxes">
+          <div class="word-box">감사, 인생사, 진심, 고랭이, 손망치, 다리미</div>
+          <div class="word-box">다음날, 이틀, 사흘, 탐욕</div>
+        </div>
+      </div>
+      <div class="buttons">
+        <button class="main-button">메인으로</button>
+        <button class="extra-study-button">추가학습</button>
+      </div>
+    </div>
+  </body>
+</html>
