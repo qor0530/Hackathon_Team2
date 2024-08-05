@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>통합 페이지</title>
+    <link rel="stylesheet" href="test.css">
+</head>
+<body>
+    <div id="page1" class="page active">
+        <div class="center-panel">
+            <div class="header">
+                환영합니다!
+            </div>
+            <div class="character">
+                캐릭터<br>(일러스트)
+            </div>
+            <button class="next-button" onclick="nextPage('page2')">테스트 시작</button>
+        </div>
+    </div>
+    <div id="page2" class="page">
+        <div class="sidebar">
+            <div class="character">
+                캐릭터<br>(일러스트)
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="progress-bar">
+                <div class="progress" style="width: 25%;"></div>
+            </div>
+            <div class="question">
+                <span class="highlight">'더 리더'</span>를 통해 무엇을 기르고 싶나요?
+            </div>
+            <div class="options">
+                <div class="option"></div>
+                <div class="option"></div>
+                <div class="option"></div>
+                <div class="option"></div>
+                <div class="option"></div>
+                <div class="option selected"></div>
+                <div class="option"></div>
+            </div>
+            <button class="next-button" onclick="nextPage('page3')">다 음</button>
+        </div>
+    </div>
+    <div id="page3" class="page">
+        <div class="sidebar">
+            <div class="character">
+                캐릭터<br>(일러스트)
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="progress-bar">
+                <div class="progress" style="width: 50%;"></div>
+            </div>
+            <div class="question">
+                어느 <span class="highlight">목적</span>으로 읽기 실력을 향상하고 싶으신가요?
+            </div>
+            <div class="options">
+                <div class="option"></div>
+                <div class="option"></div>
+                <div class="option selected"></div>
+                <div class="option"></div>
+                <div class="option"></div>
+                <div class="option"></div>
+            </div>
+            <div class="buttons">
+                <button class="prev-button" onclick="prevPage('page2')">이전</button>
+                <button class="next-button" onclick="nextPage('page4')">다음</button>
+            </div>
+        </div>
+    </div>
+    <div id="page4" class="page">
+        <div class="sidebar">
+            <div class="character">
+                캐릭터<br>(일러스트)
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="progress-bar">
+                <div class="progress" style="width: 75%;"></div>
+            </div>
+            <div class="question">
+                어느 <span class="highlight">목적</span>으로 읽기 실력을 향상하고 싶으신가요?
+            </div>
+            <div class="options">
+                <div class="option option-rect"></div>
+                <div class="option option-rect"></div>
+                <div class="option option-rect selected"></div>
+                <div class="option option-rect"></div>
+                <div class="option option-rect"></div>
+                <div class="option option-rect"></div>
+            </div>
+            <div class="buttons">
+                <button class="prev-button" onclick="prevPage('page3')">이전</button>
+                <button class="next-button" onclick="nextPage('page5')">다음</button>
+            </div>
+        </div>
+    </div>
+    <div id="page5" class="page">
+        <div class="sidebar">
+            <div class="character">
+                캐릭터<br>(일러스트)
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="progress-bar">
+                <div class="progress" style="width: 100%;"></div>
+            </div>
+            <div class="question">
+                <span class="highlight">관심 있는 주제</span>를 모두 선택해주세요!
+            </div>
+            <div class="options">
+                <div class="option option-rect selected"></div>
+                <div class="option option-rect"></div>
+                <div class="option option-rect"></div>
+                <div class="option option-rect selected"></div>
+            </div>
+            <div class="buttons">
+                <button class="prev-button" onclick="prevPage('page4')">이전</button>
+                <button class="next-button" onclick="nextPage('page6')">다음</button>
+            </div>
+        </div>
+    </div>
+    <div id="page6" class="page">
+        <div class="center-panel">
+            <div class="header">
+                감사합니다!
+            </div>
+            <div class="character">
+                캐릭터<br>(일러스트)
+            </div>
+            <button class="next-button">학습하러 가기</button>
+        </div>
+    </div>
+    <script src="test.js"></script>
+</body>
+</html>
