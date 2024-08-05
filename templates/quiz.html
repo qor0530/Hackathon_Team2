@@ -107,6 +107,12 @@
         const answerClose = answerModal.getElementsByClassName("close")[0];
         const answerBox = document.getElementById("answerBox");
         const answerModalText = document.getElementById("answerModalText");
+        const quizId = "{{ quiz.id }}";
+        const userId = "{{ user.id }}" || null;
+        console.log("User ID:", userId); // userId가 올바르게 설정되었는지 확인
+
+        console.log("User ID:", userId);
+        console.log("Quiz ID:", quizId);
 
         hintBtn.onclick = function () {
           hintModal.style.display = "block";
@@ -132,6 +138,8 @@
         answerBtn.onclick = async function () {
           const userAnswer = answerBox.value;
           const correctAnswer = "{{ quiz.answer }}";
+          const quizId = "{{ quiz.id }}";
+          const userId = "{{ user.id }}" || null; // 현재 사용자의 ID를 변수에 저장, 없으면 null
 
           if (
             userAnswer.trim().toLowerCase() ===
@@ -140,11 +148,27 @@
             answerModalText.innerText = "맞았습니다!";
             answerModal.style.display = "block";
             answerClose.onclick = function () {
-              window.location.href = "/quiz/{{ quiz.id + 1 }}";
+              window.location.href = "/quiz/" + (parseInt(quizId) + 1);
             };
           } else {
             answerBox.value = "";
             answerBox.placeholder = correctAnswer;
+
+            if (userId) {
+              // incorrect_quizzes에 퀴즈 ID를 추가하는 요청을 서버로 보냄
+              console.log("여기까진 된다");
+              console.log(quizId);
+              await fetch(
+                `/api/user/${userId}/add_incorrect_quiz?quiz_id=${quizId}`,
+                {
+                  method: "POST",
+                }
+              );
+            } else {
+              console.warn(
+                "User ID is not defined. Unable to add to incorrect quizzes."
+              );
+            }
           }
         };
       });

@@ -239,3 +239,18 @@ def parse_learning_history(learning_history: str):
         return [int(id_str.strip()) for id_str in ids_str if id_str.strip().isdigit()]
     except ValueError:
         return []
+
+def add_incorrect_quiz(db: Session, user_id: int, quiz_id: int):
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # 기존의 incorrect_quizzes를 가져와서 쉼표로 분리
+    incorrect_quizzes = user.incorrect_quizzes.split(',')
+    incorrect_quizzes = [quiz.strip() for quiz in incorrect_quizzes if quiz.strip()]
+
+    # 이미 존재하지 않는 경우에만 추가
+    if str(quiz_id) not in incorrect_quizzes:
+        incorrect_quizzes.append(str(quiz_id))
+        user.incorrect_quizzes = ','.join(incorrect_quizzes)
+        db.commit()
