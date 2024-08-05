@@ -317,3 +317,13 @@ def get_current_user_from_token(request: Request, db: Session) -> User:
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
     return user
+
+
+@router.post("/{user_id}/add_lecture_learning_history")
+def add_lecture_learning_history(user_id: int, lecture_id: int, db: Session = Depends(get_db)):
+    user = user_crud.get_user(db, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    user_crud.add_lecture_to_learning_history(db, user, lecture_id)
+    return {"message": "Lecture added to learning history"}

@@ -13,21 +13,6 @@
       href="{{ url_for('static', path='css/studySituation.css') }}"
     />
   </head>
-  <script>
-    document.addEventListener("DOMContentLoaded", (event) => {
-      const options = document.querySelectorAll(".option");
-
-      options.forEach((option) => {
-        option.addEventListener("click", () => {
-          // 모든 옵션에서 'selected' 클래스 제거
-          options.forEach((opt) => opt.classList.remove("selected"));
-
-          // 클릭된 옵션에 'selected' 클래스 추가
-          option.classList.add("selected");
-        });
-      });
-    });
-  </script>
   <body>
     {% include "header.html" %}
     <div class="situationWrap">
@@ -49,16 +34,129 @@
           </div>
           <div class="studyAnswer">
             <div class="answerOptions">
-              <div class="option">{{ option1 }}</div>
-              <div class="option">{{ option2 }}</div>
-              <div class="option">{{ option3 }}</div>
-              <div class="option">{{ option4 }}</div>
-              <div class="option">{{ option5 }}</div>
+              <div class="option" data-option="1">{{ option1 }}</div>
+              <div class="option" data-option="2">{{ option2 }}</div>
+              <div class="option" data-option="3">{{ option3 }}</div>
+              <div class="option" data-option="4">{{ option4 }}</div>
+              <div class="option" data-option="5">{{ option5 }}</div>
             </div>
             <button class="Btn">제&emsp;출</button>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- 모달창 구조 -->
+    <div id="resultModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="resultText"></p>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+        const userId = "{{ user.id }}";
+        const options = document.querySelectorAll(".option");
+        let selectedOption = null;
+
+        options.forEach((option) => {
+          option.addEventListener("click", () => {
+            // 모든 옵션에서 'selected' 클래스 제거
+            options.forEach((opt) => opt.classList.remove("selected"));
+
+            // 클릭된 옵션에 'selected' 클래스 추가
+            option.classList.add("selected");
+            selectedOption = option.getAttribute("data-option");
+          });
+        });
+
+        document.querySelector(".close").onclick = () => {
+          const modal = document.getElementById("resultModal");
+          modal.style.display = "none";
+          if (selectedOption === "{{ comprehension_task.answer }}") {
+            window.location.href = "/lecture";
+          }
+        };
+
+        document.querySelector(".Btn").addEventListener("click", async () => {
+          if (selectedOption) {
+            const correctAnswer = "{{ comprehension_task.answer }}";
+            const resultText = document.getElementById("resultText");
+
+            if (selectedOption === correctAnswer) {
+              resultText.textContent = "정답입니다!";
+              // API 호출하여 lecture_id 저장
+              try {
+                await fetch(
+                  `/api/user/${userId}/add_lecture_learning_history?user_id=${userId}`,
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      lecture_id: "{{ comprehension_task.lecture_id }}",
+                    }),
+                  }
+                );
+              } catch (error) {
+                console.error("Error adding lecture learning history:", error);
+              }
+            } else {
+              resultText.textContent = "오답입니다!";
+            }
+
+            // 모달창 표시
+            const modal = document.getElementById("resultModal");
+            modal.style.display = "block";
+          }
+        });
+
+        // 모달창 닫기
+        document.querySelector(".close").addEventListener("click", () => {
+          const modal = document.getElementById("resultModal");
+          modal.style.display = "none";
+        });
+      });
+    </script>
+    <style>
+      /* 모달 스타일 */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+        padding-top: 60px;
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
   </body>
 </html>

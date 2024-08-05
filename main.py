@@ -166,14 +166,23 @@ async def situation(request: Request, comprehension_tasks_id: int, db: Session =
     else:
         options = {f'option{i}': "" for i in range(1, 6)}  # 빈 값으로 초기화
 
+       # 사용자 정보 가져오기
+    user = None
+    try:
+        user = get_current_user_from_token(request, db)
+    except HTTPException as e:
+        if e.status_code == status.HTTP_401_UNAUTHORIZED:
+            user = None
+
     # 템플릿에 데이터를 전달하여 렌더링
     return templates.TemplateResponse(
         "studySituation.html",
         {
             "request": request,
             "comprehension_task": comprehension_task,
-            "first_part": first_part.strip(),  # 앞쪽 대화 부분
-            "second_part": second_part.strip(),  # 뒤쪽 대화 부분
-            **options  # 옵션을 개별 키-값 쌍으로 전달
+            "first_part": first_part.strip(),
+            "second_part": second_part.strip(),
+            **options,
+            "user": user  # 사용자 정보를 템플릿에 전달
         }
     )

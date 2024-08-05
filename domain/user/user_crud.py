@@ -292,3 +292,22 @@ def add_quiz_to_learning_history(db: Session, user: User, quiz_id: int):
         # logging.error(
         #     f"Failed to add quiz to learning history and update score: {e}")
         # raise
+
+
+def add_lecture_to_learning_history(db: Session, user: User, lecture_id: int):
+    try:
+        if user.lecture_learning_history is None:
+            user.lecture_learning_history = ""
+
+        lecture_ids = user.lecture_learning_history.split(
+            ",") if user.lecture_learning_history else []
+
+        if str(lecture_id) not in lecture_ids:
+            lecture_ids.append(str(lecture_id))
+            user.lecture_learning_history = ",".join(lecture_ids)
+
+            db.commit()
+        else:
+            pass
+    except Exception as e:
+        pass
