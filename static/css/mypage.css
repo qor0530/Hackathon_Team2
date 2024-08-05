@@ -19,8 +19,7 @@ body {
 }
 .userWrap .userImg {
     width: 200px;
-    height: 200px;
-    background-color: grey;
+    height: auto;
 
     border-radius: 25px;
 }
