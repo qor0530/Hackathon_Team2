@@ -1,4 +1,4 @@
-from api.models import User, user_voca_association, Quiz, Lecture
+from api.models import User, user_voca_association, Quiz, Lecture, Ranking
 from sqlalchemy.orm import Session
 from .user_schema import UserCreate, LectureResponse
 from passlib.context import CryptContext
@@ -239,3 +239,75 @@ def parse_learning_history(learning_history: str):
         return [int(id_str.strip()) for id_str in ids_str if id_str.strip().isdigit()]
     except ValueError:
         return []
+
+
+def add_incorrect_quiz(db: Session, user_id: int, quiz_id: int):
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # 기존의 incorrect_quizzes를 가져와서 쉼표로 분리
+    incorrect_quizzes = user.incorrect_quizzes.split(',')
+    incorrect_quizzes = [quiz.strip()
+                         for quiz in incorrect_quizzes if quiz.strip()]
+
+    # 이미 존재하지 않는 경우에만 추가
+    if str(quiz_id) not in incorrect_quizzes:
+        incorrect_quizzes.append(str(quiz_id))
+        user.incorrect_quizzes = ','.join(incorrect_quizzes)
+        db.commit()
+
+
+def add_quiz_to_learning_history(db: Session, user: User, quiz_id: int):
+    try:
+        if user.quiz_learning_history is None:
+            user.quiz_learning_history = ""
+
+        quiz_ids = user.quiz_learning_history.split(
+            ",") if user.quiz_learning_history else []
+
+        if str(quiz_id) not in quiz_ids:
+            quiz_ids.append(str(quiz_id))
+            user.quiz_learning_history = ",".join(quiz_ids)
+
+            # Ranking 객체를 가져와서 점수 업데이트
+            print("여기되니")
+            ranking = db.query(Ranking).filter(
+                Ranking.user_id == user.id).first()
+
+            if ranking:
+                ranking.score += 100
+            else:
+                # 만약 Ranking 객체가 없다면 새로 생성
+                new_ranking = Ranking(user_id=user.id, score=100)
+                db.add(new_ranking)
+
+            db.commit()
+        else:
+            pass
+            # logging.info(
+            #     f"Quiz ID {quiz_id} already in user's learning history.")
+    except Exception as e:
+        pass
+        # logging.error(
+        #     f"Failed to add quiz to learning history and update score: {e}")
+        # raise
+
+
+def add_lecture_to_learning_history(db: Session, user: User, lecture_id: int):
+    try:
+        if user.lecture_learning_history is None:
+            user.lecture_learning_history = ""
+
+        lecture_ids = user.lecture_learning_history.split(
+            ",") if user.lecture_learning_history else []
+
+        if str(lecture_id) not in lecture_ids:
+            lecture_ids.append(str(lecture_id))
+            user.lecture_learning_history = ",".join(lecture_ids)
+
+            db.commit()
+        else:
+            pass
+    except Exception as e:
+        pass

@@ -1,54 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>studySituation</title>
     <link
-        rel="stylesheet"
-        href="{{ url_for('static', path='css/reset.css') }}"
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/reset.css') }}"
     />
     <link
-        rel="stylesheet"
-        href="{{ url_for('static', path='css/studySituation.css') }}"
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/studySituation.css') }}"
     />
-</head>
-<body>
+  </head>
+  <body>
     {% include "header.html" %}
     <div class="situationWrap">
-        <h1>오늘의 <span>상황 이해</span> 학습</h1>
-        <hr>
-        <div class="studyWrap">
-            <h2 class="studyQuestion">다음 상황을 읽고, 두 사람의 대화의 이어질 내용으로 가장 적절한 것을 고르시오.</h2>
-            <div class="studySection">
-                <div class="studyContentWrap">
-                    <div class="studyContent">친구와 함께 학교 과제를 하던 중, 너와 친구는 서로 다른 의견을 가지고 논쟁이 일어났다. 너는 발표 자료에 그래프를 추가해야 한다고 생각하고, 친구는 텍스트만으로 충분하다고 주장한다.</div>
-                    <div class="firstImg">
-                        <img src="{{ url_for('static', path='images/q1.svg') }}"/>
-                        <div class="firstBalloon">
-                            나는 그래프를 추가하는 것이 좋다고 생각해. <br/>
-                            시각적으로 정보를 전달하면 더 효과적일 것 같아.
-                        </div>
-                    </div>
-                    <div class="secondImg">
-                        <div class="secondBalloon">
-                            맞아, 하지만 우리에게는 시간도 부족하고<br/>자료를 정리하는 데 많은 시간이 걸릴 거야.
-                        </div>
-                        <img src="{{ url_for('static', path='images/q2.svg') }}"/>
-                    </div>
-                </div>
-                <div class="studyAnswer">
-                    <div class="answerOptions">
-                        <div class="option">1. 그래프는 불필요해. 그냥 텍스트만으로 하자.</div>
-                        <div class="option">2. 그렇다면 그래프를 추가하지 말자. 시간은 부족하니까.</div>
-                        <div class="option">3. 그건 맞아. 하지만 그래프가 자료의 핵심을 더 잘 전달할 수 있다면, 시간 투자할 가치가 있다고 봐.</div>
-                        <div class="option">4. 그러면 텍스트도 없애고 그래프만 추가하자.</div>
-                        <div class="option">5. 그래프도 텍스트도 다 필요 없어. 간단하게 하자.</div>
-                    </div>
-                    <button class="Btn">제&emsp;출</button>
-                </div>
+      <h1>오늘의 <span>상황 이해</span> 학습</h1>
+      <hr />
+      <div class="studyWrap">
+        <h2 class="studyQuestion">{{comprehension_task.question}}</h2>
+        <div class="studySection">
+          <div class="studyContentWrap">
+            <div class="studyContent">{{comprehension_task.content}}</div>
+            <div class="firstImg">
+              <img src="{{ url_for('static', path='images/q1.svg') }}" />
+              <div class="firstBalloon">{{first_part}}</div>
             </div>
+            <div class="secondImg">
+              <div class="secondBalloon">{{second_part}}</div>
+              <img src="{{ url_for('static', path='images/q2.svg') }}" />
+            </div>
+          </div>
+          <div class="studyAnswer">
+            <div class="answerOptions">
+              <div class="option" data-option="1">{{ option1 }}</div>
+              <div class="option" data-option="2">{{ option2 }}</div>
+              <div class="option" data-option="3">{{ option3 }}</div>
+              <div class="option" data-option="4">{{ option4 }}</div>
+              <div class="option" data-option="5">{{ option5 }}</div>
+            </div>
+            <button class="Btn">제&emsp;출</button>
+          </div>
         </div>
+      </div>
     </div>
-</body>
+
+    <!-- 모달창 구조 -->
+    <div id="resultModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="resultText"></p>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+        const userId = "{{ user.id }}";
+        const options = document.querySelectorAll(".option");
+        let selectedOption = null;
+
+        options.forEach((option) => {
+          option.addEventListener("click", () => {
+            // 모든 옵션에서 'selected' 클래스 제거
+            options.forEach((opt) => opt.classList.remove("selected"));
+
+            // 클릭된 옵션에 'selected' 클래스 추가
+            option.classList.add("selected");
+            selectedOption = option.getAttribute("data-option");
+          });
+        });
+
+        document.querySelector(".close").onclick = () => {
+          const modal = document.getElementById("resultModal");
+          modal.style.display = "none";
+          if (selectedOption === "{{ comprehension_task.answer }}") {
+            window.location.href = "/lecture";
+          }
+        };
+
+        document.querySelector(".Btn").addEventListener("click", async () => {
+          if (selectedOption) {
+            const correctAnswer = "{{ comprehension_task.answer }}";
+            const resultText = document.getElementById("resultText");
+
+            if (selectedOption === correctAnswer) {
+              resultText.textContent = "정답입니다!";
+              // API 호출하여 lecture_id 저장
+              try {
+                await fetch(
+                  `/api/user/${userId}/add_lecture_learning_history?user_id=${userId}`,
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      lecture_id: "{{ comprehension_task.lecture_id }}",
+                    }),
+                  }
+                );
+              } catch (error) {
+                console.error("Error adding lecture learning history:", error);
+              }
+            } else {
+              resultText.textContent = "오답입니다!";
+            }
+
+            // 모달창 표시
+            const modal = document.getElementById("resultModal");
+            modal.style.display = "block";
+          }
+        });
+
+        // 모달창 닫기
+        document.querySelector(".close").addEventListener("click", () => {
+          const modal = document.getElementById("resultModal");
+          modal.style.display = "none";
+        });
+      });
+    </script>
+    <style>
+      /* 모달 스타일 */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+        padding-top: 60px;
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
+  </body>
 </html>

@@ -63,11 +63,17 @@ document.addEventListener("DOMContentLoaded", async function () {
             console.error("Failed to fetch statistics:", statsResponse.statusText);
         }
 
+      let completedQuizzes = data.today_current_quiz.split(",").length;
+      studyGraph.innerHTML = `${((completedQuizzes / 10) * 100).toFixed(1)}%`;
+
       //출석 부분
       //1. 출석일수 2. 출석률 = 출석일/한달별날짜수 3. 가입날짜
       attendDay.innerHTML = `${data.attendance}일`;
 
-      attendPercent.innerHTML = `${((data.attendance / totalDays) * 100).toFixed(1)}%`;
+      attendPercent.innerHTML = `${(
+        (data.attendance / totalDays) *
+        100
+      ).toFixed(1)}%`;
 
       attendStart.innerHTML = `${data.signupdate.slice(0, 10)}`;
     } else {

@@ -12,7 +12,6 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-
 class Quiz(Base):
     __tablename__ = 'quizzes'
 
@@ -42,12 +41,12 @@ class User(Base):
     password = Column(String, nullable=False)
     nickname = Column(String, unique=True, nullable=False)
     profile_image = Column(String)
-    quiz_learning_history = Column(Text, default='{}')
-    lecture_learning_history = Column(Text, default='{}')
+    quiz_learning_history = Column(Text, default='')
+    lecture_learning_history = Column(Text, default='')
     total_learning_time = Column(Float, default=0.0)
-    incorrect_quizzes = Column(Text, default='{}')
-    quiz_stack = Column(Text, default='{}')
-    today_current_quiz = Column(Text, default='{}')
+    incorrect_quizzes = Column(Text, default='')
+    quiz_stack = Column(Text, default='')
+    today_current_quiz = Column(Text, default='')
     level = Column(Integer, default=1)
     exp = Column(Integer, default=1)
     subscription = Column(Boolean, default=False)
