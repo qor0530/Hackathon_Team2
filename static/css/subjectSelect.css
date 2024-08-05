@@ -48,8 +48,9 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  margin-left: 30px;
+  margin-left: 180px;
   padding: 120px;
+  padding-top: 200px;
 }
 
 .sidebar {
@@ -59,8 +60,9 @@ body {
 }
 
 .sidebar .topic {
-  font-size: 34px;
+  font-size: 3.5em;
   font-weight: bold;
+  width: 300px;
   font-family: "Pretendard-SemiBold";
 }
 
@@ -72,11 +74,11 @@ body {
 
 .sidebar ul li {
   margin-bottom: 5px;
-  line-height: 300%;
+  line-height: 500%;
 }
 
 .sidebar ul li a {
-  font-size: 20px;
+  font-size: 2em;
   text-decoration: none;
   color: #9B9B9B;
   display: block;
@@ -86,17 +88,18 @@ body {
 }
 
 .sidebar ul li a.active {
-  font-size: 20px;
+  font-size: 2em;
   color: #ffffff;
   background-color: #FF5881;
   font-family: "Pretendard-SemiBold";
-  width: 100px;
+  width: 200px;
+  height: 80px;
 }
 
 .main-content {
   float: right;
   width: 75%;
-  margin-top: 120px;
+  margin-top: 135px;
 }
 
 .content-cards {
