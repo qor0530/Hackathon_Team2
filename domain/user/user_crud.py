@@ -1,4 +1,4 @@
-from api.models import User, user_voca_association, Quiz, Lecture
+from api.models import User, user_voca_association, Quiz, Lecture, Ranking
 from sqlalchemy.orm import Session
 from .user_schema import UserCreate, LectureResponse
 from passlib.context import CryptContext
@@ -270,9 +270,24 @@ def add_quiz_to_learning_history(db: Session, user: User, quiz_id: int):
         if str(quiz_id) not in quiz_ids:
             quiz_ids.append(str(quiz_id))
             user.quiz_learning_history = ",".join(quiz_ids)
+
+            # Ranking 객체를 가져와서 점수 업데이트
+            print("여기되니")
+            ranking = db.query(Ranking).filter(
+                Ranking.user_id == user.id).first()
+            
+            if ranking:
+                ranking.score += 100
+            else:
+                # 만약 Ranking 객체가 없다면 새로 생성
+                new_ranking = Ranking(user_id=user.id, score=100)
+                db.add(new_ranking)
+
             db.commit()
         else:
             logging.info(
                 f"Quiz ID {quiz_id} already in user's learning history.")
     except Exception as e:
+        logging.error(
+            f"Failed to add quiz to learning history and update score: {e}")
         raise
