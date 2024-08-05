@@ -51,7 +51,7 @@ class User(Base):
     level = Column(Integer, default=1)
     exp = Column(Integer, default=1)
     subscription = Column(Boolean, default=False)
-    signupdate = Column(DateTime, default=datetime.utcnow)
+    signupdate = Column(DateTime, default=datetime.utcnow) 
     attendance = Column(Integer, default=0)
     voca_list = relationship(
         'Voca', secondary=user_voca_association, back_populates='users')

@@ -1,7 +1,7 @@
 const attendDay = document.getElementById("day");
 const attendPercent = document.getElementById("percent");
 const attendStart = document.getElementById("startday");
-
+const studyGraph = document.getElementById("studyGraph");
 function getDaysInMonth(year, month) {
   return new Date(year, month, 0).getDate();
 }
@@ -28,11 +28,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       //학습률
       //오늘치 학습을 모두 완료했는가?
 
+      studyGraph.innerHTML = data.
+
       //출석 부분
       //1. 출석일수 2. 출석률 = 출석일/한달별날짜수 3. 가입날짜
       attendDay.innerHTML = `${data.attendance}일`;
 
-      attendPercent.innerHTML = `${((data.attendance / totalDays) * 100).toFixed(1)}%`;
+      attendPercent.innerHTML = `${(
+        (data.attendance / totalDays) *
+        100
+      ).toFixed(1)}%`;
 
       attendStart.innerHTML = `${data.signupdate.slice(0, 10)}`;
     } else {
