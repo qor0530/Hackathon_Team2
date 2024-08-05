@@ -1,177 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', path='css/reset.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', path='css/quiz.css') }}"
-    />
-    <script
-      src="{{ url_for('static', path='javascript/main.js') }}"
-      defer
-    ></script>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/reset.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', path='css/quiz.css') }}" />
+    <script src="{{ url_for('static', path='javascript/main.js') }}" defer></script>
     <style>
-      /* 모달 스타일 */
-      .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4);
-      }
-
-      .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-      }
-
-      .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-      }
-
-      .close:hover,
-      .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-      }
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     {% include "header.html" %}
     <div class="container">
-      <main>
-        <div class="header_question">
-          주어진 상황에 알맞는 단어를 입력해주세요.
-        </div>
-        <div class="quiz-section">
-          <div class="level">LV.{{ quiz.level }}</div>
-          <div class="quiz-question">{{ quiz.sentence }}</div>
-          <div class="topic">주제-{{ quiz.subject }}</div>
-        </div>
-        <div class="text_box">{{ quiz.explanation | safe }}<br /></div>
-        <div class="answer-container">
-          <button class="hint-button" id="hintBtn">힌트 보기</button>
-          <input
-            type="text"
-            class="answer-box"
-            id="answerBox"
-            placeholder="정답을 입력하세요"
-          />
-          <button class="answer-button" id="answerBtn">정답 보기</button>
-        </div>
-      </main>
+        <main>
+            <div class="header_question">
+                주어진 상황에 알맞는 단어를 입력해주세요.
+            </div>
+            <div class="quiz-section">
+                <div class="level">LV.{{ quiz.level }}</div>
+                <div class="quiz-question">{{ quiz.sentence }}</div>
+                <div class="topic">주제-{{ quiz.subject }}</div>
+            </div>
+            <div class="text_box">{{ quiz.explanation | safe }}<br /></div>
+            <div class="answer-container">
+                <button class="hint-button" id="hintBtn">힌트 보기</button>
+                <input type="text" class="answer-box" id="answerBox" placeholder="정답을 입력하세요" />
+                <button class="answer-button" id="answerBtn">정답 보기</button>
+            </div>
+        </main>
     </div>
 
     <!-- 힌트 모달 -->
     <div id="hintModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>{{ quiz.hint }}</p>
-      </div>
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>{{ quiz.hint }}</p>
+        </div>
     </div>
 
     <!-- 정답 확인 모달 -->
     <div id="answerModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p id="answerModalText"></p>
-      </div>
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="answerModalText"></p>
+        </div>
     </div>
 
     <script>
-      // 모달 관련 JavaScript
-      document.addEventListener("DOMContentLoaded", () => {
-        const hintModal = document.getElementById("hintModal");
-        const answerModal = document.getElementById("answerModal");
-        const hintBtn = document.getElementById("hintBtn");
-        const answerBtn = document.getElementById("answerBtn");
-        const hintClose = hintModal.getElementsByClassName("close")[0];
-        const answerClose = answerModal.getElementsByClassName("close")[0];
-        const answerBox = document.getElementById("answerBox");
-        const answerModalText = document.getElementById("answerModalText");
-        const quizId = "{{ quiz.id }}";
-        const userId = "{{ user.id }}" || null;
-        console.log("User ID:", userId); // userId가 올바르게 설정되었는지 확인
+        // 모달 관련 JavaScript
+        document.addEventListener("DOMContentLoaded", () => {
+            const hintModal = document.getElementById("hintModal");
+            const answerModal = document.getElementById("answerModal");
+            const hintBtn = document.getElementById("hintBtn");
+            const answerBtn = document.getElementById("answerBtn");
+            const hintClose = hintModal.getElementsByClassName("close")[0];
+            const answerClose = answerModal.getElementsByClassName("close")[0];
+            const answerBox = document.getElementById("answerBox");
+            const answerModalText = document.getElementById("answerModalText");
+            const userId = "{{ user.id }}";
+            const quizId = "{{ quiz.id }}";
 
-        console.log("User ID:", userId);
-        console.log("Quiz ID:", quizId);
-
-        hintBtn.onclick = function () {
-          hintModal.style.display = "block";
-        };
-
-        hintClose.onclick = function () {
-          hintModal.style.display = "none";
-        };
-
-        answerClose.onclick = function () {
-          answerModal.style.display = "none";
-        };
-
-        window.onclick = function (event) {
-          if (event.target == hintModal) {
-            hintModal.style.display = "none";
-          }
-          if (event.target == answerModal) {
-            answerModal.style.display = "none";
-          }
-        };
-
-        answerBtn.onclick = async function () {
-          const userAnswer = answerBox.value;
-          const correctAnswer = "{{ quiz.answer }}";
-          const quizId = "{{ quiz.id }}";
-          const userId = "{{ user.id }}" || null; // 현재 사용자의 ID를 변수에 저장, 없으면 null
-
-          if (
-            userAnswer.trim().toLowerCase() ===
-            correctAnswer.trim().toLowerCase()
-          ) {
-            answerModalText.innerText = "맞았습니다!";
-            answerModal.style.display = "block";
-            answerClose.onclick = function () {
-              window.location.href = "/quiz/" + (parseInt(quizId) + 1);
+            hintBtn.onclick = function () {
+                hintModal.style.display = "block";
             };
-          } else {
-            answerBox.value = "";
-            answerBox.placeholder = correctAnswer;
 
-            if (userId) {
-              // incorrect_quizzes에 퀴즈 ID를 추가하는 요청을 서버로 보냄
-              console.log("여기까진 된다");
-              console.log(quizId);
-              await fetch(
-                `/api/user/${userId}/add_incorrect_quiz?quiz_id=${quizId}`,
-                {
-                  method: "POST",
+            hintClose.onclick = function () {
+                hintModal.style.display = "none";
+            };
+
+            answerClose.onclick = function () {
+                answerModal.style.display = "none";
+            };
+
+            window.onclick = function (event) {
+                if (event.target == hintModal) {
+                    hintModal.style.display = "none";
                 }
-              );
-            } else {
-              console.warn(
-                "User ID is not defined. Unable to add to incorrect quizzes."
-              );
-            }
-          }
-        };
-      });
+                if (event.target == answerModal) {
+                    answerModal.style.display = "none";
+                }
+            };
+
+            answerBtn.onclick = async function () {
+                const userAnswer = answerBox.value;
+                const correctAnswer = "{{ quiz.answer }}";
+
+                if (userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase()) {
+                    answerModalText.innerText = "맞았습니다!";
+                    answerModal.style.display = "block";
+                    
+                    // 다음 퀴즈로 이동하는 API 호출
+                    const response = await fetch(`/api/quiz/next_quiz/${userId}`, {
+                        method: "GET",
+                    }).catch((error) => console.error("Error starting quiz:", error));
+                    
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        const result = await response.json();
+                        if (result.error === "quiz_stack_empty") {
+                            showModal("퀴즈 스택이 비어 있습니다.");
+                        } else {
+                            console.error("Failed to start quiz", result);
+                        }
+                    }
+                } else {
+                    answerBox.value = "";
+                    answerBox.placeholder = correctAnswer;
+
+                    if (userId) {
+                        // incorrect_quizzes에 퀴즈 ID를 추가하는 요청을 서버로 보냄
+                        await fetch(`/api/user/${userId}/add_incorrect_quiz?quiz_id=${quizId}`, {
+                            method: "POST",
+                        });
+                    } else {
+                        console.warn("User ID is not defined. Unable to add to incorrect quizzes.");
+                    }
+                }
+            };
+        });
     </script>
-  </body>
+</body>
 </html>

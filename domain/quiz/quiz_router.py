@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from sqlalchemy.orm import Session
 from config.database import get_db
 from domain.quiz import quiz_crud, quiz_schema
-from api.models import User
+from api.models import User, Quiz
 from fastapi.templating import Jinja2Templates
 
 router = APIRouter(
@@ -81,25 +81,28 @@ def update_quiz_stack(user_id: int, quiz_stack: list[int], db: Session = Depends
     return {"success": True}
 
 
-@router.get("/next_quiz")
+@router.get("/next_quiz/{user_id}")
 def next_quiz(user_id: int, db: Session = Depends(get_db)):
     user = db.query(User).filter_by(id=user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    quiz_stack = eval(user.quiz_stack)
-    if not quiz_stack:
-        return RedirectResponse(url="/quiz_main")
+    # user.quiz_stack을 str에서 list로 변환
+    quiz_stack = user.quiz_stack.split(',')
+    quiz_stack = [int(q) for q in quiz_stack if q]
 
+    if not quiz_stack:
+        return JSONResponse(content={"error": "quiz_stack_empty"}, status_code=200)
+
+    # 첫 번째 퀴즈 ID를 pop하여 next_quiz_id에 저장
     next_quiz_id = quiz_stack.pop(0)
-    user.quiz_stack = str(quiz_stack)  # JSON 형식으로 저장
+
+    # 변환된 quiz_stack을 다시 문자열로 저장
+    user.quiz_stack = ','.join(map(str, quiz_stack))
     db.commit()
 
-    next_quiz = quiz_crud.get_quiz(db, next_quiz_id)
-    if not next_quiz:
-        raise HTTPException(status_code=404, detail="Quiz not found")
-
-    return next_quiz
+    # /quiz/{next_quiz_id}로 리다이렉트
+    return RedirectResponse(url=f"/quiz/{next_quiz_id}")
 
 
 @router.get("/start_quiz/{quiz_type}")
@@ -108,6 +111,10 @@ def start_quiz(quiz_type: str, user_id: int, db: Session = Depends(get_db)):
     if not quizzes:
         if quiz_type == "incorrect":
             return JSONResponse(content={"error": "no_incorrect_quizzes"}, status_code=200)
+        if quiz_type == "level":
+            return JSONResponse(content={"error": "no_level_quizzes"}, status_code=200)
+        if quiz_type == "random":
+            return JSONResponse(content={"error": "no_random_quizzes"}, status_code=200)
         return JSONResponse(content={"error": "no_quizzes_found"}, status_code=200)
 
     quiz_stack = [quiz.id for quiz in quizzes]
@@ -125,9 +132,56 @@ def start_quiz(quiz_type: str, user_id: int, db: Session = Depends(get_db)):
         return JSONResponse(content={"error": "quiz_stack_empty"}, status_code=200)
 
 
-@router.get("/{quiz_id}", response_class=HTMLResponse)
+@router.get("/next_quiz/{user_id}")
+def next_quiz(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(User).filter_by(id=user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # user.quiz_stack을 str에서 list로 변환
+    quiz_stack = user.quiz_stack.split(',')
+
+    if not quiz_stack:
+        raise HTTPException(status_code=404, detail="No quizzes available")
+
+    # 첫 번째 퀴즈 ID를 pop하여 next_quiz_id에 저장
+    next_quiz_id = quiz_stack.pop(0)
+
+    # 변환된 quiz_stack을 다시 문자열로 저장
+    user.quiz_stack = ','.join(quiz_stack)
+    db.add(user)
+    db.commit()
+    # /quiz/{next_quiz_id}로 리다이렉트
+    return RedirectResponse(url=f"/quiz/{next_quiz_id}")
+
+
+@ router.get("/{quiz_id}", response_class=HTMLResponse)
 def quiz_html(request: Request, quiz_id: int, db: Session = Depends(get_db)):
     quiz = quiz_crud.get_quiz(db, quiz_id=quiz_id)
     if not quiz:
         raise HTTPException(status_code=404, detail="Quiz not found")
     return templates.TemplateResponse("quiz.html", {"request": request, "quiz": quiz}, status_code=200)
+
+
+@router.get("/similar_level_quizzes/{user_id}")
+def get_similar_level_quizzes(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(User).filter_by(id=user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # 유저의 레벨을 기준으로 비슷한 레벨의 퀴즈를 가져옴
+    user_level = user.level  # 유저의 레벨 정보가 있다고 가정
+    similar_level_quizzes = db.query(Quiz).filter(
+        Quiz.level >= user_level - 1,
+        Quiz.level <= user_level + 1
+    ).all()
+
+    if not similar_level_quizzes:
+        raise HTTPException(
+            status_code=404, detail="No similar level quizzes found")
+
+    quiz_stack = [quiz.id for quiz in similar_level_quizzes]
+    user.quiz_stack = ','.join(map(str, quiz_stack))
+    db.commit()
+
+    return {"quiz_stack": quiz_stack}
