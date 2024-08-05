@@ -10,10 +10,12 @@ router = APIRouter(prefix="/gemini")
 GOOGLE_API_KEY = "AIzaSyCHADfi0J8bptpzZOUWP_3sXyGU2kBcL7w"
 genai.configure(api_key=GOOGLE_API_KEY)
 
+
 class PromptRequest(BaseModel):
     problem: str
     content: str
     answer: str
+
 
 @router.post("/grade")
 async def grade_essay(request: PromptRequest):
@@ -23,7 +25,8 @@ async def grade_essay(request: PromptRequest):
 
     try:
         # Google Generative AI를 사용한 문법 검사 및 피드백 생성
-        prompt = f"문제: {problem}\n내용: {content}\n답변: {answer}\n\n이 답변의 문법적 오류를 찾아 수정하고, 개선할 점을 알려주세요."
+        prompt = f"문제: {problem}\n내용: {content}\n답변: {
+            answer}\n\n이 답변의 문법적 오류를 찾아 수정하고, 개선할 점을 알려주세요."
         response = genai.generate(
             model="gemini-1.5-flash",
             prompt=prompt,
