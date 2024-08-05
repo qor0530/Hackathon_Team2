@@ -1,9 +1,16 @@
+import logging
+from collections import Counter
 from sqlalchemy import Column, Integer, String, Text, ForeignKey, Boolean, Float, event, Enum as SqlEnum, MetaData
 from sqlalchemy.orm import relationship
 from sqlalchemy import *
 from config.database import Base
 import enum
 from datetime import datetime
+
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 
 class Quiz(Base):
@@ -36,7 +43,7 @@ class User(Base):
     nickname = Column(String, unique=True, nullable=False)
     profile_image = Column(String)
     quiz_learning_history = Column(Text, default='{}')
-    Lecture_learning_history = Column(Text, default='{}')
+    lecture_learning_history = Column(Text, default='{}')
     total_learning_time = Column(Float, default=0.0)
     incorrect_quizzes = Column(Text, default='{}')
     quiz_stack = Column(Text, default='{}')

@@ -1,19 +1,27 @@
-from fastapi.responses import RedirectResponse, JSONResponse
-from fastapi import APIRouter, Depends, HTTPException, Request
+from api.models import User
+import logging
+from api.models import User, Lecture
+from typing import List
+from passlib.context import CryptContext
+from datetime import timedelta, datetime
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from jose import jwt, JWTError
+from starlette import status
+from domain.user.user_crud import pwd_context
+from domain.user.user_schema import LectureResponse
+from domain.user.user_crud import pwd_context, get_user_by_id, get_lectures_by_ids, get_topic_counts, get_most_frequent_topic as find_most_frequent_topic, get_lectures_by_topic, parse_learning_history
 from fastapi import APIRouter, Depends, status, HTTPException, Cookie, Response, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from sqlalchemy.orm import Session
 from config.database import get_db
 from fastapi.templating import Jinja2Templates
 from domain.user import user_crud, user_schema
-from domain.user.user_crud import pwd_context
-from starlette import status
-from jose import jwt, JWTError
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from datetime import timedelta, datetime
-from passlib.context import CryptContext
-from typing import List
-from api.models import User
+
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -133,7 +141,8 @@ def login_for_access_token(response: Response, form_data: OAuth2PasswordRequestF
         "exp": datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
     }
     access_token = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
-    response.set_cookie(key="access_token", value=f"Bearer {access_token}", httponly=False)
+    response.set_cookie(key="access_token",
+                        value=f"Bearer {access_token}", httponly=False)
 
     return {
         "access_token": access_token,
@@ -211,11 +220,12 @@ def read_user_statistics(request: Request, db: Session = Depends(get_db)):
 
     return {
         "total_learning_time": user.total_learning_time,
-        "quiz_solved": len(user.quiz_learning_history.split(',')),  # assuming quiz_learning_history is a comma-separated string
+        # assuming quiz_learning_history is a comma-separated string
+        "quiz_solved": len(user.quiz_learning_history.split(',')),
         "attendance_days": user.attendance
     }
 
-    
+
 #####################
 ## voca 관련 라우터 ##
 #####################
@@ -235,3 +245,36 @@ def add_quiz_to_voca(user_id: int, quiz_id: int, db: Session = Depends(get_db)):
 @router.delete("/voca/delete/{user_id}/{quiz_id}", response_class=JSONResponse)
 def delete_quiz(user_id: int, quiz_id: int, db: Session = Depends(get_db)):
     return user_crud.delete_quiz_from_user_voca(db, user_id, quiz_id)
+
+
+@router.get("/most_frequent_topic/{user_id}", response_model=List[LectureResponse])
+def get_most_frequent_topic(user_id: int, db: Session = Depends(get_db)):
+    user = get_user_by_id(db, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Parse lecture_learning_history to get a list of IDs
+    learning_history = user.lecture_learning_history
+    lecture_ids = parse_learning_history(learning_history)
+
+    # Get lectures by IDs and count the frequency of each topic
+    lectures = get_lectures_by_ids(db, lecture_ids)
+    if not lectures:
+        logger.info(f"No lectures found for user_id={user_id}, lecture_ids={lecture_ids}")
+        raise HTTPException(status_code=404, detail="No lectures found in learning history")
+
+    topic_count = get_topic_counts(lectures)
+    most_frequent_topic = find_most_frequent_topic(topic_count)  # 수정된 부분
+
+    if not most_frequent_topic:
+        logger.info(f"No frequent topic found for user_id={user_id}, topic_count={topic_count}")
+        raise HTTPException(
+            status_code=404, detail="No lectures found in learning history")
+
+    # Get lectures for the most frequent topic that are not in learning history
+    lectures_to_return = get_lectures_by_topic(
+        db, most_frequent_topic, lecture_ids)
+
+    return lectures_to_return
+
+

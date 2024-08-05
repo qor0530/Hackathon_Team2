@@ -1,6 +1,6 @@
 from pydantic import BaseModel, field_validator, EmailStr
 from pydantic_core.core_schema import FieldValidationInfo
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 
 
@@ -82,3 +82,18 @@ class UserDelete(BaseModel):
 class vocaList(BaseModel):
     user_id: int
     quiz_id: int
+
+class UserResponse(BaseModel):
+    id: int
+    lecture_learning_history: str
+
+    class Config:
+        orm_mode = True
+
+class LectureResponse(BaseModel):
+    id: int
+    title: str
+    topic: str
+
+    class Config:
+        orm_mode = True
