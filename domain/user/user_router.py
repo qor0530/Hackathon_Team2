@@ -1,3 +1,5 @@
+from fastapi.responses import RedirectResponse, JSONResponse
+from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi import APIRouter, Depends, status, HTTPException, Cookie, Response, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from sqlalchemy.orm import Session
@@ -26,6 +28,25 @@ router = APIRouter(
 templates = Jinja2Templates(directory="domain/user/templates")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 active_sessions = set()
+
+
+# @router.get("/login/kakao")
+# def login_kakao():
+#     kakao_auth_url = (
+#         f"https://kauth.kakao.com/oauth/authorize?client_id={
+#             user_crud.KAKAO_CLIENT_ID}"
+#         f"&redirect_uri={user_crud.KAKAO_REDIRECT_URI}&response_type=code"
+#     )
+#     return RedirectResponse(url=kakao_auth_url)
+
+
+# @router.get("/auth/kakao")
+# async def auth_kakao(code: str, db: Session = Depends(get_db)):
+#     access_token = user_crud.get_kakao_access_token(code)
+#     user_info = user_crud.get_kakao_user_info(access_token)
+#     user = user_crud.get_or_create_user(db, user_info)
+#     # 사용자 정보를 세션 또는 JWT 토큰으로 관리
+#     return JSONResponse(content={"message": "User authenticated", "user": user.nickname})
 
 
 @router.get("/update/{user_id}", response_class=HTMLResponse)  # user_id로 수정

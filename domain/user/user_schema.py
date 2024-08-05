@@ -10,25 +10,11 @@ class Token(BaseModel):
     login_id: str
 
 
-# class User(Base):
-#     __tablename__ = 'users'
+class KakaoUserInfo(BaseModel):
+    id: int
+    nickname: str
+    profile_image: Optional[str] = None
 
-#     id = Column(Integer, primary_key=True)
-#     login_id = Column(String, unique=True, nullable=False)
-#     password = Column(String, nullable=False)
-#     nickname = Column(String, unique=True, nullable=False)
-#     profile_image = Column(String)
-#     quiz_learning_history = Column(Text, default='{}')
-#     Lecture_learning_history = Column(Text, default='{}')
-#     total_learning_time = Column(Float, default=0.0)
-#     level = Column(Integer, default=1)
-#     exp = Column(Integer, default=1)
-#     subscription = Column(Boolean, default=False)
-#     signupdate = Column(DateTime, default=datetime.utcnow)
-#     attendance = Column(Integer, default=0)
-#     voca_list = relationship(
-#         'Voca', secondary=user_voca_association, back_populates='users')
-#     # 테스트 저장
 
 class User(BaseModel):
     id: int

@@ -1,10 +1,77 @@
+import httpx
 from api.models import User, user_voca_association, Quiz
 from sqlalchemy.orm import Session
 from .user_schema import UserCreate
 from passlib.context import CryptContext
 from fastapi import HTTPException
+import json
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+# KAKAO_CLIENT_ID = 'zM9Xs2bB0fjQfVa72CKdkWDdAkC0oHo9AAAAAQo8JCAAAAGRHqq7q82yTeNnt1bO'
+# KAKAO_CLIENT_SECRET = 'YOUR_CLIENT_SECRET'
+# KAKAO_REDIRECT_URI = 'YOUR_REDIRECT_URI'
+
+
+# def get_kakao_access_token(code: str) -> str:
+#     url = "https://kauth.kakao.com/oauth/token"
+#     headers = {"Content-Type": "application/x-www-form-urlencoded"}
+#     payload = {
+#         "grant_type": "authorization_code",
+#         "client_id": KAKAO_CLIENT_ID,
+#         "client_secret": KAKAO_CLIENT_SECRET,
+#         "redirect_uri": KAKAO_REDIRECT_URI,
+#         "code": code,
+#     }
+
+#     response = httpx.post(url, headers=headers, data=payload)
+#     if response.status_code != 200:
+#         raise HTTPException(
+#             status_code=400, detail="Failed to obtain access token")
+
+#     return response.json()["access_token"]
+
+
+# def get_kakao_user_info(access_token: str) -> dict:
+#     url = "https://kapi.kakao.com/v2/user/me"
+#     headers = {"Authorization": f"Bearer {access_token}"}
+
+#     response = httpx.get(url, headers=headers)
+#     if response.status_code != 200:
+#         raise HTTPException(
+#             status_code=400, detail="Failed to obtain user info")
+
+#     return response.json()
+
+
+# def get_or_create_user(db: Session, user_info: dict):
+#     kakao_id = user_info["id"]
+#     account_info = user_info["kakao_account"]
+#     profile = account_info["profile"]
+
+#     user = db.query(User).filter(User.login_id == kakao_id).first()
+#     if user:
+#         return user
+
+#     new_user = User(
+#         login_id=kakao_id,
+#         password=pwd_context.hash("kakao_default_password"),  # 기본 비밀번호 설정
+#         nickname=profile["nickname"],
+#         profile_image=profile.get("profile_image_url"),
+#         quiz_learning_history=json.dumps({}),
+#         lecture_learning_history=json.dumps({}),
+#         total_learning_time=0.0,
+#         level=1,
+#         exp=0,
+#         subscription=False,
+#         attendance=0,
+#     )
+
+#     db.add(new_user)
+#     db.commit()
+#     db.refresh(new_user)
+
+#     return new_user
 
 
 def get_user_list(db: Session):
