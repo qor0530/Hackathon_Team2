@@ -1,6 +1,7 @@
 from api.models import User
+from fastapi import APIRouter, Depends, HTTPException
 import logging
-from api.models import User, Lecture
+from api.models import User, Lecture, Quiz
 from typing import List
 from passlib.context import CryptContext
 from datetime import timedelta, datetime
@@ -260,14 +261,17 @@ def get_most_frequent_topic(user_id: int, db: Session = Depends(get_db)):
     # Get lectures by IDs and count the frequency of each topic
     lectures = get_lectures_by_ids(db, lecture_ids)
     if not lectures:
-        logger.info(f"No lectures found for user_id={user_id}, lecture_ids={lecture_ids}")
-        raise HTTPException(status_code=404, detail="No lectures found in learning history")
+        logger.info(f"No lectures found for user_id={
+                    user_id}, lecture_ids={lecture_ids}")
+        raise HTTPException(
+            status_code=404, detail="No lectures found in learning history")
 
     topic_count = get_topic_counts(lectures)
     most_frequent_topic = find_most_frequent_topic(topic_count)  # 수정된 부분
 
     if not most_frequent_topic:
-        logger.info(f"No frequent topic found for user_id={user_id}, topic_count={topic_count}")
+        logger.info(f"No frequent topic found for user_id={
+                    user_id}, topic_count={topic_count}")
         raise HTTPException(
             status_code=404, detail="No lectures found in learning history")
 
@@ -278,3 +282,38 @@ def get_most_frequent_topic(user_id: int, db: Session = Depends(get_db)):
     return lectures_to_return
 
 
+@router.post("/{user_id}/add_incorrect_quiz")
+def add_incorrect_quiz(user_id: int, quiz_id: int, db: Session = Depends(get_db)):
+    user_crud.add_incorrect_quiz(db, user_id, quiz_id)
+    return {"message": "Quiz added to incorrect_quizzes"}
+
+
+def get_current_user_from_token(request: Request, db: Session) -> User:
+    token = request.cookies.get("access_token")
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authorization cookie missing",
+        )
+
+    token = token.replace("Bearer ", "")
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        login_id: str = payload.get("sub")
+        if login_id is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token",
+            )
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+        )
+
+    user = user_crud.get_user_login_id(db, login_id)
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+
+    return user

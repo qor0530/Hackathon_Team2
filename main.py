@@ -6,15 +6,20 @@ from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from config.database import init_db, SessionLocal
-from api.models import Quiz
+from api.models import Quiz, User
 from domain.quiz import quiz_router
 from domain.lecture import lecture_router
 from domain.user import user_router
+from starlette import status
 from domain.ranking import ranking_router
 from domain import Gemini
+from config.database import get_db
+from starlette.status import HTTP_401_UNAUTHORIZED
+from domain.user.user_router import get_current_user_from_token
 
 
 app = FastAPI()
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -45,6 +50,7 @@ app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 # templates 폴더 연결
 templates = Jinja2Templates(directory="templates")
+
 
 @app.on_event("startup")
 def on_startup():
@@ -99,7 +105,18 @@ async def quiz(request: Request, quiz_id: int, db: Session = Depends(get_db)):
     if not quiz_data:
         return HTMLResponse(content="Quiz not found", status_code=404)
 
-    return templates.TemplateResponse("quiz.html", {"request": request, "quiz": quiz_data})
+    # 사용자 정보 가져오기
+    user = None
+    try:
+        user = get_current_user_from_token(request, db)
+    except HTTPException as e:
+        if e.status_code == status.HTTP_401_UNAUTHORIZED:
+            # 인증되지 않은 사용자 처리 (예: 로그인 페이지로 리디렉션)
+            user = None
+
+    print(quiz_data, quiz_data.id)
+
+    return templates.TemplateResponse("quiz.html", {"request": request, "quiz": quiz_data, "user": user})
 
 
 @app.get("/lecture", response_class=HTMLResponse)
