@@ -4,6 +4,7 @@ from .user_schema import UserCreate, LectureResponse
 from passlib.context import CryptContext
 from fastapi import HTTPException
 import json
+import logging
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -240,6 +241,7 @@ def parse_learning_history(learning_history: str):
     except ValueError:
         return []
 
+
 def add_incorrect_quiz(db: Session, user_id: int, quiz_id: int):
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
@@ -247,10 +249,31 @@ def add_incorrect_quiz(db: Session, user_id: int, quiz_id: int):
 
     # 기존의 incorrect_quizzes를 가져와서 쉼표로 분리
     incorrect_quizzes = user.incorrect_quizzes.split(',')
-    incorrect_quizzes = [quiz.strip() for quiz in incorrect_quizzes if quiz.strip()]
+    incorrect_quizzes = [quiz.strip()
+                         for quiz in incorrect_quizzes if quiz.strip()]
 
     # 이미 존재하지 않는 경우에만 추가
     if str(quiz_id) not in incorrect_quizzes:
         incorrect_quizzes.append(str(quiz_id))
         user.incorrect_quizzes = ','.join(incorrect_quizzes)
         db.commit()
+
+
+def add_quiz_to_learning_history(db: Session, user: User, quiz_id: int):
+    try:
+        print("제발 되라!!!!!!!")
+        if quiz_id not in user.quiz_learning_history:
+            # 만약 quiz_learning_history가 문자열이라면, 콤마로 구분된 형태로 추가할 수 있음
+            if user.quiz_learning_history:
+                # user.quiz_learning_history += f",{quiz_id}"
+                pass
+            else:
+                # user.quiz_learning_history = str(quiz_id)
+                pass
+            # db.commit()
+        else:
+            logging.info(
+                f"Quiz ID {quiz_id} already in user's learning history.")
+    except Exception as e:
+        logging.error(f"Failed to add quiz to learning history: {e}")
+        raise

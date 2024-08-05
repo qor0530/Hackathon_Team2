@@ -109,12 +109,15 @@
         const answerModalText = document.getElementById("answerModalText");
         const quizId = "{{ quiz.id }}";
         const userId = "{{ user.id }}" || null;
-        console.log("User ID:", userId); // userId가 올바르게 설정되었는지 확인
 
-        console.log("User ID:", userId);
+        let isHintUsed = false;
+        let isFirstAttempt = true;
+
+        console.log("User ID:", userId); // userId가 올바르게 설정되었는지 확인
         console.log("Quiz ID:", quizId);
 
         hintBtn.onclick = function () {
+          isHintUsed = true;
           hintModal.style.display = "block";
         };
 
@@ -150,6 +153,19 @@
             answerClose.onclick = function () {
               window.location.href = "/quiz/" + (parseInt(quizId) + 1);
             };
+            if (isFirstAttempt && !isHintUsed && userId) {
+              try {
+                // quiz_learning_history에 추가하는 요청을 서버로 보냄
+                await fetch(
+                  `/api/user/${userId}/add_learning_history?quiz_id=${quizId}`,
+                  {
+                    method: "POST",
+                  }
+                );
+              } catch (error) {
+                console.error("Failed to update learning history:", error);
+              }
+            }
           } else {
             answerBox.value = "";
             answerBox.placeholder = correctAnswer;
@@ -170,6 +186,8 @@
               );
             }
           }
+
+          isFirstAttempt = false;
         };
       });
     </script>
