@@ -1,9 +1,9 @@
-from fastapi import FastAPI, Request, Depends
+from fastapi import FastAPI, Request, Depends, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
-
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from config.database import init_db, SessionLocal
 from api.models import Quiz
@@ -11,6 +11,9 @@ from domain.quiz import quiz_router
 from domain.lecture import lecture_router
 from domain.user import user_router
 from domain.ranking import ranking_router
+from domain import Gemini
+
+
 app = FastAPI()
 
 app.add_middleware(
@@ -34,6 +37,7 @@ app.include_router(quiz_router.router)
 app.include_router(user_router.router)
 app.include_router(ranking_router.router)
 app.include_router(lecture_router.router)
+app.include_router(Gemini.router)
 
 # static 폴더 연결
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -41,7 +45,6 @@ app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 # templates 폴더 연결
 templates = Jinja2Templates(directory="templates")
-
 
 @app.on_event("startup")
 def on_startup():
@@ -117,5 +120,6 @@ async def write(request: Request):
 @app.get("/lecture/situation/1", response_class=HTMLResponse)
 async def situation(request: Request):
     return templates.TemplateResponse(request=request, name="studySituation.html")
+
 # API 연결
 # (추후 개발)

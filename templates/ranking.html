@@ -132,7 +132,7 @@
 
                     // 모든 사용자 닉네임을 가져와서 랭킹을 표시
                     const nicknamePromises = data.map(user =>
-                        fetch(`/api/ranking/user/${user.user_id}/nickname`)
+                        fetch(`/api/ranking/${user.user_id}/nickname`)
                             .then(response => response.json())
                             .then(nicknameData => {
                                 console.log("Nickname Data for user_id", user.user_id, ":", nicknameData); // 디버깅
