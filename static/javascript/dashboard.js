@@ -28,7 +28,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       //학습률
       //오늘치 학습을 모두 완료했는가?
 
-      studyGraph.innerHTML = data.
+      let completedQuizzes = data.today_current_quiz.split(",").length;
+      studyGraph.innerHTML = `${((completedQuizzes / 10) * 100).toFixed(1)}%`;
 
       //출석 부분
       //1. 출석일수 2. 출석률 = 출석일/한달별날짜수 3. 가입날짜
