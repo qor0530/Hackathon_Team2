@@ -261,19 +261,18 @@ def add_incorrect_quiz(db: Session, user_id: int, quiz_id: int):
 
 def add_quiz_to_learning_history(db: Session, user: User, quiz_id: int):
     try:
-        print("제발 되라!!!!!!!")
-        if quiz_id not in user.quiz_learning_history:
-            # 만약 quiz_learning_history가 문자열이라면, 콤마로 구분된 형태로 추가할 수 있음
-            if user.quiz_learning_history:
-                # user.quiz_learning_history += f",{quiz_id}"
-                pass
-            else:
-                # user.quiz_learning_history = str(quiz_id)
-                pass
-            # db.commit()
+        if user.quiz_learning_history is None:
+            user.quiz_learning_history = ""
+
+        quiz_ids = user.quiz_learning_history.split(
+            ",") if user.quiz_learning_history else []
+
+        if str(quiz_id) not in quiz_ids:
+            quiz_ids.append(str(quiz_id))
+            user.quiz_learning_history = ",".join(quiz_ids)
+            db.commit()
         else:
             logging.info(
                 f"Quiz ID {quiz_id} already in user's learning history.")
     except Exception as e:
-        logging.error(f"Failed to add quiz to learning history: {e}")
         raise
