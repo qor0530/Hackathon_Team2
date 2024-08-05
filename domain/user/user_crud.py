@@ -4,7 +4,6 @@ from .user_schema import UserCreate, LectureResponse
 from passlib.context import CryptContext
 from fastapi import HTTPException
 import json
-import logging
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -275,7 +274,7 @@ def add_quiz_to_learning_history(db: Session, user: User, quiz_id: int):
             print("여기되니")
             ranking = db.query(Ranking).filter(
                 Ranking.user_id == user.id).first()
-            
+
             if ranking:
                 ranking.score += 100
             else:
@@ -285,9 +284,11 @@ def add_quiz_to_learning_history(db: Session, user: User, quiz_id: int):
 
             db.commit()
         else:
-            logging.info(
-                f"Quiz ID {quiz_id} already in user's learning history.")
+            pass
+            # logging.info(
+            #     f"Quiz ID {quiz_id} already in user's learning history.")
     except Exception as e:
-        logging.error(
-            f"Failed to add quiz to learning history and update score: {e}")
-        raise
+        pass
+        # logging.error(
+        #     f"Failed to add quiz to learning history and update score: {e}")
+        # raise

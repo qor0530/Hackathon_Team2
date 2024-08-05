@@ -119,6 +119,11 @@ async def quiz(request: Request, quiz_id: int, db: Session = Depends(get_db)):
     return templates.TemplateResponse("quiz.html", {"request": request, "quiz": quiz_data, "user": user})
 
 
+@app.get("/quiz_result", response_class=HTMLResponse)
+async def quiz_result(request: Request):
+    return templates.TemplateResponse(request=request, name="quiz_result.html")
+
+
 @app.get("/lecture", response_class=HTMLResponse)
 async def lecture(request: Request):
     return templates.TemplateResponse(request=request, name="lecture.html")

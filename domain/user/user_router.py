@@ -317,22 +317,3 @@ def get_current_user_from_token(request: Request, db: Session) -> User:
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
     return user
-
-
-@router.post("/{user_id}/add_learning_history")
-def add_learning_history(user_id: int, quiz_id: int, db: Session = Depends(get_db)):
-    # 사용자 조회
-    user = user_crud.get_user(db, user_id=user_id)
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-
-    # 학습 기록에 퀴즈 추가
-    try:
-        user_crud.add_quiz_to_learning_history(db, user, quiz_id)
-        return {"message": "Quiz added to learning history"}
-    except Exception as e:
-        logging.error(f"Failed to add quiz to learning history: {e}")
-
-        print("여긴되니")
-        raise HTTPException(
-            status_code=500, detail="Failed to add quiz to learning history")
