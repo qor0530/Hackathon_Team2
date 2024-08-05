@@ -261,8 +261,8 @@ def get_most_frequent_topic(user_id: int, db: Session = Depends(get_db)):
     # Get lectures by IDs and count the frequency of each topic
     lectures = get_lectures_by_ids(db, lecture_ids)
     if not lectures:
-        logger.info(f"No lectures found for user_id={
-                    user_id}, lecture_ids={lecture_ids}")
+        # logger.info(f"No lectures found for user_id={
+        #             user_id}, lecture_ids={lecture_ids}")
         raise HTTPException(
             status_code=404, detail="No lectures found in learning history")
 
@@ -270,8 +270,8 @@ def get_most_frequent_topic(user_id: int, db: Session = Depends(get_db)):
     most_frequent_topic = find_most_frequent_topic(topic_count)  # 수정된 부분
 
     if not most_frequent_topic:
-        logger.info(f"No frequent topic found for user_id={
-                    user_id}, topic_count={topic_count}")
+        # logger.info(f"No frequent topic found for user_id={
+        #             user_id}, topic_count={topic_count}")
         raise HTTPException(
             status_code=404, detail="No lectures found in learning history")
 
