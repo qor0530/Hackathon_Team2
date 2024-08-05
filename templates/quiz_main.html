@@ -8,23 +8,43 @@
       rel="stylesheet"
       href="{{ url_for('static', path='css/reset.css') }}"
     />
-    <!-------------------------------------------------------------------------->
-
     <!-- CSS 연결 -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', path='css/quiz_main.css') }}"
     />
-
-    <!-------------------------------------------------------------------------->
-
     <!-- Javascript 연결 -->
     <script
       src="{{ url_for('static', path='javascript/quiz_main.js') }}"
       defer
     ></script>
-
-    <!-------------------------------------------------------------------------->
+    <style>
+      .modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+      }
+      .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+      }
+      .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
     {% include "header.html"%}
@@ -47,7 +67,7 @@
           </div>
           <div class="quiz-box">
             <div class="quiz-content"></div>
-            <div class="quiz-title">레벨 별 퀴즈 풀기</div>
+            <div class="quiz-title">내 레벨 대 퀴즈 풀기</div>
           </div>
         </div>
       </main>

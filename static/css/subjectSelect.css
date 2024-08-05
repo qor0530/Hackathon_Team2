@@ -38,17 +38,17 @@
     font-style: normal;
   }
   
-  
 body {
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
   margin: 0;
   padding: 0;
+  background: url('../images/bg2.svg');
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  margin-left: 30px;
   padding: 120px;
 }
 
