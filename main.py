@@ -6,7 +6,7 @@ from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from config.database import init_db, SessionLocal
-from api.models import Quiz, User
+from api.models import Quiz, User, ComprehensionTask
 from domain.quiz import quiz_router
 from domain.lecture import lecture_router
 from domain.user import user_router
@@ -139,9 +139,41 @@ async def write(request: Request):
     return templates.TemplateResponse(request=request, name="studyWrite.html")
 
 
-@app.get("/lecture/situation/1", response_class=HTMLResponse)
-async def situation(request: Request):
-    return templates.TemplateResponse(request=request, name="studySituation.html")
+@app.get("/lecture/situation/{comprehension_tasks_id}", response_class=HTMLResponse)
+async def situation(request: Request, comprehension_tasks_id: int, db: Session = Depends(get_db)):
+    comprehension_task = db.query(ComprehensionTask).filter(
+        ComprehensionTask.id == comprehension_tasks_id).first()
 
-# API 연결
-# (추후 개발)
+    if comprehension_task is None:
+        return HTMLResponse(content="Comprehension Task not found", status_code=404)
+
+    # `conversation` 내용을 `|` 기준으로 나누기
+    if comprehension_task.conversation:
+        conversation_parts = comprehension_task.conversation.split('|', 1)
+        if len(conversation_parts) == 2:
+            first_part, second_part = conversation_parts
+        else:
+            first_part, second_part = conversation_parts[0], ""
+    else:
+        first_part, second_part = "", ""
+
+    # `options` 내용을 줄바꿈 기준으로 나누기
+    options = {}
+    if comprehension_task.options:
+        options_list = comprehension_task.options.split('\n')
+        for idx, option in enumerate(options_list):
+            options[f'option{idx + 1}'] = option.strip()
+    else:
+        options = {f'option{i}': "" for i in range(1, 6)}  # 빈 값으로 초기화
+
+    # 템플릿에 데이터를 전달하여 렌더링
+    return templates.TemplateResponse(
+        "studySituation.html",
+        {
+            "request": request,
+            "comprehension_task": comprehension_task,
+            "first_part": first_part.strip(),  # 앞쪽 대화 부분
+            "second_part": second_part.strip(),  # 뒤쪽 대화 부분
+            **options  # 옵션을 개별 키-값 쌍으로 전달
+        }
+    )
