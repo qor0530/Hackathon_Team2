@@ -63,9 +63,24 @@ document.addEventListener("DOMContentLoaded", () => {
       const userId = await getUserId(); // API를 통해 user_id를 얻어옴
       if (!userId) return;
 
+      if (quizType === "level") {
+        // 비슷한 레벨의 퀴즈를 가져옴
+        const response = await fetch(`/api/quiz/similar_level_quizzes/${userId}`, {
+          method: "GET",
+        }).catch((error) => console.error("Error fetching similar level quizzes:", error));
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Quiz stack:", data.quiz_stack);
+        } else {
+          showModal("비슷한 레벨의 퀴즈를 가져오는데 실패했습니다.");
+          return;
+        }
+      }
+
       // Start quiz and update quiz_stack
       const response = await fetch(
-        `/api/quiz/start_quiz/${quizType}?user_id=${userId}`,
+        `/api/quiz/next_quiz/${userId}`,
         {
           method: "GET",
         }
@@ -75,11 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = response.url;
       } else {
         const result = await response.json();
-        if (result.error === "no_incorrect_quizzes") {
-          showModal("틀린 퀴즈가 없습니다.");
-        } else if (result.error === "no_quizzes_found") {
-          showModal("퀴즈가 없습니다.");
-        } else if (result.error === "quiz_stack_empty") {
+        if (result.error === "quiz_stack_empty") {
           showModal("퀴즈 스택이 비어 있습니다.");
         } else {
           console.error("Failed to start quiz", result);
