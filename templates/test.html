@@ -4,7 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>통합 페이지</title>
-    <link rel="stylesheet" href="test.css">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/test.css') }}"
+    />
+    <!-------------------------------------------------------------------------->
+
+    <!-- CSS 연결 -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/test.css') }}"
+    />
+
+    <!-------------------------------------------------------------------------->
+
+    <!-- Javascript 연결 -->
+    <script
+      src="{{ url_for('static', path='javascript/test.js') }}"
+      defer
+    ></script>
+
+    <!-------------------------------------------------------------------------->
+  </head>
 </head>
 <body>
     <div id="page1" class="page active">
@@ -133,6 +154,5 @@
             <button class="next-button">학습하러 가기</button>
         </div>
     </div>
-    <script src="test.js"></script>
 </body>
 </html>
