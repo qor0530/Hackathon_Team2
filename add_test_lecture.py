@@ -94,22 +94,14 @@ def add_test_data():
             "image": "lecture_image_11.jpg", "description": "정치의 심화 개념을 학습합니다."},
         {"title": "고전 문학", "difficulty": 3, "topic": "문학",
             "image": "lecture_image_12.jpg", "description": "고전 문학 작품을 분석합니다."},
-        {"title": "고급 수학", "difficulty": 5, "topic": "수학 | 과학",
-            "image": "lecture_image_13.jpg", "description": "고급 수학 개념을 학습합니다."},
-        {"title": "생명 과학", "difficulty": 4, "topic": "수학 | 과학",
-            "image": "lecture_image_14.jpg", "description": "생명 과학의 기초를 학습합니다."},
         {"title": "현대 사회 문제", "difficulty": 3, "topic": "시사",
             "image": "lecture_image_15.jpg", "description": "현대 사회 문제를 분석합니다."},
         {"title": "경제 정책", "difficulty": 4, "topic": "정치 | 경제",
             "image": "lecture_image_16.jpg", "description": "경제 정책의 기초를 학습합니다."},
         {"title": "문학 이론", "difficulty": 3, "topic": "문학",
             "image": "lecture_image_17.jpg", "description": "문학 이론을 학습합니다."},
-        {"title": "응용 물리학", "difficulty": 5, "topic": "수학 | 과학",
-            "image": "lecture_image_18.jpg", "description": "응용 물리학의 기초를 학습합니다."},
         {"title": "사회학 개론", "difficulty": 4, "topic": "시사",
             "image": "lecture_image_19.jpg", "description": "사회학의 기초 개념을 학습합니다."},
-        {"title": "기초 경제학", "difficulty": 3, "topic": "정치 | 경제",
-            "image": "lecture_image_20.jpg", "description": "기초 경제 개념을 학습합니다."}
     ]
 
     for data in lecture_data:
