@@ -1,166 +1,169 @@
 body {
-    background-color: #FAFAFA;
-    overflow: hidden;
+  background-color: #fafafa;
+  overflow: hidden;
 }
 .situationWrap {
-    box-sizing: border-box;
+  box-sizing: border-box;
 
-    width: 1440px;
+  width: 1440px;
 
-    margin: 0 auto;
+  margin: 0 auto;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    position: relative;
+  position: relative;
 }
 .situationWrap h1 {
-    font-family: 'Pretendard-Bold';
-    font-size: 3.5rem;
+  font-family: "Pretendard-Bold";
+  font-size: 3.5rem;
 
-    margin-top: 9rem;
+  margin-top: 9rem;
 }
 .situationWrap h1 span {
-    color: #FF5881;
+  color: #ff5881;
 }
 
 .number {
-    position: absolute;
-    top:12rem;
-    right: 0;
+  position: absolute;
+  top: 12rem;
+  right: 0;
 
-    font-family: 'Pretendard-SemiBold';
-    font-size: 1rem;
+  font-family: "Pretendard-SemiBold";
+  font-size: 1rem;
 }
 
 .number .currentNum {
-    color: #FF5881;
+  color: #ff5881;
 }
 
 hr {
-    border: 1px solid #e1e1e1;
+  border: 1px solid #e1e1e1;
 
-    width: 1440px;
+  width: 1440px;
 
-    margin: 1rem 0;
-    margin-top: 1.5rem;
+  margin: 1rem 0;
+  margin-top: 1.5rem;
 }
 
 .studyWrap {
-    margin: 0 2rem;
+  margin: 0 2rem;
 }
 
 .studyQuestion {
-    font-family: 'Pretendard-SemiBold';
-    font-size: 2.5rem;
+  font-family: "Pretendard-SemiBold";
+  font-size: 2.5rem;
 
-    margin: 1.5rem 0;
+  margin: 1.5rem 0;
 
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .studySection {
-    margin: 0.5rem 1rem;
+  margin: 0.5rem 1rem;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .studySection .studyContent {
-    width: 680px;
-    font-family: 'Pretendard-Regular';
+  width: 680px;
+  font-family: "Pretendard-Regular";
 
-    font-size: 1.7rem;
+  font-size: 1.7rem;
 
-    line-height: 3rem;
+  line-height: 3rem;
 
-    color: #2c2c2c;
+  color: #2c2c2c;
 
-    margin-bottom: 3rem;
+  margin-bottom: 3rem;
 }
 
-.firstImg, .secondImg {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.firstImg,
+.secondImg {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
-.firstBalloon, .secondBalloon {
-    width: 500px;
-    height: 100px;
+.firstBalloon,
+.secondBalloon {
+  width: 500px;
+  height: 100px;
 
-    border-radius: 25px;
+  border-radius: 25px;
 
-    background-color: #e1e1e1;
+  background-color: #e1e1e1;
 
-    margin: 0 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  margin: 0 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    font-family: 'Pretendard-Medium';
-    font-size: 1.5rem;
+  font-family: "Pretendard-Medium";
+  font-size: 1.5rem;
 
-    line-height: 2rem;
+  line-height: 2rem;
 }
 .studyAnwser {
-    width: 620px;
-
+  width: 620px;
 }
 .studyAnwser .answerOptions {
-
 }
 .answerOptions .option {
+  box-sizing: border-box;
 
-    box-sizing: border-box;
-    
-    width: 575px;
-    height: 90px;
+  width: 575px;
+  height: 90px;
 
-    background-color: #e1e1e1;
+  background-color: #e1e1e1;
 
-    display: flex;
-    justify-content: baseline;
-    align-items: center;
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
 
-    margin: 1rem 0;
+  margin: 1rem 0;
 
-    padding: 1rem 2.5rem;
+  padding: 1rem 2.5rem;
 
-    font-family: 'Pretendard-Medium';
-    font-size: 1.4rem;
+  font-family: "Pretendard-Medium";
+  font-size: 1.4rem;
 
-    line-height: 2rem;
+  line-height: 2rem;
 
-    border-radius: 25px;
+  border-radius: 25px;
 }
 .answerOptions .option:hover {
-    background-color: #FF5881;
-    color: #fff;
+  background-color: #ff5881;
+  color: #fff;
 }
 /*완료 버튼만 찐한 핑크*/
 .Btn {
-    width: 150px;
-    height: 60px;
+  width: 150px;
+  height: 60px;
 
-    background-color: #FF97AA;
-    color: #fff;
+  background-color: #ff97aa;
+  color: #fff;
 
-    font-family: 'Pretendard-SemiBold';
-    font-size: 1.75rem;
+  font-family: "Pretendard-SemiBold";
+  font-size: 1.75rem;
 
-    border: 0;
-    border-radius: 10px;
+  border: 0;
+  border-radius: 10px;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    position: absolute;
-    right: 4rem;
+  position: absolute;
+  right: 4rem;
 }
 .Btn:hover {
-    background-color: #ff84a2;
+  background-color: #ff84a2;
 
-    transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.option.selected {
+  background-color: #ff5881;
+  color: #fff;
 }

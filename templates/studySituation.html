@@ -13,6 +13,21 @@
       href="{{ url_for('static', path='css/studySituation.css') }}"
     />
   </head>
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const options = document.querySelectorAll('.option');
+  
+      options.forEach(option => {
+        option.addEventListener('click', () => {
+          // 모든 옵션에서 'selected' 클래스 제거
+          options.forEach(opt => opt.classList.remove('selected'));
+  
+          // 클릭된 옵션에 'selected' 클래스 추가
+          option.classList.add('selected');
+        });
+      });
+    });
+  </script>
   <body>
     {% include "header.html" %}
     <div class="situationWrap">
