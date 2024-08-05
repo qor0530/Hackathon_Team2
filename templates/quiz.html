@@ -3,58 +3,151 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Quiz</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', path='css/reset.css') }}"
     />
-    <!-------------------------------------------------------------------------->
-
-    <!-- CSS 연결 -->
     <link
       rel="stylesheet"
       href="{{ url_for('static', path='css/quiz.css') }}"
     />
-
-    <!-------------------------------------------------------------------------->
-
-    <!-- Javascript 연결 -->
     <script
       src="{{ url_for('static', path='javascript/main.js') }}"
       defer
     ></script>
+    <style>
+      /* 모달 스타일 */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+      }
 
-    <!-------------------------------------------------------------------------->
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
-    {% include "header.html"%}
+    {% include "header.html" %}
     <div class="container">
-      <header>
-       
-      </header>
       <main>
-        <div class="header_question">주어진 상황에 알맞는 단어를 입력해주세요.</div>
+        <div class="header_question">
+          주어진 상황에 알맞는 단어를 입력해주세요.
+        </div>
         <div class="quiz-section">
-          <div class="level">LV.5</div>
-          <div class="quiz-question">
-            배송 주문 후 상품은 <span class="blank"></span>에 받으실 수
-            있습니다.
-          </div>
-          <div class="topic">주제-사회생활</div>
+          <div class="level">LV.{{ quiz.level }}</div>
+          <div class="quiz-question">{{ quiz.sentence }}</div>
+          <div class="topic">주제-{{ quiz.subject }}</div>
         </div>
-        <div class="text_box">
-          이튿날, 다음날을 의미하는 말.<br />
-          “내일” 보다 조금 더 긍정인 자리에서 자주 이용돼요!<br />
-          “내일"과 같은 의미도 있지만, 특정 시점을 기준으로 다음날이라는 의미도
-          있어요!
-        </div>
+        <div class="text_box">{{ quiz.explanation | safe }}<br /></div>
         <div class="answer-container">
-          <button class="hint-button">힌트 보기</button>
-          <input type="text" class="answer-box" placeholder="정답을 입력하세요" />
-          <button class="answer-button">정답 보기</button>
-        </div>
+          <button class="hint-button" id="hintBtn">힌트 보기</button>
+          <input
+            type="text"
+            class="answer-box"
+            id="answerBox"
+            placeholder="정답을 입력하세요"
+          />
+          <button class="answer-button" id="answerBtn">정답 보기</button>
         </div>
       </main>
     </div>
+
+    <!-- 힌트 모달 -->
+    <div id="hintModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>{{ quiz.hint }}</p>
+      </div>
+    </div>
+
+    <!-- 정답 확인 모달 -->
+    <div id="answerModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="answerModalText"></p>
+      </div>
+    </div>
+
+    <script>
+      // 모달 관련 JavaScript
+      document.addEventListener("DOMContentLoaded", () => {
+        const hintModal = document.getElementById("hintModal");
+        const answerModal = document.getElementById("answerModal");
+        const hintBtn = document.getElementById("hintBtn");
+        const answerBtn = document.getElementById("answerBtn");
+        const hintClose = hintModal.getElementsByClassName("close")[0];
+        const answerClose = answerModal.getElementsByClassName("close")[0];
+        const answerBox = document.getElementById("answerBox");
+        const answerModalText = document.getElementById("answerModalText");
+
+        hintBtn.onclick = function () {
+          hintModal.style.display = "block";
+        };
+
+        hintClose.onclick = function () {
+          hintModal.style.display = "none";
+        };
+
+        answerClose.onclick = function () {
+          answerModal.style.display = "none";
+        };
+
+        window.onclick = function (event) {
+          if (event.target == hintModal) {
+            hintModal.style.display = "none";
+          }
+          if (event.target == answerModal) {
+            answerModal.style.display = "none";
+          }
+        };
+
+        answerBtn.onclick = async function () {
+          const userAnswer = answerBox.value;
+          const correctAnswer = "{{ quiz.answer }}";
+
+          if (
+            userAnswer.trim().toLowerCase() ===
+            correctAnswer.trim().toLowerCase()
+          ) {
+            answerModalText.innerText = "맞았습니다!";
+            answerModal.style.display = "block";
+            answerClose.onclick = function () {
+              window.location.href = "/quiz/{{ quiz.id + 1 }}";
+            };
+          } else {
+            answerBox.value = "";
+            answerBox.placeholder = correctAnswer;
+          }
+        };
+      });
+    </script>
   </body>
 </html>

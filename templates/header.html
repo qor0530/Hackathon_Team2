@@ -1,0 +1,75 @@
+<header>
+    <a class="LogoWrap" href="/">
+        <p>더 리터</p>
+    </a>
+    <div class="Wrap">
+        <div class="MenuBar">
+            <div class="Menu">
+                <a href='/lecture'>학습하기</a>
+                <a href='/quiz_main'>퀴즈풀기</a>
+                <a href='/ranking'>랭킹확인</a>
+            </div>
+        </div>
+        <div class="BtnWrap">
+            <div class="SignUpBtn" onclick="location.href='/signup';">
+                <p>지금 가입</p>
+            </div>
+            <div class="SignInBtn" onclick="location.href='/login';">
+                <p>로그인</p>
+            </div>
+        </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        const token = document.cookie;
+        const signUpBtn = document.querySelector(".SignUpBtn");
+        const signInBtn = document.querySelector(".SignInBtn");
+        const btnWrap = document.querySelector(".BtnWrap");
+        const logo = document.getElementsByClassName('LogoWrap');
+        if (token) {
+            try {
+            const response = await fetch("/api/user/me", {
+                method: "GET",
+                headers: {
+                Authorization: token, // Bearer를 포함한 전체 토큰 값
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                signUpBtn.style.display = "none";
+                signInBtn.style.display = "none";
+
+                const userMenu = document.createElement("div");
+                userMenu.classList.add("UserMenu");
+                userMenu.innerHTML = `
+                                <button id="logout-button" class="LogOutBtn"> <p>로그아웃</p></button>
+                            `;
+                btnWrap.appendChild(userMenu);
+
+                logo[0].href = '/dashboard';
+                
+                document.getElementById("logout-button").addEventListener("click", async function () {
+                    await fetch("/api/user/logout", {
+                        method: "GET",
+                        credentials: "same-origin",
+                    });
+                    window.location.href = "/"; // 로그인 후 메인 페이지로 이동
+                    
+                });
+            } else {
+                console.error("Failed to fetch user info:", response.statusText);
+            }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        } else {
+            console.log("토큰 못찾음.", token);
+        }
+    });
+    console.log("Document cookies:", document.cookie);
+    </script>
+</header>
+<link rel="stylesheet" href="{{ url_for('static', path='css/reset.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', path='css/header.css') }}" />

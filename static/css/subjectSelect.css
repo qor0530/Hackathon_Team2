@@ -1,0 +1,148 @@
+@font-face {
+    font-family: "Moderniz";
+    src: url("../font/Moderniz.otf") format("truetype");
+  }
+  @font-face {
+    font-family: "Pretendard-Medium";
+    src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff")
+      format("woff");
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Pretendard-SemiBold";
+    src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff")
+      format("woff");
+    font-weight: 600;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Pretendard-Bold";
+    src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff")
+      format("woff");
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Pretendard-ExtraBold";
+    src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-ExtraBold.woff")
+      format("woff");
+    font-weight: 800;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Pretendard-Black";
+    src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff")
+      format("woff");
+    font-weight: 900;
+    font-style: normal;
+  }
+  
+  
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px;
+}
+
+.sidebar {
+  float: left;
+  width: 20%;
+  margin-top: 20px;
+}
+
+.sidebar .topic {
+  font-size: 34px;
+  font-weight: bold;
+  font-family: "Pretendard-SemiBold";
+}
+
+.sidebar ul {
+  margin-top: 50px;
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin-bottom: 5px;
+  line-height: 300%;
+}
+
+.sidebar ul li a {
+  font-size: 20px;
+  text-decoration: none;
+  color: #9B9B9B;
+  display: block;
+  padding: 5px 10px;
+  font-family: "Pretendard-SemiBold";
+  border-radius: 0 10px 10px 0;
+}
+
+.sidebar ul li a.active {
+  font-size: 20px;
+  color: #ffffff;
+  background-color: #FF5881;
+  font-family: "Pretendard-SemiBold";
+  width: 100px;
+}
+
+.main-content {
+  float: right;
+  width: 75%;
+  margin-top: 120px;
+}
+
+.content-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 50px;
+  margin-top: 20px;
+  width: 1000px;
+  height: 250px;
+}
+
+.content-card {
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px #C5C5C5;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.content-card img {
+  width: 200px;
+  height: 200px;
+  background-color: #ddd;
+  border-radius: 5px;
+}
+
+.content-card .details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 200px;
+}
+
+.content-card .details .title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
+  font-family: "Pretendard-Bold";
+}
+
+.content-card .details .description {
+  color: #000000;
+  font-family: "Pretendard-Medium";
+  margin-top: auto;
+  font-size: 20px;
+  margin-bottom: auto;
+}

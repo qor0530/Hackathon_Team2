@@ -8,3 +8,6 @@ var myFullpage = new fullpage('#fullpage', {
     scrollingSpeed: 500,
     easing: 'easeInOutCubic',
 });
+
+//scroll event
+//타이틀 색상 event

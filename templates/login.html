@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/reset.css') }}"
+    />
+    <!-------------------------------------------------------------------------->
+
+    <!-- CSS 연결 -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/login.css') }}"
+    />
+    <style>
+      .additional-submit .yellow-box {
+        background-image: url("{{ url_for('static', path='images/kakao_login_large_narrow.png') }}");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .additional-submit .white-box {
+      background-image: url("{{ url_for('static', path='images/web_light_sq_SI@4x.png') }}");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+  }
+    </style>
+
+    <!-------------------------------------------------------------------------->
+
+    <!-- Javascript 연결 -->
+    <script
+      src="{{ url_for('static', path='javascript/login.js') }}"
+      defer
+    ></script>
+
+    <!-------------------------------------------------------------------------->
+  </head>
+    <body>
+      <div id="background"></div>
+      {% include "header.html" %}
+      <div class="container">
+        <div class="login-box">
+          <h1>LOGIN</h1>
+          <p>더리터와 함께 읽기 능력을 기르러 가볼까요?</p>
+          <form>
+            <input class="id-input" type="text" placeholder="아이디를 입력해주세요." />
+            <input class="password-input" type="password" placeholder="비밀번호를 입력해주세요." />
+            <button id="login-btn"type="submit">로그인</button>
+            <div class="additional-submit">
+              <button class="yellow-box"></button>
+              <button class="white-box"></button>
+            </div>
+          </form>
+          <div class="register-box"></div>
+          <p class="not-member" onclick="location.href='/signup';">더리터 회원이 아니신가요?</p>
+        </div>
+        <div class="illustration">
+          <p>캐릭터<br />(일러스트)</p>
+        </div>
+      </div>
+    </body>
+</html>

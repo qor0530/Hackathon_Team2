@@ -1,0 +1,215 @@
+body {
+    background: url('../images/bg.svg');
+
+    overflow: hidden;
+}
+.pageWrap {
+    width: 1440px;
+
+    margin: 0 auto;
+    padding: 10rem 2rem;
+
+    box-sizing: border-box;
+}
+
+.userWrap {
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+}
+.userWrap .userImg {
+    width: 200px;
+    height: 200px;
+    background-color: grey;
+
+    border-radius: 25px;
+}
+.userInfo {
+    margin-left: 2rem;
+}
+.userInfo .userName {
+    font-family: 'Pretendard-Bold';
+    font-size: 4rem;
+
+    margin-bottom: 1rem;
+}
+.userInfo .rankWrap {
+    width: fit-content;
+    height: 60px;
+    
+    border-radius: 50px;
+
+    background-color: #fff;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 0 2rem;
+}
+.rankWrap img {
+    width: 55px;
+    height: 55px;
+
+}
+.rankWrap .rank {
+    font-family: 'Pretendard-Medium';
+    font-size: 2rem;
+
+    margin-left: 1rem;
+    color: #FF5881;
+}
+.rankWrap .rankScore {
+    font-family: 'Pretendard-Bold';
+    font-size: 2rem;
+
+    margin-left: 1rem;
+    color: #FF5881;
+}
+.rankWrap span {
+    font-family: 'Pretendard-Medium';
+    font-size: 2rem;
+    color: #FF5881;
+}
+
+/*출석현황*/
+.studyWrap {
+    display: flex;
+    flex-direction: column;
+    
+    width: 530px;
+    height: 310px;
+    background-color: rgba(255,255,255,0.5);
+ 
+    font-family: 'Pretendard-Bold';
+ 
+    padding: 2rem;
+    box-sizing: border-box;
+ 
+     border: 1px solid #E1E1E1;
+     border-radius: 15px;
+ 
+     margin-left: 4rem;
+}
+.attendTitle {
+    font-family: 'Pretendard-Bold';
+    font-size: 2rem;
+    color: #FF5881;
+
+    padding: 0 1rem 2rem 0 ;    
+}
+.attend {
+    width: 436px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    padding-left: 1rem;
+}
+.contentTitle{
+    font-size: 1.5rem;
+
+    color: #9B9B9B;
+    padding-bottom: .75rem;
+    padding-right: 7rem;
+}
+.content {
+    padding-bottom: 2rem;
+
+    font-size: 2rem;
+}
+
+.FirstWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    margin-bottom: 2rem;
+}
+/*추천*/
+.recommendWrap {
+    width: 1100px;
+    height: 380px;
+
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+
+    background-color: rgba(255, 255, 255, 0.5);
+}
+.recommendWrap .recommendTitle {
+    font-family: 'Pretendard-Bold';
+    font-size: 2rem;
+
+    margin-left: 1rem;
+
+    padding: 2rem 1rem ;
+}
+.recommendWrap .recommnedList {
+    display: flex;
+    flex-direction: row;
+
+    padding-left: 4rem;
+}
+.recommnedList .list {
+    width: 300px;
+    height: 240px;
+
+    background-color: gray;
+
+    margin-right: 2rem;
+
+    border-radius: 15px;
+
+    text-align: center;
+}
+.list .listTitle {
+    font-family: 'Pretendard-SemiBold';
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+/*btn*/
+.btnWrap {
+    margin-left: 1.75rem;
+}
+.btnWrap .Btn {
+    width: 210px;
+    height: 80px;
+
+    border-radius: 25px;
+    background-color: #FF97AA;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem 1rem;
+
+    box-sizing: border-box;
+
+    margin-bottom: 1rem;
+}
+.btnWrap .Btn:hover {
+    background-color: #ff84a2;
+
+    transition: all .2s ease-in-out;
+}
+.Btn p {
+    font-family: 'Pretendard-SemiBold';
+    font-size: 2rem;
+
+    color: #fff;
+}
+.Btn:nth-child(1) {
+    height: 120px;
+    text-align: center;  
+}
+.Btn:nth-child(1) p {
+    line-height: 2.5rem;
+}
+.SecondWrap {
+    display: flex;
+    flex-direction: row;
+}

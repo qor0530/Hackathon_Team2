@@ -1,14 +1,17 @@
+import logging
+from collections import Counter
 from sqlalchemy import Column, Integer, String, Text, ForeignKey, Boolean, Float, event, Enum as SqlEnum, MetaData
 from sqlalchemy.orm import relationship
 from sqlalchemy import *
 from config.database import Base
 import enum
 from datetime import datetime
-from collections import Counter
-import logging
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+
 
 class Quiz(Base):
     __tablename__ = 'quizzes'

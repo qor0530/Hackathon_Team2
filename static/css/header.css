@@ -1,0 +1,125 @@
+header {
+    position: fixed;
+    background-color: transparent;
+    width: 1920px;
+    height: 100px;
+
+    display: flex;
+    flex-direction: row;   
+    align-items: center;
+    justify-content: space-between;
+
+    z-index: 999;
+
+    padding: 0 2rem;
+
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+
+.LogoWrap {
+    width:150px;
+    height: 70px;
+
+    background-color: grey;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.LogoWrap p {
+    font-family: 'Pretendard-SemiBold';
+    font-size: 2rem;
+
+    color: white;
+}
+.MenuBar {
+    margin-right: 6rem;
+}
+.MenuBar .Menu{
+    display: flex;
+    flex-direction: row;
+}
+.MenuBar .Menu a {
+    margin-left: 5rem;
+
+    font-family: 'Pretendard-Medium';
+    font-size: 1.75rem;
+}
+a:visited, a:link, a:active{
+    color: #000;
+}
+
+.MenuBar .Menu a:hover {
+    color: #FF5881;
+}
+.BtnWrap {
+    display: flex;
+    flex-direction: row;
+}
+.BtnWrap .SignUpBtn {
+    width: 165px;
+    height: 55px;
+    
+    background-color: #fff;
+    border: 2px solid #FF97AA;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    cursor: pointer;
+}
+.SignUpBtn p {
+    font-family: 'Pretendard-SemiBold';
+    font-size: 1.5rem;
+    color: #FF97AA;
+}
+.BtnWrap .SignInBtn {
+    width: 140px;
+    height: 55px;
+    
+    background-color: #FF97AA;
+    border: 2px solid #FF97AA;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: 2rem;
+    cursor: pointer;
+}
+.SignInBtn p {
+    font-family: 'Pretendard-SemiBold';
+    font-size: 1.5rem;
+    color: #fff;
+}
+.BtnWrap .LogOutBtn {
+    width: 160px;
+    height: 55px;
+    
+    background-color: #FF97AA;
+    border: 2px solid #FF97AA;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: 2rem;
+}
+.LogOutBtn p {
+    font-family: 'Pretendard-SemiBold';
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.Wrap {
+    display: flex;
+    flex-direction: row;   
+    align-items: center;
+}

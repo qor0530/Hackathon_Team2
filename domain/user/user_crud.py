@@ -131,12 +131,16 @@ def delete_quiz_from_user_voca(db: Session, user_id: int, quiz_id: int):
 
     return {"message": "Quiz deleted from user voca list"}
 
-#lecture 추천 관련 
+# lecture 추천 관련
+
+
 def get_user_by_id(db: Session, user_id: int) -> User:
     return db.query(User).filter(User.id == user_id).first()
 
+
 def get_lectures_by_ids(db: Session, ids: list):
     return db.query(Lecture).filter(Lecture.id.in_(ids)).all()
+
 
 def get_topic_counts(lectures):
     topic_count = {}
@@ -147,16 +151,20 @@ def get_topic_counts(lectures):
             topic_count[lecture.topic] = 1
     return topic_count
 
+
 def get_most_frequent_topic(topic_count):
     if not topic_count:
         return None
     return max(topic_count, key=topic_count.get)
+
 
 def get_lectures_by_topic(db: Session, topic: str, excluded_ids: list):
     return db.query(Lecture).filter(
         Lecture.topic == topic,
         Lecture.id.not_in(excluded_ids)
     ).all()
+
+
 def parse_learning_history(learning_history: str):
     try:
         # Remove any extra whitespace and split by comma

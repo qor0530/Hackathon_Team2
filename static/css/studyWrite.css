@@ -1,0 +1,122 @@
+body {
+    background-color: #FAFAFA;
+    overflow: hidden;
+}
+.writeWrap {
+    box-sizing: border-box;
+
+    width: 1440px;
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+}
+.writeWrap h1 {
+    font-family: 'Pretendard-Bold';
+    font-size: 3.5rem;
+
+    margin-top: 9rem;
+}
+.writeWrap h1 span {
+    color: #FF5881;
+}
+.number {
+    position: absolute;
+    top:12rem;
+    right: 0;
+
+    font-family: 'Pretendard-SemiBold';
+    font-size: 1rem;
+}
+
+.number .currentNum {
+    color: #FF5881;
+}
+
+hr {
+    border: 1px solid #e1e1e1;
+
+    width: 1440px;
+
+    margin: 1rem 0;
+    margin-top: 1.5rem;
+}
+
+.studyWrap {
+    margin: 0 2rem;
+}
+
+.studyQuestion {
+    font-family: 'Pretendard-SemiBold';
+    font-size: 2.5rem;
+
+    margin: 1.5rem 0;
+
+    margin-bottom: 2.5rem;
+}
+
+.studySection {
+    margin: 0.5rem 1rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.studySection .studyContent {
+    width: 680px;
+    font-family: 'Pretendard-Regular';
+
+    font-size: 2rem;
+
+    line-height: 3.25rem;
+
+    color: #2c2c2c;
+}
+#writeAnswer {
+    width: 580px;
+    height: 450px;
+
+    margin: 1.5rem 0;
+
+    font-family: 'Pretendard-Regular';
+    font-size: 2rem;
+    color: #989898;
+
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+
+    padding: 1rem;
+
+    position: relative;
+}
+#writeAnswer:focus {
+    outline: 2px solid #FF97AA;
+}
+/*완료 버튼만 찐한 핑크*/
+.Btn {
+    width: 150px;
+    height: 60px;
+
+    background-color: #FF97AA;
+    color: #fff;
+
+    font-family: 'Pretendard-SemiBold';
+    font-size: 1.75rem;
+
+    border: 0;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    position: absolute;
+    right: 4rem;
+}
+.Btn:hover {
+    background-color: #ff84a2;
+
+    transition: all .2s ease-in-out;
+}

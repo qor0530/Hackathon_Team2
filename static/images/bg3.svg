@@ -1,0 +1,28 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1920" height="1080" fill="white"/>
+<mask id="mask0_245_128" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
+<rect width="1920" height="1080" fill="url(#paint0_radial_245_128)" fill-opacity="0.8"/>
+</mask>
+<g mask="url(#mask0_245_128)">
+<circle opacity="0.2" cx="960.5" cy="851.5" r="250.121" fill="#FF5881" fill-opacity="0.4" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+<circle opacity="0.2" cx="960.5" cy="851.5" r="310.15" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+<circle opacity="0.2" cx="960.5" cy="851.5" r="370.18" fill="#FF5881" fill-opacity="0.2" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+<circle opacity="0.2" cx="960.5" cy="851.5" r="430.209" fill="#FF5881" fill-opacity="0.2" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+<circle opacity="0.2" cx="960.5" cy="851.5" r="490.238" fill="#FF5881" fill-opacity="0.4" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+<circle opacity="0.2" cx="960.5" cy="851.5" r="550.267" fill="#FF5881" fill-opacity="0.2" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+<circle opacity="0.2" cx="960.5" cy="851.5" r="610.296" fill="#FF5881" fill-opacity="0.2" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+<circle opacity="0.2" cx="960.5" cy="851.5" r="670.325" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+<path opacity="0.2" d="M1690.85 851.5C1690.85 1254.86 1363.86 1581.85 960.5 1581.85C557.136 1581.85 230.146 1254.86 230.146 851.5C230.146 448.136 557.136 121.146 960.5 121.146C1363.86 121.146 1690.85 448.136 1690.85 851.5Z" fill="#FF5881" fill-opacity="0.2" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+<circle opacity="0.2" cx="960.5" cy="851.5" r="790.383" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+<circle opacity="0.2" cx="960.5" cy="851.5" r="850.413" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+<circle opacity="0.2" cx="960.5" cy="851.5" r="910.442" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+<circle opacity="0.2" cx="960.5" cy="851.5" r="970.471" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+<circle opacity="0.2" cx="960.5" cy="851.5" r="1030.5" stroke="#FF5881" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<radialGradient id="paint0_radial_245_128" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(960 9.49216) rotate(90) scale(1134.51 2214.69)">
+<stop offset="0.26" stop-color="#D9D9D9"/>
+<stop offset="0.8" stop-color="#F8EFEF" stop-opacity="0"/>
+</radialGradient>
+</defs>
+</svg>

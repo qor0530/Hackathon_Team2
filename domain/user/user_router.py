@@ -1,23 +1,31 @@
+from api.models import User
+import logging
+from api.models import User, Lecture
+from typing import List
+from passlib.context import CryptContext
+from datetime import timedelta, datetime
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from jose import jwt, JWTError
+from starlette import status
+from domain.user.user_crud import pwd_context
+from domain.user.user_schema import LectureResponse
+from domain.user.user_crud import pwd_context, get_user_by_id, get_lectures_by_ids, get_topic_counts, get_most_frequent_topic, get_lectures_by_topic, parse_learning_history
 from fastapi import APIRouter, Depends, status, HTTPException, Cookie, Response, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from sqlalchemy.orm import Session
 from config.database import get_db
 from fastapi.templating import Jinja2Templates
 from domain.user import user_crud, user_schema
-from domain.user.user_crud import pwd_context, get_user_by_id, get_lectures_by_ids, get_topic_counts, get_most_frequent_topic, get_lectures_by_topic, parse_learning_history
-from domain.user.user_schema import LectureResponse
-from starlette import status
-from jose import jwt, JWTError
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from datetime import timedelta, datetime
-from passlib.context import CryptContext
-from typing import List
-from api.models import User, Lecture
-import logging
+<< << << < HEAD
+== == == =
+>>>>>> > main
+<< << << < HEAD
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+== == == =
+>>>>>> > main
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -164,6 +172,44 @@ def read_users_me(request: Request, db: Session = Depends(get_db)):
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
     return user
+
+
+@router.get("/me/statistics")
+def read_user_statistics(request: Request, db: Session = Depends(get_db)):
+    token = request.cookies.get("access_token")
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authorization cookie missing",
+        )
+
+    token = token.replace("Bearer ", "")
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        login_id: str = payload.get("sub")
+        if login_id is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token",
+            )
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+        )
+
+    user = user_crud.get_user_login_id(db, login_id)
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+
+    return {
+        "total_learning_time": user.total_learning_time,
+        # assuming quiz_learning_history is a comma-separated string
+        "quiz_solved": len(user.quiz_learning_history.split(',')),
+        "attendance_days": user.attendance
+    }
+
 
 #####################
 ## voca 관련 라우터 ##

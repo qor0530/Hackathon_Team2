@@ -1,0 +1,137 @@
+/* styles.css */
+body {
+    background: linear-gradient(45deg, #FAFAFA, #F7EDED);
+    margin: 0;
+}
+
+#background {
+    background: linear-gradient(90deg,#FFE0E7, #FFC7D4);
+    width: 100%;
+    height: 50%;
+    position: absolute;
+    z-index: -1;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+.login-box {
+    background: #fff;
+    border-radius: 10px;
+    text-align: center;
+    width: 700px;
+    height: 720px;
+}
+
+.login-box h1 {
+    color: #FF5881;
+    font-family: 'Moderniz';
+    margin-bottom: 30px;
+    margin-top: 70px;
+    font-size: 50px;
+}
+
+.login-box p {
+    color: #9E9E9E;
+    font-size: 20px;
+    margin-bottom: 30px;
+    font-family: 'Pretendard-Semibold';
+}
+
+.login-box form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box input {
+    margin: 10px 0;
+    border-radius: 10px;
+    font-size: 24px;
+    border: 0;
+    padding: 30px;
+    width: 490px;
+    font-family: 'Pretendard-Medium';
+    height: 25px;
+}
+.id-input {
+    box-shadow: 0 0 0 1px gray inset;
+    background-color: #F5F5F5;
+}
+.password-input {
+    box-shadow: 0 0 0 1px gray inset;
+    
+}
+.login-box button {
+    border-radius: 10px;
+    color: #fff;
+    background: #ff4081;
+    cursor: pointer;
+    font-family: 'Pretendard-Semibold';
+    border: none;
+    margin-bottom: 19px;
+}
+
+#login-btn{
+    width: 550px;
+    height: 90px;
+    font-size: 32px;
+    margin: 25px 0px;
+}
+
+.additional-submit {
+    display: flex;
+    justify-content: space-between;
+}
+
+.additional-submit .yellow-box {
+    background-color:#FEE500;
+    flex: 1;
+    border-radius: 10px;
+    width: 260px;
+    height: 60px;
+    margin-right: 15px;
+    cursor: pointer;
+    border: none;
+}
+
+.additional-submit .white-box {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    flex: 1;
+    border-radius: 10px;
+    width: 260px;
+    height: 60px;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.login-box .register-button {
+    background: #FF5881;
+    color: #fff;
+}
+
+.login-box .not-member {
+    color: #FF97AA;
+    margin-top: 3px;
+    text-align: right;
+    padding-right: 80px;
+    font-family: 'Pretendard-Medium';
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.illustration {
+    position: absolute;
+    right: 10%;
+    text-align: center;
+    color: #333;
+    font-size: 1.5em;
+}

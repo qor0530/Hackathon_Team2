@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lecture Detail</title>
+  </head>
+  <body>
+    <h1>Lecture Detail</h1>
+    <p>Title: {{ lecture.title }}</p>
+    <p>Difficulty: {{ lecture.difficulty }}</p>
+    <p>Topic: {{ lecture.topic }}</p>
+    <p>Description: {{ lecture.description }}</p>
+    <p>Image: <img src="{{ lecture.image }}" alt="Lecture Image" /></p>
+
+    {% if writing_tasks %}
+    <h2>Writing Task</h2>
+    <p>Question: {{ writing_tasks[0].question }}</p>
+    <p>Content: {{ writing_tasks[0].content }}</p>
+    {% elif comprehension_tasks %}
+    <h2>Comprehension Task</h2>
+    <p>Question: {{ comprehension_tasks[0].question }}</p>
+    <p>Content: {{ comprehension_tasks[0].content }}</p>
+    <p>Conversation: {{ comprehension_tasks[0].conversation }}</p>
+    <p>Options: {{ comprehension_tasks[0].options }}</p>
+    <p>Answer: {{ comprehension_tasks[0].answer }}</p>
+    {% endif %}
+
+    <a href="/api/lecture/update/{{ lecture.id }}">Update</a>
+    <button onclick="deleteLecture({{ lecture.id }})">Delete</button>
+
+    <script>
+      function deleteLecture(lectureId) {
+        fetch(`/api/lecture/delete/${lectureId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then((response) => {
+          if (response.ok) {
+            window.location.href = "/api/lecture/list";
+          } else {
+            alert("Failed to delete the lecture");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

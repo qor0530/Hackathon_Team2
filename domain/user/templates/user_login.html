@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <body>
+    <div id="user-info" style="display: none;">
+      <p>Welcome, <span id="user-name"></span>!</p>
+      <p>Nickname: <span id="user-nickname"></span></p>
+      <p>Profile Image: <span id="user-profile-image"></span></p>
+      <p>Learning History: <span id="user-learning-history"></span></p>
+      <p>Total Learning Time: <span id="user-total-learning-time"></span></p>
+      <p>Level: <span id="user-level"></span></p>
+      <p>Exp: <span id="user-exp"></span></p>
+      <p>Subscription: <span id="user-subscription"></span></p>
+      <p>Attendance: <span id="user-attendance"></span></p>
+      <button id="logout-button">Logout</button>
+    </div>
+
+    <form id="login-form">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required />
+      <br />
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+      <br />
+      <button type="submit">Login</button>
+    </form>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const token = localStorage.getItem("token");
+        const loginForm = document.getElementById("login-form");
+        const userInfo = document.getElementById("user-info");
+
+        if (token) {
+          try {
+            const response = await fetch("/api/user/me", {
+              method: "GET",
+              headers: {
+                "Authorization": `Bearer ${token}`,
+              },
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              document.getElementById("user-name").textContent = data.login_id;
+              document.getElementById("user-nickname").textContent = data.nickname;
+              document.getElementById("user-profile-image").textContent = data.profile_image;
+              document.getElementById("user-learning-history").textContent = data.learning_history;
+              document.getElementById("user-total-learning-time").textContent = data.total_learning_time;
+              document.getElementById("user-level").textContent = data.level;
+              document.getElementById("user-exp").textContent = data.exp;
+              document.getElementById("user-subscription").textContent = data.subscription;
+              document.getElementById("user-attendance").textContent = data.attendance;
+              loginForm.style.display = "none";
+              userInfo.style.display = "block";
+            } else {
+              console.error("Failed to fetch user info:", response.statusText);
+              localStorage.removeItem("token");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            localStorage.removeItem("token");
+          }
+        }
+        else {
+          console.log("No token found");
+        }
+
+        document.getElementById("login-form").addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+
+          const response = await fetch("/api/user/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
+              username: username,
+              password: password,
+            }),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem("token", data.access_token);
+            document.getElementById("user-name").textContent = data.login_id;
+            loginForm.style.display = "none";
+            userInfo.style.display = "block";
+          } else {
+            console.error("Login failed:", response.statusText);
+          }
+        });
+
+        document.getElementById("logout-button").addEventListener("click", function () {
+          localStorage.removeItem("token");
+          console.log("Token removed");
+          loginForm.style.display = "block";
+          userInfo.style.display = "none";
+        });
+      });
+    </script>
+  </body>
+</html>

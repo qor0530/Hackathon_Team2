@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/reset.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', path='css/dashboard.css') }}"
+    />
+    <script
+      src="{{ url_for('static', path='javascript/dashboard.js') }}"
+      defer
+    ></script>
+</head>
+<body style="width: 100%;">
+    {% include "header.html" %}
+    <div class="DashWrap">
+        <div class="characterWrap">
+            <div class="character"></div>
+            <button class="myPageBtn" onclick="location.href='/my_page';">마이페이지</button>
+        </div>
+        <div class="InfoWrap">
+            <div class="FirstStudy">
+                <div class="studyTitle"><p>학습률</p></div>
+                <div class="studyRateWrap">
+                    <div class="studyGraph" dataset="">81%</div>
+                </div>
+                <div class="attendInfo">
+                    <p class="attendTitle">출석 현황</p>
+                    <div class="attend">
+                        <div class="attendContent">
+                            <p class="contentTitle">출석일수</p>
+                            <p class="content" id="day"></p>
+                        </div>
+                        <div class="attendContent">
+                            <p class="contentTitle">출석률</p>
+                            <p class="content" id="percent"></p>
+                        </div>
+                        <div class="attendContent">
+                            <p class="contentTitle">더리터 처음 시작한 날</p>
+                            <p class="content" id="startday">2024.07.30</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chapterWrap">
+                <div class="chapterContent">
+                    <div class="chapterLogo"></div>
+                    <p>챕터완성률<span>18%</span></p>
+                    <div class="chapterProgressbar"></div>
+                </div>
+                <div class="chapterContent">
+                    <div class="chapterLogo"></div>
+                    <p>챕터완성률<span>100%</span</p>
+                    <div class="chapterProgressbar"></div>
+                </div>
+                <div class="chapterContent">
+                    <div class="chapterLogo"></div>
+                    <p>챕터완성률<span>79%</span></p>
+                    <div class="chapterProgressbar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

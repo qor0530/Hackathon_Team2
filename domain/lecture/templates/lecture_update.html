@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lecture Update</title>
+  </head>
+  <body>
+    <h1>Lecture Update</h1>
+    <form id="lectureForm" enctype="multipart/form-data">
+      <input
+        type="text"
+        id="title"
+        value="{{ lecture.title }}"
+        placeholder="Title"
+        required
+      />
+      <input
+        type="text"
+        id="difficulty"
+        value="{{ lecture.difficulty }}"
+        placeholder="Difficulty"
+        required
+      />
+      <input
+        type="text"
+        id="topic"
+        value="{{ lecture.topic }}"
+        placeholder="Topic"
+        required
+      />
+      <input type="file" id="image" placeholder="Image" />
+      <textarea id="description" placeholder="Description" required>
+{{ lecture.description }}</textarea
+      >
+
+      <label for="type">Select Lecture Type:</label>
+      <select id="type" required>
+        <option value="">Select</option>
+        <option value="writing">Writing Task</option>
+        <option value="comprehension">Comprehension Task</option>
+      </select>
+
+      <div id="writingTaskForm" style="display: none">
+        <input type="text" id="writing_question" placeholder="Question" />
+        <textarea id="writing_content" placeholder="Content"></textarea>
+      </div>
+
+      <div id="comprehensionTaskForm" style="display: none">
+        <input type="text" id="comprehension_question" placeholder="Question" />
+        <textarea id="comprehension_content" placeholder="Content"></textarea>
+        <textarea
+          id="comprehension_conversation"
+          placeholder="Conversation (JSON format)"
+        ></textarea>
+        <textarea
+          id="comprehension_options"
+          placeholder="Options (JSON format)"
+        ></textarea>
+        <input
+          type="number"
+          id="comprehension_answer"
+          placeholder="Answer (index)"
+        />
+      </div>
+
+      <button type="submit">Update Lecture</button>
+    </form>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const lectureForm = document.getElementById("lectureForm");
+        const typeSelect = document.getElementById("type");
+        const writingTaskForm = document.getElementById("writingTaskForm");
+        const comprehensionTaskForm = document.getElementById(
+          "comprehensionTaskForm"
+        );
+
+        typeSelect.addEventListener("change", () => {
+          writingTaskForm.style.display = "none";
+          comprehensionTaskForm.style.display = "none";
+          if (typeSelect.value === "writing") {
+            writingTaskForm.style.display = "block";
+          } else if (typeSelect.value === "comprehension") {
+            comprehensionTaskForm.style.display = "block";
+          }
+        });
+
+        lectureForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          const title = document.getElementById("title").value;
+          const difficulty = document.getElementById("difficulty").value;
+          const topic = document.getElementById("topic").value;
+          const description = document.getElementById("description").value;
+          const imageInput = document.getElementById("image");
+          const formData = new FormData();
+          formData.append("file", imageInput.files[0]);
+
+          // Upload image if a new one is selected
+          let imageUrl = "{{ lecture.image }}";
+          if (imageInput.files.length > 0) {
+            const response = await fetch("/api/lecture/upload_image/", {
+              method: "POST",
+              body: formData,
+            });
+            const data = await response.json();
+            imageUrl = data.image_url;
+          }
+
+          const lectureData = {
+            title: title,
+            difficulty: difficulty,
+            topic: topic,
+            image: imageUrl,
+            description: description,
+          };
+
+          if (typeSelect.value === "writing") {
+            lectureData.type = "writing";
+            lectureData.question =
+              document.getElementById("writing_question").value;
+            lectureData.content =
+              document.getElementById("writing_content").value;
+          } else if (typeSelect.value === "comprehension") {
+            lectureData.type = "comprehension";
+            lectureData.question = document.getElementById(
+              "comprehension_question"
+            ).value;
+            lectureData.content = document.getElementById(
+              "comprehension_content"
+            ).value;
+            lectureData.conversation = document.getElementById(
+              "comprehension_conversation"
+            ).value;
+            lectureData.options = document.getElementById(
+              "comprehension_options"
+            ).value;
+            lectureData.answer = document.getElementById(
+              "comprehension_answer"
+            ).value;
+          }
+
+          fetch(`/api/lecture/update/${lecture_id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(lectureData),
+          }).then(() => {
+            window.location.href = "/api/lecture/list";
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
