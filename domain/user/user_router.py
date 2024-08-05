@@ -13,7 +13,7 @@ from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from datetime import timedelta, datetime
 from passlib.context import CryptContext
 from typing import List
-
+from api.models import User
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -133,8 +133,7 @@ def login_for_access_token(response: Response, form_data: OAuth2PasswordRequestF
         "exp": datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
     }
     access_token = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
-    response.set_cookie(key="access_token", value=f"Bearer {
-                        access_token}", httponly=False)
+    response.set_cookie(key="access_token", value=f"Bearer {access_token}", httponly=False)
 
     return {
         "access_token": access_token,
@@ -180,6 +179,43 @@ def read_users_me(request: Request, db: Session = Depends(get_db)):
 
     return user
 
+
+@router.get("/me/statistics")
+def read_user_statistics(request: Request, db: Session = Depends(get_db)):
+    token = request.cookies.get("access_token")
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authorization cookie missing",
+        )
+
+    token = token.replace("Bearer ", "")
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        login_id: str = payload.get("sub")
+        if login_id is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token",
+            )
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+        )
+
+    user = user_crud.get_user_login_id(db, login_id)
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+
+    return {
+        "total_learning_time": user.total_learning_time,
+        "quiz_solved": len(user.quiz_learning_history.split(',')),  # assuming quiz_learning_history is a comma-separated string
+        "attendance_days": user.attendance
+    }
+
+    
 #####################
 ## voca 관련 라우터 ##
 #####################

@@ -32,7 +32,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       //1. 출석일수 2. 출석률 = 출석일/한달별날짜수 3. 가입날짜
       attendDay.innerHTML = `${data.attendance}일`;
 
-      attendPercent.innerHTML = `${(data.attendance / totalDays) * 100}%`;
+      attendPercent.innerHTML = `${((data.attendance / totalDays) * 100).toFixed(1)}%`;
+
+      attendStart.innerHTML = `${data.signupdate.slice(0, 10)}`;
     } else {
       console.error("Failed to fetch user info:", response.statusText);
     }
