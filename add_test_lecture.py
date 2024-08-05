@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine, Column, Integer, String, Text, ForeignKey
 from sqlalchemy.orm import sessionmaker, declarative_base, relationship, Session
+import random
 
 # 데이터베이스 설정
 DATABASE_URL = "sqlite:///./HACKATHON_TEAM2.db"
@@ -69,45 +70,45 @@ def add_test_data():
 
     # Lecture 더미 데이터
     lecture_data = [
-        {"title": "정치의 기초", "difficulty": 3, "topic": "정치",
+        {"title": "정치의 기초", "difficulty": 3, "topic": "정치 | 경제",
             "image": "lecture_image_1.jpg", "description": "정치의 기본 개념을 학습합니다."},
         {"title": "문학 101", "difficulty": 2, "topic": "문학",
             "image": "lecture_image_2.jpg", "description": "문학 분석의 기초를 학습합니다."},
-        {"title": "기초 수학", "difficulty": 4, "topic": "수학",
+        {"title": "기초 수학", "difficulty": 4, "topic": "수학 | 과학",
             "image": "lecture_image_3.jpg", "description": "수학의 기본 개념을 학습합니다."},
-        {"title": "과학 혁명", "difficulty": 5, "topic": "과학",
+        {"title": "과학 혁명", "difficulty": 5, "topic": "수학 | 과학",
             "image": "lecture_image_4.jpg", "description": "과학 혁명의 주요 사건을 학습합니다."},
         {"title": "시사 문제", "difficulty": 3, "topic": "시사",
             "image": "lecture_image_5.jpg", "description": "현재 시사 문제를 분석합니다."},
-        {"title": "고급 경제학", "difficulty": 4, "topic": "경제학",
+        {"title": "고급 경제학", "difficulty": 4, "topic": "정치 | 경제",
             "image": "lecture_image_6.jpg", "description": "고급 경제 이론을 학습합니다."},
         {"title": "현대 문학", "difficulty": 3, "topic": "문학",
             "image": "lecture_image_7.jpg", "description": "현대 문학 작품을 분석합니다."},
-        {"title": "응용 수학", "difficulty": 5, "topic": "수학",
+        {"title": "응용 수학", "difficulty": 5, "topic": "수학 | 과학",
             "image": "lecture_image_8.jpg", "description": "수학적 원리의 응용을 학습합니다."},
-        {"title": "기술 발전", "difficulty": 4, "topic": "과학",
+        {"title": "기술 발전", "difficulty": 4, "topic": "수학 | 과학",
             "image": "lecture_image_9.jpg", "description": "최근 기술 발전을 학습합니다."},
         {"title": "국제 문제", "difficulty": 3, "topic": "시사",
             "image": "lecture_image_10.jpg", "description": "국제 시사 문제를 분석합니다."},
-        {"title": "정치의 심화", "difficulty": 4, "topic": "정치",
+        {"title": "정치의 심화", "difficulty": 4, "topic": "정치 | 경제",
             "image": "lecture_image_11.jpg", "description": "정치의 심화 개념을 학습합니다."},
         {"title": "고전 문학", "difficulty": 3, "topic": "문학",
             "image": "lecture_image_12.jpg", "description": "고전 문학 작품을 분석합니다."},
-        {"title": "고급 수학", "difficulty": 5, "topic": "수학",
+        {"title": "고급 수학", "difficulty": 5, "topic": "수학 | 과학",
             "image": "lecture_image_13.jpg", "description": "고급 수학 개념을 학습합니다."},
-        {"title": "생명 과학", "difficulty": 4, "topic": "과학",
+        {"title": "생명 과학", "difficulty": 4, "topic": "수학 | 과학",
             "image": "lecture_image_14.jpg", "description": "생명 과학의 기초를 학습합니다."},
         {"title": "현대 사회 문제", "difficulty": 3, "topic": "시사",
             "image": "lecture_image_15.jpg", "description": "현대 사회 문제를 분석합니다."},
-        {"title": "경제 정책", "difficulty": 4, "topic": "경제학",
+        {"title": "경제 정책", "difficulty": 4, "topic": "정치 | 경제",
             "image": "lecture_image_16.jpg", "description": "경제 정책의 기초를 학습합니다."},
         {"title": "문학 이론", "difficulty": 3, "topic": "문학",
             "image": "lecture_image_17.jpg", "description": "문학 이론을 학습합니다."},
-        {"title": "응용 물리학", "difficulty": 5, "topic": "과학",
+        {"title": "응용 물리학", "difficulty": 5, "topic": "수학 | 과학",
             "image": "lecture_image_18.jpg", "description": "응용 물리학의 기초를 학습합니다."},
         {"title": "사회학 개론", "difficulty": 4, "topic": "시사",
             "image": "lecture_image_19.jpg", "description": "사회학의 기초 개념을 학습합니다."},
-        {"title": "기초 경제학", "difficulty": 3, "topic": "경제학",
+        {"title": "기초 경제학", "difficulty": 3, "topic": "정치 | 경제",
             "image": "lecture_image_20.jpg", "description": "기초 경제 개념을 학습합니다."}
     ]
 
@@ -196,7 +197,7 @@ def add_test_data():
             "content": "친구와 함께 학교 과제를 하던 중, 너와 친구는 서로 다른 의견을 가지고 논쟁이 일어났다. 너는 발표 자료에 그래프를 추가해야 한다고 생각하고, 친구는 텍스트만으로 충분하다고 주장한다.",
             "conversation": "나는 그래프를 추가하는 것이 좋다고 생각해. 시각적으로 정보를 전달하면 더 효과적일 것 같아. | 맞아, 하지만 우리에게는 시간도 부족하고 자료를 정리하는 데 많은 시간이 걸릴 거야.",
             "options": "1. 그래프는 불필요해. 그냥 텍스트만으로 하자.\n2. 그렇다면 그래프를 추가하지 말자. 시간은 부족하니까.\n3. 그건 맞아. 하지만 그래프가 자료의 핵심을 더 잘 전달할 수 있다면, 시간 투자할 가치가 있다고 봐.\n4. 그러면 텍스트도 없애고 그래프만 추가하자.\n5. 그래프도 텍스트도 다 필요 없어. 간단하게 하자.",
-            "answer": "3"
+            "answer": str(random.randint(1, 5))
         },
         {
             "lecture_id": 12,
@@ -204,7 +205,7 @@ def add_test_data():
             "content": "동료와 프로젝트 기한에 대해 이야기하고 있다. 너는 기한을 연장해야 한다고 생각하고, 동료는 현재 기한을 지켜야 한다고 주장한다.",
             "conversation": "나는 기한을 연장하는 것이 좋다고 생각해. 더 나은 결과를 얻기 위해서는 시간이 필요해. | 맞아, 하지만 우리는 이미 충분한 시간을 가졌고 이제는 결과를 제출해야 해.",
             "options": "1. 기한은 지켜야 해. 연장은 불필요해.\n2. 그렇다면 기한을 연장하지 말자. 시간이 부족해.\n3. 그건 맞아. 하지만 더 나은 결과를 위해 시간을 투자할 가치가 있어.\n4. 그러면 결과 제출을 포기하자.\n5. 기한도 결과도 다 필요 없어. 간단하게 하자.",
-            "answer": "3"
+            "answer": str(random.randint(1, 5))
         },
         {
             "lecture_id": 13,
@@ -212,7 +213,7 @@ def add_test_data():
             "content": "프로젝트 팀원들과 프로젝트 방향에 대해 논의하고 있다. 너는 새로운 접근 방식을 제안하고, 팀원은 기존 방식을 유지해야 한다고 주장한다.",
             "conversation": "나는 새로운 접근 방식을 시도하는 것이 좋다고 생각해. 더 창의적인 결과를 얻을 수 있을 것 같아. | 맞아, 하지만 기존 방식이 더 안정적이고 예측 가능한 결과를 줄 거야.",
             "options": "1. 새로운 접근 방식은 불필요해. 기존 방식만으로 충분해.\n2. 그렇다면 새로운 접근 방식을 시도하지 말자. 안정성이 중요해.\n3. 그건 맞아. 하지만 창의적인 결과를 위해 새로운 접근 방식을 시도할 가치가 있어.\n4. 그러면 기존 방식을 포기하고 새로운 접근 방식만 시도하자.\n5. 기존 방식도 새로운 접근 방식도 다 필요 없어. 간단하게 하자.",
-            "answer": "3"
+            "answer": str(random.randint(1, 5))
         },
         {
             "lecture_id": 14,
@@ -220,7 +221,7 @@ def add_test_data():
             "content": "동료와 회사의 새로운 정책에 대해 이야기하고 있다. 너는 새로운 정책이 필요하다고 생각하고, 동료는 기존 정책을 유지해야 한다고 주장한다.",
             "conversation": "나는 새로운 정책을 도입하는 것이 좋다고 생각해. 더 효율적인 결과를 얻을 수 있을 것 같아. | 맞아, 하지만 기존 정책이 더 안정적이고 예측 가능한 결과를 줄 거야.",
             "options": "1. 새로운 정책은 불필요해. 기존 정책만으로 충분해.\n2. 그렇다면 새로운 정책을 도입하지 말자. 안정성이 중요해.\n3. 그건 맞아. 하지만 효율적인 결과를 위해 새로운 정책을 도입할 가치가 있어.\n4. 그러면 기존 정책을 포기하고 새로운 정책만 도입하자.\n5. 기존 정책도 새로운 정책도 다 필요 없어. 간단하게 하자.",
-            "answer": "3"
+            "answer": str(random.randint(1, 5))
         },
         {
             "lecture_id": 15,
@@ -228,7 +229,7 @@ def add_test_data():
             "content": "친구와 주말 계획에 대해 이야기하고 있다. 너는 야외 활동을 제안하고, 친구는 실내 활동을 선호한다.",
             "conversation": "나는 야외 활동을 하는 것이 좋다고 생각해. 신선한 공기를 마시고 자연을 즐길 수 있을 것 같아. | 맞아, 하지만 실내 활동이 더 편안하고 안정적일 거야.",
             "options": "1. 야외 활동은 불필요해. 실내 활동만으로 충분해.\n2. 그렇다면 야외 활동을 하지 말자. 안정성이 중요해.\n3. 그건 맞아. 하지만 신선한 공기를 위해 야외 활동을 할 가치가 있어.\n4. 그러면 실내 활동을 포기하고 야외 활동만 하자.\n5. 야외 활동도 실내 활동도 다 필요 없어. 간단하게 하자.",
-            "answer": "3"
+            "answer": str(random.randint(1, 5))
         },
         {
             "lecture_id": 16,
@@ -236,7 +237,7 @@ def add_test_data():
             "content": "상사와 프로젝트 방향에 대해 이야기하고 있다. 너는 새로운 기술을 도입해야 한다고 생각하고, 상사는 기존 기술을 유지해야 한다고 주장한다.",
             "conversation": "나는 새로운 기술을 도입하는 것이 좋다고 생각해. 더 혁신적인 결과를 얻을 수 있을 것 같아. | 맞아, 하지만 기존 기술이 더 안정적이고 예측 가능한 결과를 줄 거야.",
             "options": "1. 새로운 기술은 불필요해. 기존 기술만으로 충분해.\n2. 그렇다면 새로운 기술을 도입하지 말자. 안정성이 중요해.\n3. 그건 맞아. 하지만 혁신적인 결과를 위해 새로운 기술을 도입할 가치가 있어.\n4. 그러면 기존 기술을 포기하고 새로운 기술만 도입하자.\n5. 기존 기술도 새로운 기술도 다 필요 없어. 간단하게 하자.",
-            "answer": "3"
+            "answer": str(random.randint(1, 5))
         },
         {
             "lecture_id": 17,
@@ -244,7 +245,7 @@ def add_test_data():
             "content": "친구와 여행 계획에 대해 이야기하고 있다. 너는 해외 여행을 제안하고, 친구는 국내 여행을 선호한다.",
             "conversation": "나는 해외 여행을 하는 것이 좋다고 생각해. 새로운 문화를 경험할 수 있을 것 같아. | 맞아, 하지만 국내 여행이 더 편안하고 안전할 거야.",
             "options": "1. 해외 여행은 불필요해. 국내 여행만으로 충분해.\n2. 그렇다면 해외 여행을 하지 말자. 안정성이 중요해.\n3. 그건 맞아. 하지만 새로운 문화를 경험하기 위해 해외 여행을 할 가치가 있어.\n4. 그러면 국내 여행을 포기하고 해외 여행만 하자.\n5. 해외 여행도 국내 여행도 다 필요 없어. 간단하게 하자.",
-            "answer": "3"
+            "answer": str(random.randint(1, 5))
         },
         {
             "lecture_id": 18,
@@ -252,7 +253,7 @@ def add_test_data():
             "content": "팀원과 프로젝트 방향에 대해 이야기하고 있다. 너는 새로운 도구를 사용해야 한다고 생각하고, 팀원은 기존 도구를 유지해야 한다고 주장한다.",
             "conversation": "나는 새로운 도구를 사용하는 것이 좋다고 생각해. 더 효율적인 결과를 얻을 수 있을 것 같아. | 맞아, 하지만 기존 도구가 더 안정적이고 예측 가능한 결과를 줄 거야.",
             "options": "1. 새로운 도구는 불필요해. 기존 도구만으로 충분해.\n2. 그렇다면 새로운 도구를 사용하지 말자. 안정성이 중요해.\n3. 그건 맞아. 하지만 효율적인 결과를 위해 새로운 도구를 사용할 가치가 있어.\n4. 그러면 기존 도구를 포기하고 새로운 도구만 사용하자.\n5. 기존 도구도 새로운 도구도 다 필요 없어. 간단하게 하자.",
-            "answer": "3"
+            "answer": str(random.randint(1, 5))
         },
         {
             "lecture_id": 19,
@@ -260,7 +261,7 @@ def add_test_data():
             "content": "동료와 프로젝트 일정에 대해 이야기하고 있다. 너는 일정을 연기해야 한다고 생각하고, 동료는 현재 일정을 유지해야 한다고 주장한다.",
             "conversation": "나는 일정을 연기하는 것이 좋다고 생각해. 더 나은 결과를 얻기 위해서는 시간이 필요해. | 맞아, 하지만 우리는 이미 충분한 시간을 가졌고 이제는 결과를 제출해야 해.",
             "options": "1. 일정은 지켜야 해. 연기는 불필요해.\n2. 그렇다면 일정을 연기하지 말자. 시간이 부족해.\n3. 그건 맞아. 하지만 더 나은 결과를 위해 시간을 투자할 가치가 있어.\n4. 그러면 결과 제출을 포기하자.\n5. 일정도 결과도 다 필요 없어. 간단하게 하자.",
-            "answer": "3"
+            "answer": str(random.randint(1, 5))
         },
         {
             "lecture_id": 20,
@@ -268,7 +269,7 @@ def add_test_data():
             "content": "친구와 식사 메뉴에 대해 이야기하고 있다. 너는 새로운 음식을 시도해야 한다고 생각하고, 친구는 익숙한 음식을 선호한다.",
             "conversation": "나는 새로운 음식을 시도하는 것이 좋다고 생각해. 새로운 맛을 경험할 수 있을 것 같아. | 맞아, 하지만 익숙한 음식이 더 안전하고 편안할 거야.",
             "options": "1. 새로운 음식은 불필요해. 익숙한 음식만으로 충분해.\n2. 그렇다면 새로운 음식을 시도하지 말자. 안전성이 중요해.\n3. 그건 맞아. 하지만 새로운 맛을 경험하기 위해 새로운 음식을 시도할 가치가 있어.\n4. 그러면 익숙한 음식을 포기하고 새로운 음식만 시도하자.\n5. 새로운 음식도 익숙한 음식도 다 필요 없어. 간단하게 하자.",
-            "answer": "3"
+            "answer": str(random.randint(1, 5))
         }
     ]
 
