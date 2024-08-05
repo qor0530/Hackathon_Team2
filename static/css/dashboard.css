@@ -21,16 +21,23 @@ body {
     width: fit-content;
     text-align: center;
 
-    padding: 10rem 2rem;
+    padding: 8rem 2rem;
 }
 .characterWrap .character {
-    width: 300px;
-    height: 300px;
 
-    background-color: grey;
-
-    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+.characterWrap .character img{
+    margin-bottom: 1rem;
+    position: relative;
+    width: 300px;
+    height: auto;
+
+    animation: up 3s ease-in-out infinite;
+}
+
 .characterWrap .myPageBtn {
     width: 225px;
     height: 55px;
@@ -78,19 +85,41 @@ body {
     margin-top: 2rem;
 }
 .chapterWrap .chapterContent {
-    width: 270px;
-    height: 320px;
-
+    width: 900px;
+    height: 290px;
     background-color: #fff;
     border: 1px solid #E1E1E1;
     border-radius: 10px;
 
-    margin: 0 1rem;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+
+    padding-left: 1rem;
+}
+.chapterContent .bar {
+    background: #ff6e93;
+    width: 0;
+    margin: .25rem 0;
+    color: #494949;
+
+    position: relative;
+
+    border-radius: 0 50px 50px 0;
+
+    transition: width 2s;
+    -webkit-transform: ranslate3d(0,0,0);
+    clear: both;
+}
+.bar .label {
+    padding: 1rem;
+    width: 10rem;
+
+    color: #fff;
+    display: inline-block;
+    position: relative;
+    z-index: 2;
 }
 .chapterContent .chapterLogo {
     width: 190px;
@@ -187,7 +216,7 @@ body {
     position: absolute;
     border-radius: 50%;
     inset: 0;
-    background: conic-gradient(#FF5881 0% 81%,#E1E1E1 0);
+    background: conic-gradient(#FF5881 0% 10%,#E1E1E1 0);
 
     -webkit-mask:radial-gradient(farthest-side,#0000 79%,#000 80%);
           mask:radial-gradient(farthest-side,#0000 79%,#000 80%);
@@ -212,3 +241,15 @@ body {
 .studyTitle p {
     margin-left: -.5rem;
 }
+
+@keyframes up {
+    0%{
+      top: 0rem;
+    }
+    50% {
+      top: .85rem;
+    }
+    100% {
+      top: 0rem;
+    }
+  }
