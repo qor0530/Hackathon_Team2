@@ -84,11 +84,10 @@ body {
 
 #page1 .character, #page2 .character,
 #page3 .character, #page4 .character,
-#page5 .character {
+#page5 .character, #page6 .character {
     margin-top: 30px;
     width: 350px;
     height: 350px;
-    background-color: #D9D9D9;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -97,6 +96,7 @@ body {
     font-size: 3em;
     color: #000000;
     text-align: center;
+
 }
 
 #page1 .next-button {
@@ -215,11 +215,6 @@ body {
     transition: border-color 0.3s;
 }
 
-#page2 .option.selected, #page3 .option.selected, #page4 .option-rect.selected, #page5 .option-rect.selected {
-    border-color: #FF5881;
-    position: relative;
-}
-
 #page2 .option:hover, #page3 .option:hover, #page4 .option-rect:hover, #page5 .option-rect:hover {
     border-color: #FF5881;
 }
@@ -278,21 +273,6 @@ body {
     font-size: 3em;
     margin-bottom: 20px;
     color: #333;
-    text-align: center;
-}
-
-#page6 .character {
-    margin-top: 30px;
-    width: 350px;
-    height: 350px;
-    background-color: #D9D9D9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    font-family: 'Pretendard-Bold';
-    font-size: 3em;
-    color: #000000;
     text-align: center;
 }
 
