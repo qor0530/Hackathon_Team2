@@ -82,6 +82,15 @@ body {
     text-align: center;
 }
 
+#page1 .option, #page2 .option,
+#page3 .option, #page4 .option,
+#page5 .option, #page6 .option {
+    font-family: 'Pretendard-Bold';
+    font-size: 2em;
+    text-align: center;
+    color: #B6B6B6;
+}
+
 #page1 .character, #page2 .character,
 #page3 .character, #page4 .character,
 #page5 .character, #page6 .character {
@@ -100,7 +109,7 @@ body {
 }
 
 #page1 .next-button {
-    margin-top: 30px;
+    margin-top: 50px;
     padding: 10px 20px;
     width: 350px;
     background-color: #FF5881;
@@ -158,7 +167,7 @@ body {
     font-size: 3em;
     font-family: 'Pretendard-Bold';
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 100px;
     color: #333;
     text-align: center;
 }
@@ -167,31 +176,40 @@ body {
     color: #FF5881;
 }
 
-#page2 .options, #page3 .options, #page5 .options {
+#page2 .options {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 20px;
-    gap: 10px;
+    margin-bottom: 605px;
+    gap: 50px;
+}
+
+#page3 .options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 605px;
+    gap: 50px;
 }
 
 #page4 .options {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 50px;
+    margin-bottom: 200px;
 }
 
 #page5 .options {
+    flex-wrap: wrap;
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 50px;
+    margin-bottom: 400px;
 }
 
 #page2 .option, #page3 .option, #page5 .option {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     background-color: #fff;
     border: 2px solid #d8d8d8;
     border-radius: 50%;
@@ -203,8 +221,8 @@ body {
 }
 
 #page4 .option, #page5 .option-rect {
-    width: 400px;
-    height: 200px;
+    width: 250px;
+    height: 150px;
     background-color: #fff;
     border: 2px solid #d8d8d8;
     border-radius: 5px;
@@ -219,7 +237,19 @@ body {
     border-color: #FF5881;
 }
 
-#page2 .next-button, #page3 .next-button, #page4 .next-button, #page5 .next-button {
+#page2 .next-button{
+    padding: 10px 20px;
+    background-color: #FF5881;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 3em;
+    margin-left: 1100px;
+    font-family: 'Pretendard-Bold';
+    cursor: pointer;
+}
+
+#page3 .next-button, #page4 .next-button, #page5 .next-button {
     padding: 10px 20px;
     background-color: #FF5881;
     color: #fff;
@@ -236,7 +266,7 @@ body {
 
 #page3 .buttons, #page4 .buttons, #page5 .buttons {
     display: flex;
-    gap: 10px;
+    gap: 965px;
 }
 
 #page3 .prev-button, #page4 .prev-button, #page5 .prev-button {
@@ -277,7 +307,7 @@ body {
 }
 
 #page6 .next-button {
-    margin-top: 30px;
+    margin-top: 50px;
     padding: 10px 20px;
     width: 350px;
     background-color: #FF5881;
