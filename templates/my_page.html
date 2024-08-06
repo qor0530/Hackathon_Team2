@@ -20,64 +20,72 @@
   <body>
     {% include "header.html" %}
     <div class="pageWrap">
-        <div class="FirstWrap">
-            <div class="userWrap">
-              <img class="userImg" src="{{ url_for('static', path='images/level/level1.png')}}" />
-              <div class="userInfo">
-                <p class="userName"></p>
-                <div class="rankWrap">
-                  <img id="tier"src="{{ url_for('static', path='images/@.png')}}"/>
-                  <span class="rank"></span><span class="rankScore">13</span><span>위</span>
-                </div>
-              </div>
+      <div class="FirstWrap">
+        <div class="userWrap">
+          <img
+            class="userImg"
+            src="{{ url_for('static', path='images/level/level1.png')}}"
+          />
+          <div class="userInfo">
+            <p class="userName"></p>
+            <div class="rankWrap">
+              <img
+                id="tier"
+                src="{{ url_for('static', path='images/@.png')}}"
+              />
+              <span class="rank"></span><span class="rankScore">13</span
+              ><span>위</span>
             </div>
-            <div class="studyWrap">
-              <p class="attendTitle">학습 통계</p>
-              <div class="attend">
-                <div class="attendContent">
-                  <p class="contentTitle">총 학습시간</p>
-                  <p class="content" id="time"></p>
-                </div>
-                <div class="attendContent">
-                  <p class="contentTitle">푼 퀴즈 수</p>
-                  <p class="content" id="quiz"></p>
-                </div>
-                <div class="attendContent">
-                  <p class="contentTitle">누적 출석일</p>
-                  <p class="content" id="day"></p>
-                </div>
-              </div>
-            </div>
+          </div>
         </div>
+        <div class="studyWrap">
+          <p class="attendTitle">학습 통계</p>
+          <div class="attend">
+            <div class="attendContent">
+              <p class="contentTitle">총 학습시간</p>
+              <p class="content" id="time"></p>
+            </div>
+            <div class="attendContent">
+              <p class="contentTitle">푼 퀴즈 수</p>
+              <p class="content" id="quiz"></p>
+            </div>
+            <div class="attendContent">
+              <p class="contentTitle">누적 출석일</p>
+              <p class="content" id="day"></p>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="SecondWrap">
         <div class="recommendWrap">
           <p class="recommendTitle">오늘의 학습 추천</p>
           <div class="recommnedList">
-            <div class="list" >
+            <div class="list">
               <div class="listTitle">챕터별 학습</div>
-              <img class="listIcon" src="{{ url_for('static', path='images/icon8.svg') }}"/>
+              <img
+                class="listIcon"
+                src="{{ url_for('static', path='images/icon8.svg') }}"
+              />
             </div>
             <div class="list">
               <div class="listTitle">오늘의 기사</div>
-              <img class="listIcon" src="{{ url_for('static', path='images/icon9.svg') }}"/>
+              <img
+                class="listIcon"
+                src="{{ url_for('static', path='images/icon9.svg') }}"
+              />
             </div>
             <div class="list">
               <div class="listTitle">오늘의 어휘</div>
-              <img class="listIcon" src="{{ url_for('static', path='images/icon10.svg') }}"/>
+              <img
+                class="listIcon"
+                src="{{ url_for('static', path='images/icon10.svg') }}"
+              />
             </div>
           </div>
         </div>
         <div class="btnWrap">
-          <div class="Btn" >
-            <p id="subscribe">실버등급<br/>구독중</p>
-            <!-- > 아이콘 -->
-          </div>
           <div class="Btn">
-            <p>오답노트</p>
-            <!-- > 아이콘 -->
-          </div>
-          <div class="Btn">
-            <p>단어장 </p>
+            <p id="subscribe">실버등급<br />구독중</p>
             <!-- > 아이콘 -->
           </div>
         </div>
