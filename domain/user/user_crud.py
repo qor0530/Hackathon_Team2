@@ -311,3 +311,22 @@ def add_lecture_to_learning_history(db: Session, user: User, lecture_id: int):
             pass
     except Exception as e:
         pass
+
+
+def add_quiz_to_today_current(db: Session, user: User, lecture_id: int):
+    try:
+        if user.today_current_quiz is None:
+            user.today_current_quiz = ""
+
+        lecture_ids = user.today_current_quiz.split(
+            ",") if user.today_current_quiz else []
+
+        if str(lecture_id) not in lecture_ids:
+            lecture_ids.append(str(lecture_id))
+            user.lecture_learning_history = ",".join(lecture_ids)
+
+            db.commit()
+        else:
+            pass
+    except Exception as e:
+        pass

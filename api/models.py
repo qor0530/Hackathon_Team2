@@ -47,6 +47,7 @@ class User(Base):
     incorrect_quizzes = Column(Text, default='')
     quiz_stack = Column(Text, default='')
     today_current_quiz = Column(Text, default='')
+    # today_incurrent_quiz = Column(Text, default='')
     level = Column(Integer, default=1)
     exp = Column(Integer, default=1)
     subscription = Column(Boolean, default=False)

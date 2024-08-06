@@ -160,6 +160,7 @@
       const quizId = "{{ quiz.id }}";
       let isHintUsed = false;
       let isFirstAttempt = true;
+      let isCurrect = false;
 
       hintBtn.onclick = function () {
         isHintUsed = true;
@@ -190,11 +191,12 @@
         if (userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase()) {
           answerModalText.innerText = "맞았습니다!";
           answerModal.style.display = "block";
+          isCurrect = True;
         } else {
           answerBox.value = "";
           answerBox.placeholder = correctAnswer;
 
-          if (isFirstAttempt && !isHintUsed && userId) {
+          if (isFirstAttempt && !isHintUsed && userId && isCurrect) {
             try {
               // 처음 시도하고 힌트를 사용하지 않은 경우 학습 이력 추가
               await fetch(`/api/user/${userId}/add_quiz_learning_history?quiz_id=${quizId}`, {
@@ -204,6 +206,16 @@
             } catch (error) {
               console.error("Failed to update learning history:", error);
             }
+            try {
+              // 처음 시도하고 힌트를 사용하지 않은 경우 학습 이력 추가
+              await fetch(`/api/user/${userId}/add_quiz_today_current?quiz_id=${quizId}`, {
+                method: "POST",
+              });
+              isFirstAttempt = false;
+            } catch (error) {
+              console.error("Failed to update learning history:", error);
+            }
+            
           } else {
             // 힌트를 사용한 경우 incorrect_quiz에 추가
             try {
@@ -233,7 +245,11 @@
       confirmButton.onclick = async function () {
         // 확인 버튼 클릭 시 모달을 닫음
         answerModal.style.display = "none";
-
+        point = 100;
+        getpoint = await fetch(`/api/ranking/${userId}/${point}`, {
+          method: "PUT",
+        })
+        console.log(getpoint)
         // 다음 퀴즈로 이동하는 API 호출
         const response = await fetch(`/api/quiz/next_quiz/${userId}`, {
           method: "GET",
@@ -246,8 +262,8 @@
           if (result.error === "quiz_stack_empty") {
             alert("오늘의 퀴즈 할당량을 다 채웠습니다.");
           } else {
-            console.error("Failed to start quiz", result);
           }
+            console.error("Failed to start quiz", result);
         }
       };
     });

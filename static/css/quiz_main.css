@@ -106,7 +106,6 @@ main {
 
 .goal {
   text-align: center;
-  margin-top: 50px;
   width: 300px;
   height: 300px;
 }
@@ -121,7 +120,7 @@ main {
   align-items: center;
   font-size: 50px;
   color: #ff8c94;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   margin-left: 40px;
   font-family: "Pretendard-SemiBold";
 }
