@@ -1,25 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>환영합니다</title>
-
-    <!-- CSS 연결 -->
+    <title>Subject Select</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', path='css/subjectSelect.css') }}"
     />
-
-    <!-------------------------------------------------------------------------->
-
-    <!-- Javascript 연결 -->
-    <script
-      src="{{ url_for('static', path='javascript/subjectSelect.js') }}"
-      defer
-    ></script>
-
-    <!-------------------------------------------------------------------------->
   </head>
   <body>
     {% include "header.html" %}
@@ -27,42 +15,50 @@
       <div class="sidebar">
         <div class="topic">주제별 학습</div>
         <ul>
-          <li><a href="#">정치 | 경제</a></li>
-          <li><a href="#">문학</a></li>
-          <li><a href="#" class="active">수학 | 과학</a></li>
-          <li><a href="#">시사</a></li>
+          <li>
+            <a
+              href="/subject/정치%20|%20경제"
+              class="{% if topic == '정치 | 경제' %}active{% endif %}"
+              >정치 | 경제</a
+            >
+          </li>
+          <li>
+            <a
+              href="/subject/문학"
+              class="{% if topic == '문학' %}active{% endif %}"
+              >문학</a
+            >
+          </li>
+          <li>
+            <a
+              href="/subject/수학%20|%20과학"
+              class="{% if topic == '수학 | 과학' %}active{% endif %}"
+              >수학 | 과학</a
+            >
+          </li>
+          <li>
+            <a
+              href="/subject/시사"
+              class="{% if topic == '시사' %}active{% endif %}"
+              >시사</a
+            >
+          </li>
         </ul>
       </div>
       <div class="main-content">
         <div class="content-cards">
+          {% for lecture in lectures %}
           <div class="content-card">
-            <img src="song.png" alt="image" />
+            <img
+              src="{{ url_for('static', path='images/song.png') }}"
+              alt="image"
+            />
             <div class="details">
-              <div class="title">지구온난화</div>
-              <div class="description">지구가 점점 뜨거워지고 있는 이유</div>
+              <div class="title">{{ lecture.title }}</div>
+              <div class="description">{{ lecture.description }}</div>
             </div>
           </div>
-          <div class="content-card">
-            <img src="song.png" alt="image" />
-            <div class="details">
-              <div class="title">지구온난화</div>
-              <div class="description">지구가 점점 뜨거워지고 있는 이유</div>
-            </div>
-          </div>
-          <div class="content-card">
-            <img src="song.png" alt="image" />
-            <div class="details">
-              <div class="title">지구온난화</div>
-              <div class="description">지구가 점점 뜨거워지고 있는 이유</div>
-            </div>
-          </div>
-          <div class="content-card">
-            <img src="song.png" alt="image" />
-            <div class="details">
-              <div class="title">지구온난화</div>
-              <div class="description">지구가 점점 뜨거워지고 있는 이유</div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </div>
