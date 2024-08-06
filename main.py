@@ -6,7 +6,7 @@ from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from config.database import init_db, SessionLocal
-from api.models import Quiz, User, ComprehensionTask
+from api.models import Quiz, User, ComprehensionTask, WritingTask
 from domain.quiz import quiz_router
 from domain.lecture import lecture_router
 from domain.user import user_router
@@ -134,9 +134,22 @@ async def subject_select(request: Request):
     return templates.TemplateResponse(request=request, name="subjectSelect.html")
 
 
-@app.get("/lecture/write/1", response_class=HTMLResponse)
-async def write(request: Request):
-    return templates.TemplateResponse(request=request, name="studyWrite.html")
+@app.get("/lecture/write/{write_tasks_id}", response_class=HTMLResponse)
+async def write(request: Request, write_tasks_id: int, db: Session = Depends(get_db)):
+    write_task = db.query(WritingTask).filter(
+        ComprehensionTask.id == write_tasks_id).first()
+    return templates.TemplateResponse(
+        "studyWrite.html",
+        {
+            "request": request,
+            "write_task": write_task,
+        }
+    )
+
+
+@app.get("/studyWrite_result", response_class=HTMLResponse)
+async def study_write_result(request: Request, answer: str, feedback: str):
+    return templates.TemplateResponse("studyWrite_result.html", {"request": request, "answer": answer, "feedback": feedback})
 
 
 @app.get("/lecture/situation/{comprehension_tasks_id}", response_class=HTMLResponse)

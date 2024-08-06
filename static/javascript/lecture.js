@@ -10,8 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     var element = document.getElementById('go-to-study-write');
     if (element) {
+        // 1~10 사이 난수 생성 후 넣기
+        var random = Math.floor(Math.random() * 10) + 1;
         element.addEventListener('click', function() {
-            window.location.href = '/lecture/write/1';
+            window.location.href = '/lecture/write/{random}';
         });
     }
 });
