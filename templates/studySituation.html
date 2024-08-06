@@ -57,6 +57,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", (event) => {
         const userId = "{{ user.id }}";
+        const lecture_id = "{{ comprehension_task.lecture_id }}";
         const options = document.querySelectorAll(".option");
         let selectedOption = null;
 
@@ -89,15 +90,12 @@
               // API 호출하여 lecture_id 저장
               try {
                 await fetch(
-                  `/api/user/${userId}/add_lecture_learning_history?user_id=${userId}`,
+                  `/api/user/${userId}/add_lecture_learning_history?lecture_id=${lecture_id}`,
                   {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({
-                      lecture_id: "{{ comprehension_task.lecture_id }}",
-                    }),
                   }
                 );
               } catch (error) {

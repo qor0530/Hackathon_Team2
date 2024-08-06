@@ -183,6 +183,6 @@ async def situation(request: Request, comprehension_tasks_id: int, db: Session =
             "first_part": first_part.strip(),
             "second_part": second_part.strip(),
             **options,
-            "user": user  # 사용자 정보를 템플릿에 전달
+            "user": user,  # 사용자 정보를 템플릿에 전달
         }
     )
