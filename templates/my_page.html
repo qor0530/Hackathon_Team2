@@ -60,21 +60,21 @@
         <div class="recommendWrap">
           <p class="recommendTitle">오늘의 학습 추천</p>
           <div class="recommnedList">
-            <div class="list">
+            <div class="list" onclick="location.href='/lecture/subject';">
               <div class="listTitle">챕터별 학습</div>
               <img
                 class="listIcon"
                 src="{{ url_for('static', path='images/icon8.svg') }}"
               />
             </div>
-            <div class="list">
+            <div class="list" onclick="location.href='/lecture';">
               <div class="listTitle">오늘의 기사</div>
               <img
                 class="listIcon"
                 src="{{ url_for('static', path='images/icon9.svg') }}"
               />
             </div>
-            <div class="list">
+            <div class="list" onclick="location.href='/quiz_main';">
               <div class="listTitle">오늘의 어휘</div>
               <img
                 class="listIcon"
