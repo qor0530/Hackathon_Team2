@@ -1,140 +1,188 @@
+@font-face {
+  font-family: "Moderniz";
+  src: url("../font/Moderniz.otf") format("truetype");
+}
+@font-face {
+  font-family: "Pretendard-Medium";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Pretendard-SemiBold";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Pretendard-Bold";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Pretendard-ExtraBold";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-ExtraBold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Pretendard-Black";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url('../images/bg.svg');
 }
 
 .container {
-    text-align: center;
-    display: inline-flex;
-    width: 1024px;
+  text-align: center;
+  display: inline-flex;
+  width: 1080px;
+  padding-top: 220px;
+  padding-left: 380px;
 }
 
 #left-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* width: ; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 50px;
+  margin-top: 40px;
 }
 
 #right-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 50px;
 }
 
 .progress-circle {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background: conic-gradient(#ff6584 70%, #f9f9f9 0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: conic-gradient(#ff6584 70%, #f9f9f9 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .progress-circle-inner {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .progress-circle-inner span {
-    font-size: 24px;
-    color: #ff6584;
+  font-size: 3.6em;
+  font-family: 'Pretendard-Bold';
+  color: #ff6584;
 }
 
 .quiz-goal {
-    margin-top: 10px;
-    font-size: 18px;
-    color: #000;
+  font-size: 2.8em;
+  margin-top: 50px;
+  font-family: 'Pretendard-Bold';
+  color: #000;
 }
 
 .level-section {
-    margin-top: 20px;
+  margin-top: 40px;
 }
 
 .current-level {
-    font-size: 24px;
-    color: #ff6584;
+  font-size: 3.6em;
+  font-family: 'Pretendard-Bold';
+  color: #000000; 
 }
 
 .level-number {
-    font-size: 32px;
+  font-size: 90px;
+  font-family: 'Pretendard-Bold';
+  color: #ff6584;
 }
 
 .level-bar {
-    width: 200px;
-    height: 10px;
-    background-color: #ffe5ec;
-    margin: 10px auto;
-    border-radius: 5px;
-    position: relative;
+  width: 280px;
+  height: 20px;
+  background-color: #fff;
+  margin: 20px auto;
+  margin-top: 30px;
+  position: relative;
+  border-radius: 10px;
 }
 
 .level-progress {
-    width: 40%;
-    height: 100%;
-    background-color: #ff6584;
-    border-radius: 5px;
+  width: 40%;
+  height: 100%;
+  background-color: #ff6584;
+  border-radius: 10px;
 }
 
 .points {
-    font-size: 18px;
-    color: #ff6584;
+  font-size: 2.8em;
+  margin-top: 30px;
+  font-family: 'Pretendard-Bold';
+  color: #ff6584;
 }
 
 .ranking-points {
-    margin-top: 20px;
-    font-size: 24px;
-    color: #ff6584;
+  margin-top: 40px;
+  font-size: 3.6em;
+  font-family: 'Pretendard-Bold';
+  color: #ff6584;
 }
 
 .word-boxes {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }
 
 .word-box {
-    background-color: #fff;
-    border: 1px solid #ff6584;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 0 10px;
-    width: 150px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border: 1px solid #ff6584;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 0 20px;
+  width: 220px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 28px;
+  font-family: "Pretendard-Medium";
 }
 
 .buttons {
-    margin-top: 20px;
+  margin-top: 180px;
 }
 
 .main-button,
 .extra-study-button {
-    background-color: #ff6584;
-    color: #fff;
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 5px;
+  background-color: #ff6584;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 20px 40px;
+  font-size: 2.4em;
+  font-family: 'Pretendard-Bold';
+  cursor: pointer;
+  margin: 15px;
+  width: 220px;
 }
 
 .main-button:hover,
 .extra-study-button:hover {
-    background-color: #ff3357;
+  background-color: #ff3357;
 }
