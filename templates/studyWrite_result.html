@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="/static/css/reset.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/static/css/studyWrite_result.css"
+    />
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="writeWrap">
+        <h1>오늘의 <span>작문</span> 학습</h1>
+        <hr />
+        <div class="studyWrap">
+            <h2 class="studyQuestion">
+                답변
+            </h2>
+            <h4 class="answer">
+                {{ answer }}
+            </h4>
+            <h2 class="studyQuestion">
+                AI  피드백
+            </h2>
+            <h4 class="feedback">
+                {{ feedback }}
+            </h4>
+
+            <button class="return_Btn" href="javascript:window.history.back();">다시풀기</button>
+            <button class="complete_Btn">확&emsp;인</button>
+        </div>
+    </div>
+</body>
+        <script>
+        completeBtn = document.querySelector('.complete_Btn');
+        document.addEventListener('DOMContentLoaded', () => {
+        completeBtn.addEventListener('click', () => {
+        window.location.href = '/lecture';
+        });});
+</script>
+</html>

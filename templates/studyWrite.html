@@ -1,46 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', path='css/reset.css') }}"
+      href="/static/css/reset.css"
     />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', path='css/studyWrite.css') }}"
+      href="/static/css/studyWrite.css"
     />
-  </head>
-  <body>
+</head>
+<body>
     {% include "header.html" %}
     <div class="writeWrap">
-      <h1>오늘의 <span>작문</span> 학습</h1>
-      <hr />
-      <div class="studyWrap">
-        <h2 class="studyQuestion">
-          다음 글을 읽고, 문단의 핵심 내용을 담아 문장으로 요약하시오.
-        </h2>
-        <div class="studySection">
-          <div class="studyContent">
-            &nbsp;기후 변화는 지구 생태계에 광범위한 영향을 미치고 있습니다.
-            평균 기온의 상승은 빙하와 극지방의 얼음을 녹이고, 이는 해수면 상승을
-            초래합니다. 이로 인해 해안가 지역과 저지대에 사는 사람들은 심각한
-            홍수와 침수 위험에 직면하게 됩니다. 또한, 기후 변화는 기상 패턴을
-            변화시켜 극단적인 날씨 현상의 빈도를 높이고 있습니다. 예를 들어,
-            폭염, 폭우, 가뭄, 허리케인 등과 같은 자연 재해의 발생 빈도와 강도가
-            증가하고 있습니다. 이러한 변화는 농업, 수자원 관리, 생물 다양성 등
-            여러 분야에 걸쳐 부정적인 영향을 미치며, 전 세계적으로 심각한
-            사회적, 경제적 문제를 야기합니다.
-          </div>
-          <div class="studyAnswer">
-            <textarea name="answer" id="writeAnswer"></textarea><br />
-            <button class="Btn">제&emsp;출</button>
-          </div>
+        <h1>오늘의 <span>작문</span> 학습</h1>
+        <hr />
+        <div class="studyWrap">
+            <h2 class="studyQuestion">
+              {{ write_task.question }}
+            </h2>
+            <div class="studySection">
+                <div class="studyContent">
+                    {{ write_task.content }}
+                </div>
+                <div class="studyAnswer">
+                    <textarea name="answer" id="writeAnswer"></textarea><br />
+                    <button class="Btn">제&emsp;출</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    {% include "footer.html" %}
-  </body>
+<script>
+async function gradeEssay(problem, content, answer) {
+    const url = `/gemini/grade`;
+    const payload = {
+        problem: problem,
+        content: content,
+        answer: answer
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const token = document.cookie;
+        const user = await fetch("/api/user/me", {
+                method: "GET",
+                headers: {
+                Authorization: token, // Bearer를 포함한 전체 토큰 값
+                },
+            });
+        const user_data = await user.json();
+        const userId = user_data.userId;
+        
+        await fetch(
+                  `/api/user/${userId}/add_lecture_learning_history?lecture_id=${lecture_id}`,
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  }
+                );
+        const data = await response.json();
+        console.log('Feedback:', data.feedback);
+        window.location.href = `/studyWrite_result?feedback=${data.feedback}&answer=${answer}`;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+const problem = document.getElementsByClassName('studyQuestion')[0].textContent;
+const content = document.getElementsByClassName('studyContent')[0].textContent;
+const submitBtn = document.getElementsByClassName('Btn')[0];
+
+submitBtn.addEventListener('click', () => {
+    const answer = document.getElementById('writeAnswer').value;
+    gradeEssay(problem, content, answer).then(feedback => {
+        console.log(feedback);
+    });
+});
+</script>
+</body>
 </html>
