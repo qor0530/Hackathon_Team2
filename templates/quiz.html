@@ -159,7 +159,11 @@
         const userId = "{{ user.id }}";
         const quizId = "{{ quiz.id }}";
 
+        let isHintUsed = false;
+        let isFirstAttempt = true;
+
         hintBtn.onclick = function () {
+          isHintUsed = true;
           hintModal.style.display = "block";
         };
 
@@ -194,14 +198,20 @@
             answerBox.value = "";
             answerBox.placeholder = correctAnswer;
 
-            if (userId) {
-              // incorrect_quizzes에 퀴즈 ID를 추가하는 요청을 서버로 보냄
-              await fetch(
-                `/api/user/${userId}/add_incorrect_quiz?quiz_id=${quizId}`,
-                {
-                  method: "POST",
-                }
-              );
+            if (isFirstAttempt && !isHintUsed && userId) {
+              try {
+                // quiz_learning_history에 추가하는 요청을 서버로 보냄
+                await fetch(
+                  `/api/user/${userId}/add_learning_history?quiz_id=${quizId}`,
+                  {
+                    method: "POST",
+                  }
+                );
+                isFirstAttempt = false;
+
+              } catch (error) {
+                console.error("Failed to update learning history:", error);
+              }
             } else {
               console.warn(
                 "User ID is not defined. Unable to add to incorrect quizzes."
