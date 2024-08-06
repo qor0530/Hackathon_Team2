@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const quizBoxes = document.querySelectorAll(".quiz-box");
-
+  const circle = document.querySelector(".circle");
+  
   const showModal = (message) => {
     const modal = document.createElement("div");
     modal.classList.add("modal");
@@ -38,6 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const user = await response.json();
+      if (user.today_current_quiz == "") {
+        circle.innerHTML = 0 + circle.innerHTML;
+      } else{
+        circle.innerHTML = len(user.today_current_quiz.split(',')) + circle.innerHTML;
+      }
       return user.id;
     } catch (error) {
       console.error("Error fetching user ID:", error);
