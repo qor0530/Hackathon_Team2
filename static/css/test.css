@@ -246,6 +246,7 @@ body {
     font-size: 3em;
     margin-left: 1100px;
     font-family: 'Pretendard-Bold';
+    width: 200px;
     cursor: pointer;
 }
 
@@ -256,6 +257,7 @@ body {
     border: none;
     border-radius: 5px;
     font-size: 3em;
+    width: 200px;
     font-family: 'Pretendard-Bold';
     cursor: pointer;
 }
@@ -278,6 +280,7 @@ body {
     font-size: 3em;
     cursor: pointer;
     font-family: 'Pretendard-Bold';
+    width: 200px;
 }
 
 #page3 .prev-button:hover, #page4 .prev-button:hover, #page5 .prev-button:hover {
