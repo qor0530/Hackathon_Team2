@@ -210,9 +210,20 @@
           }
         };
 
-        wordbookButton.onclick = function () {
-          // 단어장 페이지로 이동하는 코드
-          window.location.href = "/wordbook";
+        wordbookButton.onclick = async function () {
+          // 단어장에 퀴즈 추가하는 API 호출
+          const response = await fetch(
+            `/api/user/voca/add_quiz/${userId}/${quizId}`,
+            {
+              method: "POST",
+            }
+          );
+
+          if (response.ok) {
+            alert("단어장에 추가되었습니다.");
+          } else {
+            console.error("Failed to add quiz to wordbook");
+          }
         };
 
         confirmButton.onclick = async function () {
