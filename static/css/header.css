@@ -118,3 +118,29 @@ a:visited, a:link, a:active{
     flex-direction: row;   
     align-items: center;
 }
+
+footer {
+    position: fixed;
+    bottom: 0;
+
+    width: 100%;
+    height: 75px;
+    background-color: #676767;
+    color: #fff;
+}
+.footerwrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1.6rem 2rem;
+}
+.footerInfo {
+    font-family: 'Pretendard-Medium';
+    font-size: 1.25rem;
+}
+.footerCopy{
+    font-family: 'Pretendard-Medium';
+    font-size: 1.25rem;
+}
