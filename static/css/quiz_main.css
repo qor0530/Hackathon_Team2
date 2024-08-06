@@ -167,13 +167,17 @@ main {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #ffc7d4;
+  background: linear-gradient(to top, #ffc7d4, #ffd7df);
   width: 100%;
   padding: 10px 0;
 }
 
 .goal_text {
   margin-top: 30px;
-  font-size: 40px;
-  font-family: "Pretendard-SemiBold";
+  font-size: 2.5rem;
+  font-family: "Pretendard-Bold";
+}
+
+.quiz-content img {
+  width: 250px;
 }

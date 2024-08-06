@@ -5,7 +5,7 @@ const attendStart = document.getElementById("startday");
 
 const characterImg = document.getElementById('exp');
 
-let studyGraph = document.getElementsByClassName('studyGraph');
+let studyGraph = document.getElementById('studyGraph');
 const studyRateWrap = document.getElementById('studyRateWrap');
 //함수
 function getDaysInMonth(year, month) {
@@ -52,19 +52,19 @@ document.addEventListener("DOMContentLoaded", async function () {
             },
         });
 
-        //학습률 약간 정지
-        if (statsResponse.ok) {
-            const statsData = await statsResponse.json();
-            console.log(statsData)
-            quiz_data = (statsData.quiz_solved / 10) * 100;
+        // //학습률 약간 정지
+        // if (statsResponse.ok) {
+        //     const statsData = await statsResponse.json();
+        //     console.log(statsData)
+        //     quiz_data = (statsData.quiz_solved / 10) * 100;
             
-            console.log(studyGraph);
-        } else {
-            console.error("Failed to fetch statistics:", statsResponse.statusText);
-        }
+        //     console.log(studyGraph);
+        // } else {
+        //     console.error("Failed to fetch statistics:", statsResponse.statusText);
+        // }
 
-      let completedQuizzes = data.today_current_quiz.split(",").length;
-      studyGraph.innerHTML = `${((completedQuizzes / 10) * 100).toFixed(1)}%`;
+      // let completedQuizzes = data.today_current_quiz.split(",").length;
+      // studyGraph.innerHTML = `${((completedQuizzes / 10) * 100).toFixed(1)}%`;
 
       //출석 부분
       //1. 출석일수 2. 출석률 = 출석일/한달별날짜수 3. 가입날짜
