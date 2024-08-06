@@ -49,10 +49,7 @@
         <div class="content-cards">
           {% for lecture in lectures %}
           <div class="content-card">
-            <img src="{{ url_for('static', path='images/math.png') }}" alt="User Photo">
-            <img src="{{ url_for('static', path='images/literature.png') }}" alt="User Photo">
-            <img src="{{ url_for('static', path='images/event.png') }}" alt="User Photo">
-            <img src="{{ url_for('static', path='images/economy.png') }}" alt="User Photo">
+            <img src="/static/{{ lecture.image }}" alt="Lecture Image" />
             <div class="details">
               <div class="title">{{ lecture.title }}</div>
               <div class="description">{{ lecture.description }}</div>
