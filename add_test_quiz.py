@@ -39,7 +39,7 @@ def add_test_data():
         {
             "level": 5,
             "subject": "정치 | 경제",
-            "sentence": "이번 정책은 <span class='blank'></span>에 발표될 예정입니다.",
+            "sentence": "이번 정책은 ____에 발표될 예정입니다.",
             "explanation": """발표 시점을 나타내는 말.
             특정 날짜 또는 시점을 기준으로 합니다.""",
             "answer": "내일",
@@ -49,7 +49,7 @@ def add_test_data():
         {
             "level": 4,
             "subject": "정치 | 경제",
-            "sentence": "경제 보고서는 <span class='blank'></span>에 제출됩니다.",
+            "sentence": "경제 보고서는 ______에 제출됩니다.",
             "explanation": """제출 시점을 나타내는 말.
             일반적으로 마감일을 기준으로 합니다.""",
             "answer": "마감일",
