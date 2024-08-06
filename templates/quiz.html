@@ -158,10 +158,44 @@
         const confirmButton = document.getElementById("confirmBtn");
         const userId = "{{ user.id }}";
         const quizId = "{{ quiz.id }}";
-
+        console.log(userId)
         let isHintUsed = false;
         let isFirstAttempt = true;
+      answerBtn.onclick = async function () {
+  const userAnswer = answerBox.value;
+  const correctAnswer = "{{ quiz.answer }}";
 
+  if (userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase()) {
+    answerModalText.innerText = "맞았습니다!";
+    answerModal.style.display = "block";
+
+  } else {
+    answerBox.value = "";
+    answerBox.placeholder = correctAnswer;
+
+    if (true) {
+      try {
+        // quiz_learning_history에 추가하는 요청을 서버로 보냄
+        const response = await fetch(`/api/user/${userId}/add_quiz_learning_history?quiz_id=${quizId}`, {
+          method: "POST",
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log("Learning history updated:", result);
+        isFirstAttempt = false;
+
+      } catch (error) {
+        console.error("Failed to update learning history:", error);
+      }
+    } else {
+      console.warn("User ID is not defined. Unable to add to incorrect quizzes.");
+    }
+  }
+};
         hintBtn.onclick = function () {
           isHintUsed = true;
           hintModal.style.display = "block";
@@ -184,41 +218,7 @@
           }
         };
 
-        answerBtn.onclick = async function () {
-          const userAnswer = answerBox.value;
-          const correctAnswer = "{{ quiz.answer }}";
-
-          if (
-            userAnswer.trim().toLowerCase() ===
-            correctAnswer.trim().toLowerCase()
-          ) {
-            answerModalText.innerText = "맞았습니다!";
-            answerModal.style.display = "block";
-          } else {
-            answerBox.value = "";
-            answerBox.placeholder = correctAnswer;
-
-            if (isFirstAttempt && !isHintUsed && userId) {
-              try {
-                // quiz_learning_history에 추가하는 요청을 서버로 보냄
-                await fetch(
-                  `/api/user/${userId}/add_learning_history?quiz_id=${quizId}`,
-                  {
-                    method: "POST",
-                  }
-                );
-                isFirstAttempt = false;
-
-              } catch (error) {
-                console.error("Failed to update learning history:", error);
-              }
-            } else {
-              console.warn(
-                "User ID is not defined. Unable to add to incorrect quizzes."
-              );
-            }
-          }
-        };
+  
 
         wordbookButton.onclick = async function () {
           // 단어장에 퀴즈 추가하는 API 호출

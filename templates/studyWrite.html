@@ -63,7 +63,7 @@ async function gradeEssay(problem, content, answer) {
             });
         const user_data = await user.json();
         const userId = user_data.userId;
-        
+        const lecture_id = "{{write_task.lecture_id}}";
         await fetch(
                   `/api/user/${userId}/add_lecture_learning_history?lecture_id=${lecture_id}`,
                   {
