@@ -137,7 +137,7 @@ async def subject_select(request: Request):
 @app.get("/lecture/write/{write_tasks_id}", response_class=HTMLResponse)
 async def write(request: Request, write_tasks_id: int, db: Session = Depends(get_db)):
     write_task = db.query(WritingTask).filter(
-        ComprehensionTask.id == write_tasks_id).first()
+        WritingTask.id == write_tasks_id).first()
     return templates.TemplateResponse(
         "studyWrite.html",
         {

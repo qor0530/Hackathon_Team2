@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 1~10 사이 난수 생성 후 넣기
         var random = Math.floor(Math.random() * 10) + 1;
         element.addEventListener('click', function() {
-            window.location.href = '/lecture/write/{random}';
+            window.location.href = `/lecture/write/${random}`;
         });
     }
 });
