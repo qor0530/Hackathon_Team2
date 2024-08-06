@@ -131,15 +131,17 @@ main {
 }
 
 .comment-big {
-  font-size: 2em;
+  font-family: 'Pretendard-Bold';
+  font-size: 3.5rem;
   font-weight: bold;
   margin-bottom: 10px;
   color: black;
 }
 
 .comment-small {
-  font-size: 1.2em;
-  color: black;
+  font-family: 'Pretendard-Medium';
+  font-size: 2rem;
+  color: #494949;
 }
 
 .highlight {
@@ -177,11 +179,14 @@ main {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #ffc7d4;
+  background: linear-gradient(to top, #ffc7d4, #ffd7df);
   width: 100%;
   padding: 10px 0;
   position: relative;
-  }
+}
+.quiz-content img {
+  width: 275px;
+}
 
 .quiz-small-title1, .quiz-small-title2, .quiz-small-title3 {
   position: absolute;

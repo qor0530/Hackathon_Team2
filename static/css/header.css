@@ -23,17 +23,12 @@ a {
     width:150px;
     height: 70px;
 
-    background-color: grey;
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.LogoWrap p {
-    font-family: 'Pretendard-SemiBold';
-    font-size: 2rem;
-
-    color: white;
+.LogoWrap img {
+    width: 145px;
 }
 .MenuBar {
     margin-right: 6rem;

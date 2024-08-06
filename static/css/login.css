@@ -130,8 +130,25 @@ body {
 
 .illustration {
     position: absolute;
-    right: 10%;
+    right: 6%;
     text-align: center;
     color: #333;
     font-size: 1.5em;
+
+    animation: up 3s ease-in-out infinite;
 }
+.illustration img {
+    width: 375px;
+}
+
+@keyframes up {
+    0%{
+      top: 25%;
+    }
+    50% {
+      top: 22.5%;
+    }
+    100% {
+      top: 25%;
+    }
+  }

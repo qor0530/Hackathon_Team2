@@ -1,6 +1,6 @@
 <header>
     <a class="LogoWrap" href="/">
-        <p>더 리터</p>
+        <img src="{{ url_for('static', path='images/thelitter.svg') }}">
     </a>
     <div class="Wrap">
         <div class="MenuBar">
@@ -44,7 +44,7 @@
                 const userMenu = document.createElement("div");
                 userMenu.classList.add("UserMenu");
                 userMenu.innerHTML = `
-                                <button id="logout-button" class="LogOutBtn"> <p>로그아웃</p></button>
+                                <button id="logout-button" class="LogOutBtn" style="cursor:pointer;"> <p>로그아웃</p></button>
                             `;
                 btnWrap.appendChild(userMenu);
 
