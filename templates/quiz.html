@@ -143,126 +143,130 @@
       </div>
     </div>
 
-    <script>
-      // 모달 관련 JavaScript
-      document.addEventListener("DOMContentLoaded", () => {
-        const hintModal = document.getElementById("hintModal");
-        const answerModal = document.getElementById("answerModal");
-        const hintBtn = document.getElementById("hintBtn");
-        const answerBtn = document.getElementById("answerBtn");
-        const hintClose = hintModal.getElementsByClassName("close")[0];
-        const answerClose = answerModal.getElementsByClassName("close")[0];
-        const answerBox = document.getElementById("answerBox");
-        const answerModalText = document.getElementById("answerModalText");
-        const wordbookButton = document.querySelector(".modal-button.wordbook");
-        const confirmButton = document.getElementById("confirmBtn");
-        const userId = "{{ user.id }}";
-        const quizId = "{{ quiz.id }}";
-        let isHintUsed = false;
-        let isFirstAttempt = true;
+  <script>
+    // 모달 관련 JavaScript
+    document.addEventListener("DOMContentLoaded", () => {
+      const hintModal = document.getElementById("hintModal");
+      const answerModal = document.getElementById("answerModal");
+      const hintBtn = document.getElementById("hintBtn");
+      const answerBtn = document.getElementById("answerBtn");
+      const hintClose = hintModal.getElementsByClassName("close")[0];
+      const answerClose = answerModal.getElementsByClassName("close")[0];
+      const answerBox = document.getElementById("answerBox");
+      const answerModalText = document.getElementById("answerModalText");
+      const wordbookButton = document.querySelector(".modal-button.wordbook");
+      const confirmButton = document.getElementById("confirmBtn");
+      const userId = "{{ user.id }}";
+      const quizId = "{{ quiz.id }}";
+      let isHintUsed = false;
+      let isFirstAttempt = true;
+      let isCurrect = false;
 
-        hintBtn.onclick = function () {
-          isHintUsed = true;
-          hintModal.style.display = "block";
-        };
+      hintBtn.onclick = function () {
+        isHintUsed = true;
+        hintModal.style.display = "block";
+      };
 
-        hintClose.onclick = function () {
+      hintClose.onclick = function () {
+        hintModal.style.display = "none";
+      };
+
+      answerClose.onclick = function () {
+        answerModal.style.display = "none";
+      };
+
+      window.onclick = function (event) {
+        if (event.target == hintModal) {
           hintModal.style.display = "none";
-        };
-
-        answerClose.onclick = function () {
+        }
+        if (event.target == answerModal) {
           answerModal.style.display = "none";
-        };
+        }
+      };
 
-        window.onclick = function (event) {
-          if (event.target == hintModal) {
-            hintModal.style.display = "none";
-          }
-          if (event.target == answerModal) {
-            answerModal.style.display = "none";
-          }
-        };
+      answerBtn.onclick = async function () {
+        const userAnswer = answerBox.value;
+        const correctAnswer = "{{ quiz.answer }}";
 
-        answerBtn.onclick = async function () {
-          const userAnswer = answerBox.value;
-          const correctAnswer = "{{ quiz.answer }}";
+        if (userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase()) {
+          answerModalText.innerText = "맞았습니다!";
+          answerModal.style.display = "block";
+          isCurrect = True;
+        } else {
+          answerBox.value = "";
+          answerBox.placeholder = correctAnswer;
 
-          if (
-            userAnswer.trim().toLowerCase() ===
-            correctAnswer.trim().toLowerCase()
-          ) {
-            answerModalText.innerText = "맞았습니다!";
-            answerModal.style.display = "block";
+          if (isFirstAttempt && !isHintUsed && userId && isCurrect) {
+            try {
+              // 처음 시도하고 힌트를 사용하지 않은 경우 학습 이력 추가
+              await fetch(`/api/user/${userId}/add_quiz_learning_history?quiz_id=${quizId}`, {
+                method: "POST",
+              });
+              isFirstAttempt = false;
+            } catch (error) {
+              console.error("Failed to update learning history:", error);
+            }
+            try {
+              // 처음 시도하고 힌트를 사용하지 않은 경우 학습 이력 추가
+              await fetch(`/api/user/${userId}/add_quiz_today_current?quiz_id=${quizId}`, {
+                method: "POST",
+              });
+              isFirstAttempt = false;
+            } catch (error) {
+              console.error("Failed to update learning history:", error);
+            }
+            
           } else {
-            answerBox.value = "";
-            answerBox.placeholder = correctAnswer;
-
-            if (isFirstAttempt && !isHintUsed && userId) {
-              try {
-                // 처음 시도하고 힌트를 사용하지 않은 경우 학습 이력 추가
-                await fetch(
-                  `/api/user/${userId}/add_quiz_learning_history?quiz_id=${quizId}`,
-                  {
-                    method: "POST",
-                  }
-                );
-                isFirstAttempt = false;
-              } catch (error) {
-                console.error("Failed to update learning history:", error);
-              }
-            } else {
-              // 힌트를 사용한 경우 incorrect_quiz에 추가
-              try {
-                await fetch(
-                  `/api/user/${userId}/add_incorrect_quiz?quiz_id=${quizId}`,
-                  {
-                    method: "POST",
-                  }
-                );
-              } catch (error) {
-                console.error("Failed to update incorrect quiz:", error);
-              }
+            // 힌트를 사용한 경우 incorrect_quiz에 추가
+            try {
+              await fetch(`/api/user/${userId}/add_incorrect_quiz?quiz_id=${quizId}`, {
+                method: "POST",
+              });
+            } catch (error) {
+              console.error("Failed to update incorrect quiz:", error);
             }
           }
-        };
+        }
+      };
 
-        wordbookButton.onclick = async function () {
-          // 단어장에 퀴즈 추가하는 API 호출
-          const response = await fetch(
-            `/api/user/voca/add_quiz/${userId}/${quizId}`,
-            {
-              method: "POST",
-            }
-          );
+      wordbookButton.onclick = async function () {
+        // 단어장에 퀴즈 추가하는 API 호출
+        const response = await fetch(`/api/user/voca/add_quiz/${userId}/${quizId}`, {
+          method: "POST",
+        });
 
-          if (response.ok) {
-            alert("단어장에 추가되었습니다.");
+        if (response.ok) {
+          alert("단어장에 추가되었습니다.");
+        } else {
+          console.error("Failed to add quiz to wordbook");
+        }
+      };
+
+      confirmButton.onclick = async function () {
+        // 확인 버튼 클릭 시 모달을 닫음
+        answerModal.style.display = "none";
+        point = 100;
+        getpoint = await fetch(`/api/ranking/${userId}/${point}`, {
+          method: "PUT",
+        })
+        console.log(getpoint)
+        // 다음 퀴즈로 이동하는 API 호출
+        const response = await fetch(`/api/quiz/next_quiz/${userId}`, {
+          method: "GET",
+        }).catch((error) => console.error("Error starting quiz:", error));
+
+        if (response.redirected) {
+          window.location.href = response.url;
+        } else {
+          const result = await response.json();
+          if (result.error === "quiz_stack_empty") {
+            alert("오늘의 퀴즈 할당량을 다 채웠습니다.");
           } else {
-            console.error("Failed to add quiz to wordbook");
+            console.error("Failed to start quiz", result);
           }
-        };
-
-        confirmButton.onclick = async function () {
-          // 확인 버튼 클릭 시 모달을 닫음
-          answerModal.style.display = "none";
-
-          // 다음 퀴즈로 이동하는 API 호출
-          const response = await fetch(`/api/quiz/next_quiz/${userId}`, {
-            method: "GET",
-          }).catch((error) => console.error("Error starting quiz:", error));
-
-          if (response.redirected) {
-            window.location.href = response.url;
-          } else {
-            const result = await response.json();
-            if (result.error === "quiz_stack_empty") {
-              alert("오늘의 퀴즈 할당량을 다 채웠습니다.");
-            } else {
-              console.error("Failed to start quiz", result);
-            }
-          }
-        };
-      });
-    </script>
+        }
+      };
+    });
+  </script>
   </body>
 </html>

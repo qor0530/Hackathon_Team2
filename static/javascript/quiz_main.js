@@ -62,6 +62,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const userId = await getUserId(); // API를 통해 user_id를 얻어옴
       if (!userId) return;
+      
+      if (quizType === "random") {
+        // 비슷한 레벨의 퀴즈를 가져옴
+        const response = await fetch(`/api/quiz/random_quizzes/${userId}`, {
+          method: "GET",
+        }).catch((error) => console.error("Error fetching similar level quizzes:", error));
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Quiz stack:", data.quiz_stack);
+        } else {
+          showModal("비슷한 레벨의 퀴즈를 가져오는데 실패했습니다.");
+          return;
+        }
+      }
 
       if (quizType === "level") {
         // 비슷한 레벨의 퀴즈를 가져옴

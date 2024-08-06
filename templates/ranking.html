@@ -6,6 +6,7 @@
     <title>Ranking</title>
     <link rel="stylesheet" href="{{ url_for('static', path='css/reset.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='css/ranking.css') }}">
+    <script src="{{ url_for('static', path='javascript/ranking.js') }}" defer></script>
     <style>
         body {
             background-image: url("{{ url_for('static', path='/images/bg3.svg') }}");
@@ -38,7 +39,9 @@
     <div id="tier-list"></div>
     <div id="info">
         <div id="tier-idx">티어 정보</div>
-        <div id="info-mark"></div>
+        <div id="info-mark">
+                    <div class="tooltip">매주 일요일 저녁 8시에 업데이트 됩니다.</div>
+        </div>
         <div id="timer">남은 시간: <span id="time-remaining"></span></div>
     </div>
     <div id="scroll-box">

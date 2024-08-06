@@ -5,7 +5,7 @@ from config.database import get_db
 from domain.quiz import quiz_crud, quiz_schema
 from api.models import User, Quiz
 from fastapi.templating import Jinja2Templates
-
+from sqlalchemy.sql.expression import func
 router = APIRouter(
     prefix="/api/quiz",
 )
@@ -163,6 +163,21 @@ def quiz_html(request: Request, quiz_id: int, db: Session = Depends(get_db)):
     return templates.TemplateResponse("quiz.html", {"request": request, "quiz": quiz}, status_code=200)
 
 
+@router.get("/random_quizzes/{user_id}")
+def random_quizzes(user_id: int, db: Session = Depends(get_db)):
+    user = db.query(User).filter_by(id=user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # db에서 Quiz 중 랜덤으로 10개 가져오기
+    quiz_stack = db.query(Quiz).order_by(func.random()).limit(10).all()
+
+    quiz_stack = [quiz.id for quiz in quiz_stack]
+    user.quiz_stack = ','.join(map(str, quiz_stack))
+    db.commit()
+    return quiz_stack
+
+
 @router.get("/similar_level_quizzes/{user_id}")
 def get_similar_level_quizzes(user_id: int, db: Session = Depends(get_db)):
     user = db.query(User).filter_by(id=user_id).first()
@@ -172,8 +187,8 @@ def get_similar_level_quizzes(user_id: int, db: Session = Depends(get_db)):
     # 유저의 레벨을 기준으로 비슷한 레벨의 퀴즈를 가져옴
     user_level = user.level  # 유저의 레벨 정보가 있다고 가정
     similar_level_quizzes = db.query(Quiz).filter(
-        Quiz.level >= user_level - 1,
-        Quiz.level <= user_level + 1
+        Quiz.level >= user_level - 2,
+        Quiz.level <= user_level + 2
     ).all()
 
     if not similar_level_quizzes:

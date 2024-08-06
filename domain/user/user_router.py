@@ -337,3 +337,13 @@ def add_lecture_learning_history(user_id: int, quiz_id: int, db: Session = Depen
 
     user_crud.add_quiz_to_learning_history(db, user, quiz_id)
     return {"message": "Lecture added to learning history"}
+
+
+@router.post("/{user_id}/add_quiz_today_current")
+def add_quiz_today_current(user_id: int, quiz_id: int, db: Session = Depends(get_db)):
+    user = user_crud.get_user(db, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    user_crud.add_quiz_to_today_current(db, user, quiz_id)
+    return {"message": "Lecture added to learning history"}
