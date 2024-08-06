@@ -84,7 +84,7 @@ def add_test_data():
             "image": "images/economy.png", "description": "에덤스미스의 국부론"},
         {"title": "현대 문학", "difficulty": 3, "topic": "문학",
             "image": "images/literature.png", "description": "어떤 나의 생각들은 세계가 된다."},
-        {"title": "응용 수학", "difficulty": 5, "topic": "시사",
+        {"title": "응용 수학", "difficulty": 5, "topic": "수학 | 과학",
             "image": "images/math.png", "description": "개똥철학 이해하기"},
         {"title": "기술 발전", "difficulty": 4, "topic": "수학 | 과학",
             "image": "images/math.png", "description": "피타고라스의 생애"},
