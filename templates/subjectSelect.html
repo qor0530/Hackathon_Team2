@@ -49,7 +49,10 @@
         <div class="content-cards">
           {% for lecture in lectures %}
           <div class="content-card">
-            <img src="/static/{{ lecture.image }}" alt="Lecture Image" />
+            <img
+              src="/Hackathon_Team2/static/{{ lecture.image }}"
+              alt="Lecture Image"
+            />
             <div class="details">
               <div class="title">{{ lecture.title }}</div>
               <div class="description">{{ lecture.description }}</div>
