@@ -34,7 +34,7 @@
                 환영합니다!
             </div>
             <div class="character">
-                캐릭터<br>(일러스트)
+                <img src="{{ url_for('static', path='images/level/level1.png') }}" alt="User Photo">
             </div>
             <button class="next-button" onclick="nextPage('page2')">테스트 시작</button>
         </div>
@@ -42,7 +42,7 @@
     <div id="page2" class="page">
         <div class="sidebar">
             <div class="character">
-                캐릭터<br>(일러스트)
+                <img src="{{ url_for('static', path='images/level/level2.png') }}" alt="User Photo">
             </div>
         </div>
         <div class="main-content">
@@ -53,13 +53,9 @@
                 <span class="highlight">'더 리더'</span>를 통해 무엇을 기르고 싶나요?
             </div>
             <div class="options">
-                <div class="option"></div>
-                <div class="option"></div>
-                <div class="option"></div>
-                <div class="option"></div>
-                <div class="option"></div>
-                <div class="option selected"></div>
-                <div class="option"></div>
+                <div class="option">어휘력</div>
+                <div class="option">독해력</div>
+                <div class="option">문해력</div>
             </div>
             <button class="next-button" onclick="nextPage('page3')">다 음</button>
         </div>
@@ -67,7 +63,7 @@
     <div id="page3" class="page">
         <div class="sidebar">
             <div class="character">
-                캐릭터<br>(일러스트)
+                <img src="{{ url_for('static', path='images/level/level3.png') }}" alt="User Photo">
             </div>
         </div>
         <div class="main-content">
@@ -78,23 +74,22 @@
                 어느 <span class="highlight">목적</span>으로 읽기 실력을 향상하고 싶으신가요?
             </div>
             <div class="options">
-                <div class="option"></div>
-                <div class="option"></div>
-                <div class="option selected"></div>
-                <div class="option"></div>
-                <div class="option"></div>
-                <div class="option"></div>
+                <div class="option">성적<br>향상</div>
+                <div class="option">자기<br>만족</div>
+                <div class="option">편한<br>사회<br>생활</div>
+                <div class="option">삶의<br>질<br>향상</div>
+                <div class="option">어휘<br>능력<br>상승</div>
             </div>
             <div class="buttons">
-                <button class="prev-button" onclick="prevPage('page2')">이전</button>
-                <button class="next-button" onclick="nextPage('page4')">다음</button>
+                <button class="prev-button" onclick="prevPage('page2')">이 전</button>
+                <button class="next-button" onclick="nextPage('page4')">다 음</button>
             </div>
         </div>
     </div>
     <div id="page4" class="page">
         <div class="sidebar">
             <div class="character">
-                캐릭터<br>(일러스트)
+                <img src="{{ url_for('static', path='images/level/level4.png') }}" alt="User Photo">
             </div>
         </div>
         <div class="main-content">
@@ -102,26 +97,26 @@
                 <div class="progress" style="width: 75%;"></div>
             </div>
             <div class="question">
-                어느 <span class="highlight">목적</span>으로 읽기 실력을 향상하고 싶으신가요?
+                <span class="highlight">관심 있는 주제</span>를 모두 선택해주세요!
             </div>
             <div class="options">
-                <div class="option option-rect"></div>
-                <div class="option option-rect"></div>
-                <div class="option option-rect selected"></div>
-                <div class="option option-rect"></div>
-                <div class="option option-rect"></div>
-                <div class="option option-rect"></div>
+                <div class="option option-rect">과학</div>
+                <div class="option option-rect">수학</div>
+                <div class="option option-rect">경제</div>
+                <div class="option option-rect">시사</div>
+                <div class="option option-rect">정치</div>
+                <div class="option option-rect">미술</div>
             </div>
             <div class="buttons">
-                <button class="prev-button" onclick="prevPage('page3')">이전</button>
-                <button class="next-button" onclick="nextPage('page5')">다음</button>
+                <button class="prev-button" onclick="prevPage('page3')">이 전</button>
+                <button class="next-button" onclick="nextPage('page5')">다 음</button>
             </div>
         </div>
     </div>
     <div id="page5" class="page">
         <div class="sidebar">
             <div class="character">
-                캐릭터<br>(일러스트)
+                <img src="{{ url_for('static', path='images/level/level5.png') }}" alt="User Photo">
             </div>
         </div>
         <div class="main-content">
@@ -129,17 +124,18 @@
                 <div class="progress" style="width: 100%;"></div>
             </div>
             <div class="question">
-                <span class="highlight">관심 있는 주제</span>를 모두 선택해주세요!
+                내 <span class="highlight">현재 읽기 실력은&nbsp;</span>어디에 가까운가요?
             </div>
             <div class="options">
-                <div class="option option-rect selected"></div>
-                <div class="option option-rect"></div>
-                <div class="option option-rect"></div>
-                <div class="option option-rect selected"></div>
+                <div class="option option-rect">초등학생</div>
+                <div class="option option-rect">중학생</div>
+                <div class="option option-rect">고등학생</div>
+                <div class="option option-rect">대학생</div>
+                <div class="option option-rect">회사원<br>이상</div>
             </div>
             <div class="buttons">
-                <button class="prev-button" onclick="prevPage('page4')">이전</button>
-                <button class="next-button" onclick="nextPage('page6')">다음</button>
+                <button class="prev-button" onclick="prevPage('page4')">이 전</button>
+                <button class="next-button" onclick="nextPage('page6')">다 음</button>
             </div>
         </div>
     </div>
@@ -149,7 +145,7 @@
                 감사합니다!
             </div>
             <div class="character">
-                캐릭터<br>(일러스트)
+                <img src="{{ url_for('static', path='images/level/level1.png') }}" alt="User Photo">
             </div>
             <button id="learnButton" class="next-button">학습하러 가기</button>
         </div>

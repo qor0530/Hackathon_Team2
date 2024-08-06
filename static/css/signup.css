@@ -111,7 +111,7 @@ body {
     animation: up 3s ease-in-out infinite;
 }
 #illustration img {
-    width: 375px;
+    width: 350px;
 }
 
 @keyframes up {

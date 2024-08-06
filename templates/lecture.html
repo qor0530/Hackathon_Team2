@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lecture Main</title>
 
     <!-- CSS 연결 -->
@@ -20,57 +20,50 @@
     ></script>
 
     <!-------------------------------------------------------------------------->
-</head>
-<body>
-  {% include "header.html" %}
-  <div class="container">
-    <main>
-      <div class="content">
-        <div class="user-info">
-          <img src="{{ url_for('static', path='images/level/level1.png') }}" alt="User Photo">
-          <div class="text-info">
-            <div class="comment-big">
-              <span class="highlight">감정 분해자</span>&nbsp;님, 반가워요!
+  </head>
+  <body>
+    {% include "header.html" %}
+    <div class="container">
+      <main>
+        <div class="content">
+          <div class="user-info">
+            <img
+              src="{{ url_for('static', path='images/level/level1.png') }}"
+              alt="User Photo"
+            />
+            <div class="text-info">
+              <div class="comment-big">
+                <span class="highlight">감정 분해자</span>&nbsp;님, 반가워요!
+              </div>
+              <div class="comment-small">오늘의 추천 학습 목록입니다.</div>
             </div>
-            <div class="comment-small">
-              오늘의 추천 학습 목록입니다.
+          </div>
+          <div class="quizzes">
+            <div class="quiz-box" id="go-to-subject-select">
+              <div class="quiz-content">
+                <img src="{{ url_for('static', path='images/icon2.svg') }}" />
+                <div class="quiz-small-title1">주제별 학습</div>
+              </div>
+              <div class="quiz-title">오늘의 주제 선택하러 가기</div>
+            </div>
+            <div class="quiz-box" id="go-to-study-write">
+              <div class="quiz-content">
+                <img src="{{ url_for('static', path='images/icon4.svg') }}" />
+                <div class="quiz-small-title2">작문 학습</div>
+              </div>
+              <div class="quiz-title">오늘의 작문 학습하러 가기</div>
+            </div>
+            <div class="quiz-box" id="go-to-study-situation">
+              <div class="quiz-content">
+                <img src="{{ url_for('static', path='images/icon1.svg') }}" />
+                <div class="quiz-small-title3">상황 이해 학습</div>
+              </div>
+              <div class="quiz-title">오늘의 상황 이해 학습하러 가기</div>
             </div>
           </div>
         </div>
-        <div class="quizzes">
-          <div class="quiz-box">
-            <div class="quiz-content">
-              <img src="{{ url_for('static', path='images/icon2.svg') }}">
-              <div class="quiz-small-title1">
-                주제별 학습
-              </div>
-            </div>
-            <div class="quiz-title" id="go-to-subject-select">오늘의 주제 선택하러 가기</div>
-          </div>
-          <div class="quiz-box">
-            <div class="quiz-content">
-              <img src="{{ url_for('static', path='images/icon4.svg') }}">
-              <div class="quiz-small-title2">
-                작문 학습
-              </div>
-            </div>
-            <div class="quiz-title" id="go-to-study-write">
-              오늘의 작문 학습하러 가기</div>
-          </div>
-          <div class="quiz-box">
-            <div class="quiz-content">
-              <img src="{{ url_for('static', path='images/icon1.svg') }}">
-              <div class="quiz-small-title3">
-                상황 이해 학습
-              </div>
-            </div>
-            <div class="quiz-title" id="go-to-study-situation">
-              오늘의 상황 이해 학습하러 가기</div>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
-  {% include "footer.html" %}
-</body>
+      </main>
+    </div>
+    {% include "footer.html" %}
+  </body>
 </html>

@@ -1,223 +1,222 @@
 body {
-    background: url('../images/bg.svg');
+  background: url("../images/bg.svg");
 
-    overflow: hidden;
+  overflow: hidden;
 }
 .pageWrap {
-    width: 1440px;
+  width: 1440px;
 
-    margin: 0 auto;
-    padding: 10rem 2rem;
+  margin: 0 auto;
+  padding: 10rem 2rem;
 
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .userWrap {
-    display: flex;
-    flex-direction: row;
-    align-items:center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .userWrap .userImg {
-    width: 200px;
-    height: auto;
+  width: 200px;
+  height: auto;
 
-    border-radius: 25px;
+  border-radius: 25px;
 }
 .userInfo {
-    margin-left: 2rem;
+  margin-left: 2rem;
 }
 .userInfo .userName {
-    font-family: 'Pretendard-Bold';
-    font-size: 4rem;
+  font-family: "Pretendard-Bold";
+  font-size: 4rem;
 
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 .userInfo .rankWrap {
-    width: fit-content;
-    height: 60px;
-    
-    border-radius: 50px;
+  width: fit-content;
+  height: 60px;
 
-    background-color: #fff;
+  border-radius: 50px;
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  background-color: #fff;
 
-    padding: 0 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  padding: 0 2rem;
 }
 .rankWrap img {
-    width: 55px;
-    height: 55px;
-
+  width: 55px;
+  height: 55px;
 }
 .rankWrap .rank {
-    font-family: 'Pretendard-Medium';
-    font-size: 2rem;
+  font-family: "Pretendard-Medium";
+  font-size: 2rem;
 
-    margin-left: 1rem;
-    color: #FF5881;
+  margin-left: 1rem;
+  color: #ff5881;
 }
 .rankWrap .rankScore {
-    font-family: 'Pretendard-Bold';
-    font-size: 2rem;
+  font-family: "Pretendard-Bold";
+  font-size: 2rem;
 
-    margin-left: 1rem;
-    color: #FF5881;
+  margin-left: 1rem;
+  color: #ff5881;
 }
 .rankWrap span {
-    font-family: 'Pretendard-Medium';
-    font-size: 2rem;
-    color: #FF5881;
+  font-family: "Pretendard-Medium";
+  font-size: 2rem;
+  color: #ff5881;
 }
 
 /*출석현황*/
 .studyWrap {
-    display: flex;
-    flex-direction: column;
-    
-    width: 530px;
-    height: 310px;
-    background-color: rgba(255,255,255,0.5);
- 
-    font-family: 'Pretendard-Bold';
- 
-    padding: 2rem;
-    box-sizing: border-box;
- 
-     border: 1px solid #E1E1E1;
-     border-radius: 15px;
- 
-     margin-left: 4rem;
+  display: flex;
+  flex-direction: column;
+
+  width: 530px;
+  height: 310px;
+  background-color: rgba(255, 255, 255, 0.5);
+
+  font-family: "Pretendard-Bold";
+
+  padding: 2rem;
+  box-sizing: border-box;
+
+  border: 1px solid #e1e1e1;
+  border-radius: 15px;
+
+  margin-left: 4rem;
 }
 .attendTitle {
-    font-family: 'Pretendard-Bold';
-    font-size: 2rem;
-    color: #FF5881;
+  font-family: "Pretendard-Bold";
+  font-size: 2rem;
+  color: #ff5881;
 
-    padding: 0 1rem 2rem 0 ;    
+  padding: 0 1rem 2rem 0;
 }
 .attend {
-    width: 436px;
+  width: 436px;
 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 
-    padding-left: 1rem;
+  padding-left: 1rem;
 }
-.contentTitle{
-    font-size: 1.5rem;
+.contentTitle {
+  font-size: 1.5rem;
 
-    color: #9B9B9B;
-    padding-bottom: .75rem;
-    padding-right: 7rem;
+  color: #9b9b9b;
+  padding-bottom: 0.75rem;
+  padding-right: 7rem;
 }
 .content {
-    padding-bottom: 2rem;
+  padding-bottom: 2rem;
 
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 .FirstWrap {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 /*추천*/
 .recommendWrap {
-    width: 1100px;
-    height: 380px;
+  width: 1100px;
+  height: 380px;
 
-    border: 1px solid #e1e1e1;
-    border-radius: 10px;
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
 
-    background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
 }
 .recommendWrap .recommendTitle {
-    font-family: 'Pretendard-Bold';
-    font-size: 2rem;
+  font-family: "Pretendard-Bold";
+  font-size: 2rem;
 
-    margin-left: 1rem;
+  margin-left: 1rem;
 
-    padding: 2rem 1rem ;
+  padding: 2rem 1rem;
 }
 .recommendWrap .recommnedList {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    padding-left: 4rem;
+  padding-left: 4rem;
 }
 .recommnedList .list {
-    width: 300px;
-    height: 240px;
+  width: 300px;
+  height: 240px;
 
-    background-color: rgba(255,255,255,.7);
-    border: 1px solid #e1e1e1;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid #e1e1e1;
 
-    margin-right: 2rem;
+  margin-right: 2rem;
 
-    border-radius: 15px;
+  border-radius: 15px;
 
-    text-align: center;
+  text-align: center;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 .list .listTitle {
-    font-family: 'Pretendard-SemiBold';
-    font-size: 1.5rem;
-    margin-top: 1rem;
+  font-family: "Pretendard-SemiBold";
+  font-size: 1.5rem;
+  margin-top: 1rem;
 }
-.list .listIcon{
-    margin-top: 1.5rem;
-    width: 150px;
+.list .listIcon {
+  margin-top: 1.5rem;
+  width: 150px;
 }
 
 /*btn*/
 .btnWrap {
-    margin-left: 1.75rem;
+  margin-left: 1.75rem;
 }
 .btnWrap .Btn {
-    width: 210px;
-    height: 80px;
+  width: 210px;
+  height: 80px;
 
-    border-radius: 25px;
-    background-color: #FF97AA;
+  border-radius: 25px;
+  background-color: #ff97aa;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
-    padding: 1rem 1rem;
+  padding: 1rem 1rem;
 
-    box-sizing: border-box;
+  box-sizing: border-box;
 
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 .btnWrap .Btn:hover {
-    background-color: #ff84a2;
+  background-color: #ff84a2;
 
-    transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .Btn p {
-    font-family: 'Pretendard-SemiBold';
-    font-size: 2rem;
+  font-family: "Pretendard-SemiBold";
+  font-size: 2rem;
 
-    color: #fff;
+  color: #fff;
 }
 .Btn:nth-child(1) {
-    height: 120px;
-    text-align: center;  
+  height: 380px;
+  text-align: center;
 }
 .Btn:nth-child(1) p {
-    line-height: 2.5rem;
+  line-height: 2.5rem;
 }
 .SecondWrap {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }

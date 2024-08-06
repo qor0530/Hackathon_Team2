@@ -6,7 +6,7 @@ from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from config.database import init_db, SessionLocal
-from api.models import Quiz, User, ComprehensionTask, WritingTask
+from api.models import Quiz, User, ComprehensionTask, WritingTask, Lecture
 from domain.quiz import quiz_router
 from domain.lecture import lecture_router
 from domain.user import user_router
@@ -199,3 +199,9 @@ async def situation(request: Request, comprehension_tasks_id: int, db: Session =
             "user": user,  # 사용자 정보를 템플릿에 전달
         }
     )
+
+
+@app.get("/subject/{topic}")
+async def get_lectures_by_topic(request: Request, topic: str, db: Session = Depends(get_db)):
+    lectures = db.query(Lecture).filter(Lecture.topic == topic).all()
+    return templates.TemplateResponse("subjectSelect.html", {"request": request, "lectures": lectures, "current_topic": topic})
