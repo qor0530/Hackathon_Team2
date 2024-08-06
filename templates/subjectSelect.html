@@ -18,28 +18,28 @@
           <li>
             <a
               href="/subject/정치%20|%20경제"
-              class="{% if topic == '정치 | 경제' %}active{% endif %}"
+              class="{% if current_topic == '정치 | 경제' %}active{% endif %}"
               >정치 | 경제</a
             >
           </li>
           <li>
             <a
               href="/subject/문학"
-              class="{% if topic == '문학' %}active{% endif %}"
+              class="{% if current_topic == '문학' %}active{% endif %}"
               >문학</a
             >
           </li>
           <li>
             <a
               href="/subject/수학%20|%20과학"
-              class="{% if topic == '수학 | 과학' %}active{% endif %}"
+              class="{% if current_topic == '수학 | 과학' %}active{% endif %}"
               >수학 | 과학</a
             >
           </li>
           <li>
             <a
               href="/subject/시사"
-              class="{% if topic == '시사' %}active{% endif %}"
+              class="{% if current_topic == '시사' %}active{% endif %}"
               >시사</a
             >
           </li>
@@ -63,5 +63,20 @@
       </div>
     </div>
     {% include "footer.html" %}
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const links = document.querySelectorAll(".sidebar ul li a");
+
+        links.forEach((link) => {
+          link.addEventListener("click", function (event) {
+            // 모든 링크에서 active 클래스 제거
+            links.forEach((link) => link.classList.remove("active"));
+
+            // 클릭된 링크에 active 클래스 추가
+            this.classList.add("active");
+          });
+        });
+      });
+    </script>
   </body>
 </html>

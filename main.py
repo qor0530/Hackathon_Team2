@@ -200,7 +200,8 @@ async def situation(request: Request, comprehension_tasks_id: int, db: Session =
         }
     )
 
+
 @app.get("/subject/{topic}")
 async def get_lectures_by_topic(request: Request, topic: str, db: Session = Depends(get_db)):
     lectures = db.query(Lecture).filter(Lecture.topic == topic).all()
-    return templates.TemplateResponse("subjectSelect.html", {"request": request, "lectures": lectures})
+    return templates.TemplateResponse("subjectSelect.html", {"request": request, "lectures": lectures, "current_topic": topic})
